@@ -1,0 +1,1 @@
+include ':app', ':SimpleProgressBar', ':SlidingMenu', ':Banner', ':SweetAlertDialog', ':AnimatedSortingOrderIcon'

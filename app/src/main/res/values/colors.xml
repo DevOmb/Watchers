@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Primary -->
+    <color name="red">#F00524</color>
+    <color name="green">#6DE37B</color>
+    <color name="blue">#66BAED</color>
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="grey">#666666</color>
+
+    <!-- Dark -->
+    <color name="dark_dark_grey">#1A1A1A</color>
+    <color name="dark_light_grey">#2B2B2B</color>
+    <color name="dark_grey">#333333</color>
+
+    <!-- Light -->
+    <color name="light_blue">#A1CAE3</color>
+    <color name="light_grey">#999999</color>
+    <color name="light_light_grey">#C4C4C4</color>
+
+    <!-- Alpha -->
+    <color name="transparent">#00000000</color>
+    <color name="dark_transparent">#AA000000</color>
+    <color name="light_transparent">#10FFFFFF</color>
+    <color name="holo_white">#CCFFFFFF</color>
+
+    <!-- Generated -->
+    <color name="primary">#2196F3</color>
+    <color name="primary_dark">#1976D2</color>
+    <color name="primary_light">#BBDEFB</color>
+    <color name="accent">#FF5252</color>
+    <color name="primary_text">#212121</color>
+    <color name="secondary_text">#727272</color>
+    <color name="icons">#FFFFFF</color>
+    <color name="divider">#B6B6B6</color>
+
+</resources>

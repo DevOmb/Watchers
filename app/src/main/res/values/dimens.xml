@@ -1,0 +1,15 @@
+<resources>
+
+    <dimen name="expandable_height">60dp</dimen>
+    <dimen name="sliding_menu_width">280dp</dimen>
+    <dimen name="divider">1dp</dimen>
+
+    <dimen name="default_1x">8dp</dimen>
+    <dimen name="default_2x">16dp</dimen>
+
+    <dimen name="large">20dp</dimen>
+    <dimen name="medium_large">15dp</dimen>
+    <dimen name="medium">10dp</dimen>
+    <dimen name="small">5dp</dimen>
+    <dimen name="tiny">2dp</dimen>
+</resources>
