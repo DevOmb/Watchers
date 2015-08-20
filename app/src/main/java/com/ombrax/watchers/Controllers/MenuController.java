@@ -2,11 +2,11 @@ package com.ombrax.watchers.Controllers;
 
 import com.ombrax.watchers.Enums.MenuItemType;
 import com.ombrax.watchers.Enums.MenuType;
-import com.ombrax.watchers.Interfaces.IOnSecondaryMenuCloseObserver;
-import com.ombrax.watchers.Interfaces.IOnMenuItemClickListener;
-import com.ombrax.watchers.Interfaces.IOnMenuItemSelectListener;
-import com.ombrax.watchers.Interfaces.IOnSortMenuItemChangeListener;
-import com.ombrax.watchers.Interfaces.IMenuCloseHandler;
+import com.ombrax.watchers.Interfaces.Observer.IOnSecondaryMenuCloseObserver;
+import com.ombrax.watchers.Interfaces.Listener.IOnMenuItemClickListener;
+import com.ombrax.watchers.Interfaces.Listener.IOnMenuItemSelectListener;
+import com.ombrax.watchers.Interfaces.Listener.IOnSortMenuItemChangeListener;
+import com.ombrax.watchers.Interfaces.Handler.IMenuCloseHandler;
 
 import java.util.ArrayList;
 import java.util.List;

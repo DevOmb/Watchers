@@ -2,13 +2,16 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/AnimatedSortingOrderIcon/AnimatedSortingOrderIcon.iml" filepath="$PROJECT_DIR$/AnimatedSortingOrderIcon/AnimatedSortingOrderIcon.iml" />
-      <module fileurl="file://$PROJECT_DIR$/Banner/Banner.iml" filepath="$PROJECT_DIR$/Banner/Banner.iml" />
-      <module fileurl="file://$PROJECT_DIR$/SimpleProgressBar/SimpleProgressBar.iml" filepath="$PROJECT_DIR$/SimpleProgressBar/SimpleProgressBar.iml" />
-      <module fileurl="file://$PROJECT_DIR$/SlidingMenu/SlidingMenu.iml" filepath="$PROJECT_DIR$/SlidingMenu/SlidingMenu.iml" />
-      <module fileurl="file://$PROJECT_DIR$/SweetAlertDialog/SweetAlertDialog.iml" filepath="$PROJECT_DIR$/SweetAlertDialog/SweetAlertDialog.iml" />
-      <module fileurl="file://$PROJECT_DIR$/Watchers_2.0.iml" filepath="$PROJECT_DIR$/Watchers_2.0.iml" />
+      <module fileurl="file://$PROJECT_DIR$/libs/AnimatedSortingOrderIcon/AnimatedSortingOrderIcon.iml" filepath="$PROJECT_DIR$/libs/AnimatedSortingOrderIcon/AnimatedSortingOrderIcon.iml" />
+      <module fileurl="file://$PROJECT_DIR$/libs/Banner/Banner.iml" filepath="$PROJECT_DIR$/libs/Banner/Banner.iml" />
+      <module fileurl="file://$PROJECT_DIR$/libs/FloatingToggleButton/FloatingToggleButton.iml" filepath="$PROJECT_DIR$/libs/FloatingToggleButton/FloatingToggleButton.iml" />
+      <module fileurl="file://$PROJECT_DIR$/libs/FocusFrame/FocusFrame.iml" filepath="$PROJECT_DIR$/libs/FocusFrame/FocusFrame.iml" />
+      <module fileurl="file://$PROJECT_DIR$/libs/SimpleProgressBar/SimpleProgressBar.iml" filepath="$PROJECT_DIR$/libs/SimpleProgressBar/SimpleProgressBar.iml" />
+      <module fileurl="file://$PROJECT_DIR$/libs/SlidingMenu/SlidingMenu.iml" filepath="$PROJECT_DIR$/libs/SlidingMenu/SlidingMenu.iml" />
+      <module fileurl="file://$PROJECT_DIR$/libs/SweetAlertDialog/SweetAlertDialog.iml" filepath="$PROJECT_DIR$/libs/SweetAlertDialog/SweetAlertDialog.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Watchers.iml" filepath="$PROJECT_DIR$/Watchers.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/libs/libs.iml" filepath="$PROJECT_DIR$/libs/libs.iml" />
     </modules>
   </component>
 </project>

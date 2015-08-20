@@ -10,12 +10,15 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
-            <option value="$PROJECT_DIR$/AnimatedSortingOrderIcon" />
-            <option value="$PROJECT_DIR$/Banner" />
-            <option value="$PROJECT_DIR$/SimpleProgressBar" />
-            <option value="$PROJECT_DIR$/SlidingMenu" />
-            <option value="$PROJECT_DIR$/SweetAlertDialog" />
             <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/libs" />
+            <option value="$PROJECT_DIR$/libs/AnimatedSortingOrderIcon" />
+            <option value="$PROJECT_DIR$/libs/Banner" />
+            <option value="$PROJECT_DIR$/libs/FloatingToggleButton" />
+            <option value="$PROJECT_DIR$/libs/FocusFrame" />
+            <option value="$PROJECT_DIR$/libs/SimpleProgressBar" />
+            <option value="$PROJECT_DIR$/libs/SlidingMenu" />
+            <option value="$PROJECT_DIR$/libs/SweetAlertDialog" />
           </set>
         </option>
       </GradleProjectSettings>

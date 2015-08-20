@@ -6,7 +6,7 @@
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@drawable/archive_wallpaper"
+        android:src="@drawable/backpanel"
         android:scaleType="centerCrop"/>
 
 </LinearLayout>

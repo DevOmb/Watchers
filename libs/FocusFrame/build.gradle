@@ -1,0 +1,2 @@
+configurations.create("default")
+artifacts.add("default", file('focusframe-1.0.4.aar'))

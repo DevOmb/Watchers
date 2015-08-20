@@ -1,18 +1,25 @@
 package com.ombrax.watchers.Fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+import android.widget.EditText;
+import android.widget.ImageView;
 
+import com.ombrax.watchers.Activities.ImageActivity;
+import com.ombrax.watchers.Controllers.DomainController;
 import com.ombrax.watchers.Controllers.MenuController;
 import com.ombrax.watchers.Enums.MenuItemType;
+import com.ombrax.watchers.Interfaces.Listener.IOnThumbnailImageSaveListener;
 import com.ombrax.watchers.Models.WatchModel;
 import com.ombrax.watchers.R;
+import com.ombrax.watchers.Repositories.WatchRepository;
+import com.ombrax.watchers.Utils.ImageUtils;
 
-public class WatchAddFragment extends Fragment {
+public class WatchAddFragment extends Fragment implements IOnThumbnailImageSaveListener {
 
     //region declaration
     //region bundle key
@@ -21,18 +28,25 @@ public class WatchAddFragment extends Fragment {
 
     //region inner field
     private MenuController mc;
+    private DomainController dc;
     private boolean editMode;
     //endregion
 
     //region variable
     private WatchModel watchModel;
     //endregion
+
+    //region view
+    private ImageView thumbnailImage;
+    private EditText tvShowInput;
+    //endregion
+
     //endregion
 
     //region instance constructor
     public static WatchAddFragment editInstance(WatchModel watchModel) {
         WatchAddFragment instance = new WatchAddFragment();
-        if(watchModel != null){
+        if (watchModel != null) {
             Bundle args = new Bundle();
             args.putSerializable(MODEL_KEY, watchModel);
             instance.setArguments(args);
@@ -46,7 +60,9 @@ public class WatchAddFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mc = MenuController.getInstance();
-        if(getArguments() != null){
+        dc = DomainController.getInstance();
+        dc.setOnThumbnailImageSaveListener(this);
+        if (getArguments() != null) {
             watchModel = (WatchModel) getArguments().getSerializable(MODEL_KEY);
             editMode = (watchModel != null);
         }
@@ -56,11 +72,12 @@ public class WatchAddFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_add, container, false);
 
-        TextView txt = (TextView) view.findViewById(R.id.add_or_edit);
+        thumbnailImage = (ImageView) view.findViewById(R.id.fragment_add_thumbnail_image);
+        tvShowInput = (EditText) view.findViewById(R.id.fragment_add_tv_show_input);
 
-        txt.setText(!editMode ? "ADD Fragment" : "EDIT Fragment");
+        viewSetup();
 
-        if(editMode){
+        if (editMode) {
             setModel();
         }
 
@@ -74,7 +91,44 @@ public class WatchAddFragment extends Fragment {
     }
     //endregion
 
-    private void setModel(){
-
+    //region helper
+    private void viewSetup(){
+        thumbnailImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(), ImageActivity.class));
+            }
+        });
+        dynamicEditTextBackground();
     }
+
+    private void dynamicEditTextBackground() {
+        tvShowInput.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                boolean isEmpty = tvShowInput.getText() == null ? true : tvShowInput.getText().toString().isEmpty();
+                tvShowInput.setSelected(!hasFocus && !isEmpty);
+            }
+        });
+    }
+
+    private void setModel() {
+        ImageUtils.loadImageFromFile(thumbnailImage, watchModel.getThumbnailPath());
+        tvShowInput.setText(watchModel.getName());
+        tvShowInput.requestFocus();
+        //TODO request focus on view
+    }
+    //endregion
+
+    //region interface implementation
+    @Override
+    public void onThumbnailImageSaved(String thumbnailImagePath) {
+        ImageUtils.loadImageFromFile(thumbnailImage, thumbnailImagePath);
+        //TEMP User must accept by clicking button on bottom of screen
+        if(editMode) {
+            watchModel.setThumbnailPath(thumbnailImagePath);
+            WatchRepository.getInstance().update(watchModel, false);
+        }
+    }
+    //endregion
 }

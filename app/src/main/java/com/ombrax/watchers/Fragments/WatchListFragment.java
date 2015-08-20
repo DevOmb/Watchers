@@ -15,14 +15,13 @@ import com.ombrax.watchers.Adapters.WatchListAdapter;
 import com.ombrax.watchers.Controllers.MenuController;
 import com.ombrax.watchers.Enums.MenuItemType;
 import com.ombrax.watchers.Interfaces.Command;
-import com.ombrax.watchers.Interfaces.IOnSecondaryMenuCloseObserver;
-import com.ombrax.watchers.Interfaces.IOnSortMenuItemChangeListener;
+import com.ombrax.watchers.Interfaces.Observer.IOnSecondaryMenuCloseObserver;
+import com.ombrax.watchers.Interfaces.Listener.IOnSortMenuItemChangeListener;
 import com.ombrax.watchers.Manager.SortingManager;
 import com.ombrax.watchers.Models.WatchModel;
 import com.ombrax.watchers.R;
 import com.ombrax.watchers.Repositories.WatchRepository;
 
-import java.util.Comparator;
 import java.util.List;
 
 /**

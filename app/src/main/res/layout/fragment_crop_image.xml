@@ -1,0 +1,57 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/dark_grey">
+
+    <ImageView
+        android:id="@+id/fragment_crop_image_preview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:adjustViewBounds="true"
+        android:scaleType="centerInside" />
+
+    <com.devomb.focusframe.FocusFrame
+        android:id="@+id/fragment_crop_image_focus_frame"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:focusBox_width="350dp"
+        app:focusBox_height="200dp"
+        app:focusBox_borderWidth="2dp"
+        app:movable="true"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:orientation="horizontal">
+
+        <com.ombrax.watchers.Views.Button.LabeledIconButton
+            android:id="@+id/fragment_crop_image_open_gallery_button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <com.ombrax.watchers.Views.Button.LabeledIconButton
+            android:id="@+id/fragment_crop_image_save_button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+    </LinearLayout>
+
+    <com.ombrax.watchers.Views.Button.AnimatedFloatingToggleButton
+        android:id="@+id/fragment_crop_image_aftb"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:layout_gravity="top|right"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="5dp"
+        android:adjustViewBounds="true"
+        android:background="@color/accent"
+        android:scaleType="centerInside"
+        android:src="@drawable/ic_cross_arrow"
+        app:background_style="circle"
+        app:off_screen_direction="up" />
+
+</FrameLayout>

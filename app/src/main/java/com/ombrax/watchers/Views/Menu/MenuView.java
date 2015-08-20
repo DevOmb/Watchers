@@ -12,7 +12,7 @@ import com.ombrax.watchers.Controllers.MenuController;
 import com.ombrax.watchers.Enums.MenuItemType;
 import com.ombrax.watchers.Enums.MenuType;
 import com.ombrax.watchers.Interfaces.Command;
-import com.ombrax.watchers.Interfaces.IOnMenuItemSelectListener;
+import com.ombrax.watchers.Interfaces.Listener.IOnMenuItemSelectListener;
 import com.ombrax.watchers.R;
 import com.ombrax.watchers.Utils.LayoutUtils;
 import com.ombrax.watchers.Views.Other.DividerDecoration;

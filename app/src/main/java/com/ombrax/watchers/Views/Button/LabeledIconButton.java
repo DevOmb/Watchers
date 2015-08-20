@@ -2,11 +2,11 @@ package com.ombrax.watchers.Views.Button;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.support.v7.widget.LinearLayoutCompat;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.ombrax.watchers.R;
@@ -14,7 +14,7 @@ import com.ombrax.watchers.R;
 /**
  * Created by Ombrax on 7/08/2015.
  */
-public class LabeledIconButton extends LinearLayoutCompat {
+public class LabeledIconButton extends LinearLayout {
 
     //region declaration
     //region variable

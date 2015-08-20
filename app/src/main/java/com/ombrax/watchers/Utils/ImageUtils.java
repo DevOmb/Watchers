@@ -11,9 +11,13 @@ import android.graphics.Shader;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.ombrax.watchers.R;
+import com.squareup.picasso.Callback;
+import com.squareup.picasso.Picasso;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -23,8 +27,11 @@ import java.util.List;
  */
 public class ImageUtils {
 
-    //region method
+    //region constant
+    private static final int HD_WIDTH = 1280;
+    //endregion
 
+    //region method
     public static Bitmap getScaledCircularBitmap(Drawable drawable, int newSize) {
         Bitmap sourceBitmap = getBitmapFromDrawable(drawable);
         Bitmap croppedBitmap = getCroppedBitmap(sourceBitmap);
@@ -47,6 +54,56 @@ public class ImageUtils {
         canvas.drawCircle(resizedDimension / 2, resizedDimension / 2, resizedDimension / 2, paint);
 
         return circularBitmap;
+    }
+
+    public static Bitmap getScaledBitmap(String filePath) {
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inJustDecodeBounds = true;
+        BitmapFactory.decodeFile(filePath, options);
+
+        int dstWidth = HD_WIDTH;
+        int srcWidth = options.outWidth;
+
+        if (dstWidth > srcWidth) {
+            dstWidth = srcWidth;
+        }
+
+        // Calculate the correct inSampleSize/scale value. This helps reduce memory use. It should be a power of 2
+        int inSampleSize = 1;
+        if(srcWidth > 0 && srcWidth != dstWidth) {
+            while (srcWidth / 2 > dstWidth) {
+                srcWidth /= 2;
+                inSampleSize *= 2;
+            }
+        }
+
+        float desiredScale = (float) dstWidth / srcWidth;
+
+        // Decode with inSampleSize
+        options.inJustDecodeBounds = false;
+        options.inDither = false;
+        options.inSampleSize = inSampleSize;
+        options.inScaled = false;
+        options.inPreferredConfig = Bitmap.Config.ARGB_8888;
+        Bitmap sampledSrcBitmap = BitmapFactory.decodeFile(filePath, options);
+
+        // Resize
+        Matrix matrix = new Matrix();
+        matrix.postScale(desiredScale, desiredScale);
+        return Bitmap.createBitmap(sampledSrcBitmap, 0, 0, sampledSrcBitmap.getWidth(), sampledSrcBitmap.getHeight(), matrix, true);
+    }
+
+    public static void loadImageFromFile(ImageView container, String path) {
+        if (path != null && !path.isEmpty()) {
+            File imageFile = new File(path);
+            if (imageFile.exists()) {
+                Picasso.with(container.getContext())
+                        .load(imageFile)
+                        .placeholder(R.drawable.loading_placeholder) // TODO change image to something more subtle
+//                        .error()
+                        .into(container);
+            }
+        }
     }
     //endregion
 
@@ -84,14 +141,4 @@ public class ImageUtils {
         return a > b ? Math.abs((a - b) / 2) : 0;
     }
     //endregion
-
-
-    //TEMP - May be remove when images can be loaded from file
-    private static List<Integer> resourceList = new ArrayList<>(Arrays.asList(R.drawable.yu_gi_oh, R.drawable.naruto, R.drawable._3, R.drawable._4, R.drawable._5));
-
-    private static int index = 0;
-
-    public static int getSingleResource() {
-        return resourceList.get(index++%resourceList.size());
-    }
 }

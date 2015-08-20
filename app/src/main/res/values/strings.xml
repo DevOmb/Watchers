@@ -2,4 +2,8 @@
 <resources>
     <!-- System -->
     <string name="app_name">Watchers</string>
+    <string name="title_activity_image">ImageActivity</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
 </resources>

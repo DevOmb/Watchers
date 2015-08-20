@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<module external.linked.project.id=":app" external.linked.project.path="$MODULE_DIR$" external.root.project.path="$MODULE_DIR$/.." external.system.id="GRADLE" external.system.module.group="Watchers_2.0" external.system.module.version="unspecified" type="JAVA_MODULE" version="4">
+<module external.linked.project.id=":app" external.linked.project.path="$MODULE_DIR$" external.root.project.path="$MODULE_DIR$/.." external.system.id="GRADLE" external.system.module.group="Watchers" external.system.module.version="unspecified" type="JAVA_MODULE" version="4">
   <component name="FacetManager">
     <facet type="android-gradle" name="Android-Gradle">
       <configuration>
@@ -69,13 +69,18 @@
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/dependency-cache" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/dex" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/dex-cache" />
-      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/Watchers_2.0/AnimatedSortingOrderIcon/unspecified/jars" />
-      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/Watchers_2.0/Banner/unspecified/jars" />
-      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/Watchers_2.0/SimpleProgressBar/unspecified/jars" />
+      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/Watchers.libs/AnimatedSortingOrderIcon/unspecified/jars" />
+      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/Watchers.libs/Banner/unspecified/jars" />
+      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/Watchers.libs/FloatingToggleButton/unspecified/jars" />
+      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/Watchers.libs/FocusFrame/unspecified/jars" />
+      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/Watchers.libs/SimpleProgressBar/unspecified/jars" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.2.0/jars" />
+      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.android.support/cardview-v7/22.2.0/jars" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.android.support/design/22.2.0/jars" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.android.support/recyclerview-v7/22.2.0/jars" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.android.support/support-v4/22.2.0/jars" />
+      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.github.chrisbanes.photoview/library/1.2.3/jars" />
+      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.github.rey5137/material/1.2.1/jars" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/incremental" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/jacoco" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/javaResources" />
@@ -95,18 +100,25 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" exported="" name="sqliteassethelper-2.0.1" level="project" />
     <orderEntry type="library" exported="" name="recyclerview-v7-22.2.0" level="project" />
+    <orderEntry type="library" exported="" name="library-1.2.3" level="project" />
     <orderEntry type="library" exported="" name="picasso-2.5.2" level="project" />
     <orderEntry type="library" exported="" name="support-annotations-22.2.0" level="project" />
     <orderEntry type="library" exported="" name="support-v4-22.2.0" level="project" />
+    <orderEntry type="library" exported="" name="material-1.2.1" level="project" />
     <orderEntry type="library" exported="" name="appcompat-v7-22.2.0" level="project" />
     <orderEntry type="library" exported="" name="design-22.2.0" level="project" />
-    <orderEntry type="module" module-name="AnimatedSortingOrderIcon" exported="" />
-    <orderEntry type="module" module-name="Banner" exported="" />
-    <orderEntry type="module" module-name="SweetAlertDialog" exported="" />
-    <orderEntry type="module" module-name="SlidingMenu" exported="" />
+    <orderEntry type="library" exported="" name="cardview-v7-22.2.0" level="project" />
     <orderEntry type="module" module-name="SimpleProgressBar" exported="" />
+    <orderEntry type="module" module-name="FocusFrame" exported="" />
+    <orderEntry type="module" module-name="SweetAlertDialog" exported="" />
+    <orderEntry type="module" module-name="AnimatedSortingOrderIcon" exported="" />
+    <orderEntry type="module" module-name="SlidingMenu" exported="" />
+    <orderEntry type="module" module-name="Banner" exported="" />
+    <orderEntry type="module" module-name="FloatingToggleButton" exported="" />
+    <orderEntry type="library" exported="" name="SimpleProgressBar-unspecified" level="project" />
+    <orderEntry type="library" exported="" name="FocusFrame-unspecified" level="project" />
     <orderEntry type="library" exported="" name="AnimatedSortingOrderIcon-unspecified" level="project" />
     <orderEntry type="library" exported="" name="Banner-unspecified" level="project" />
-    <orderEntry type="library" exported="" name="SimpleProgressBar-unspecified" level="project" />
+    <orderEntry type="library" exported="" name="FloatingToggleButton-unspecified" level="project" />
   </component>
 </module>

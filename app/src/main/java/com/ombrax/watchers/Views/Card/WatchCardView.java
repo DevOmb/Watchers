@@ -135,7 +135,6 @@ public class WatchCardView extends FrameLayout {
         vh.content.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                System.out.println("Click: " + vh.thumbnailImage.getWidth() + " - " + vh.thumbnailImage.getHeight());
                 if (watchModel.increment()) {
                     repo.update(watchModel, true);
                     updateDisplay();
@@ -229,31 +228,8 @@ public class WatchCardView extends FrameLayout {
     }
 
     private void loadImageFromPath(String path) {
-        //TODO add flash /!\ icon in (left upper) corner if image not found (deleted or invalid path)
-        if (!thumbnailLoaded) {
-            if (path != null && !path.isEmpty()) {
-                Picasso.with(getContext())
-                        .load(new File(path))
-                        .placeholder(R.drawable.loading_placeholder)
-                        .error(DEFAULT_IMAGE_RESOURCE)
-                        .into(vh.thumbnailImage, new Callback() {
-                            @Override
-                            public void onSuccess() {
-                            }
-
-                            @Override
-                            public void onError() {
-                                //TODO check display error icon enabled in settings
-                            }
-                        });
-            } else {
-                Picasso.with(getContext())
-                        .load(ImageUtils.getSingleResource())//TEMP replace with default resource
-                        .placeholder(R.drawable.loading_placeholder)
-                        .into(vh.thumbnailImage);
-            }
-            thumbnailLoaded = true;
-        }
+        //TODO add flash /!\ icon in (left upper) corner if image not found (deleted or invalid path) - Check settings (pass as param to method)
+        ImageUtils.loadImageFromFile(vh.thumbnailImage, path);
     }
 
     private void confirmCompletion(String tvShow) {

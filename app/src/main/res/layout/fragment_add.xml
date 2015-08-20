@@ -1,28 +1,105 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#AA50FF50"
+    android:background="@color/dark_dark_grey"
     android:orientation="vertical"
     android:padding="@dimen/default_2x">
 
     <ImageView
+        android:id="@+id/fragment_add_thumbnail_image"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:adjustViewBounds="true"
         android:scaleType="centerInside"
-        android:src="@drawable/_5" />
+        android:src="@drawable/add_image_placeholder" />
 
-    <android.support.design.widget.TextInputLayout
+    <com.rey.material.widget.EditText
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/default_1x"
+        android:hint="Tv Show"
+        android:inputType="text"
+        android:textColor="@color/holo_white"
+        android:textColorHint="@color/semi_transparent"
+        android:textCursorDrawable="@drawable/cursor"
+        android:textSize="22sp"
+        app:et_dividerColor="@color/material_edit_text_background"
+        app:et_dividerHeight="2dp"
+        app:et_dividerPadding="4dp"
+        app:et_inputId="@+id/fragment_add_tv_show_input"
+        app:et_labelEnable="true"
+        app:et_labelTextColor="@color/light_light_grey"
+        app:et_labelTextSize="12sp"
+        app:et_supportMode="none" />
 
-        <EditText
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/default_2x"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <View
+                android:layout_width="8dp"
+                android:layout_height="0.5dp"
+                android:background="@color/light_grey" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="4dp"
+                android:layout_marginRight="4dp"
+                android:text="Properties"
+                android:textColor="@color/light_grey" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0.5dp"
+                android:layout_weight="1"
+                android:background="@color/light_grey" />
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Tv Show"
-            android:text="Placeholder" />
+            android:layout_marginTop="-10.5dp"
+            android:orientation="horizontal">
 
-    </android.support.design.widget.TextInputLayout>
+            <View
+                android:layout_width="0.5dp"
+                android:layout_height="150dp"
+                android:background="@drawable/light_to_alpha" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:padding="8dp">
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="click here" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="0.5dp"
+                android:layout_height="150dp"
+                android:background="@drawable/light_to_alpha" />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
 
 </LinearLayout>

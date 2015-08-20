@@ -1,7 +1,8 @@
 package com.ombrax.watchers.Controllers;
 
+import com.ombrax.watchers.Interfaces.Listener.IOnThumbnailImageSaveListener;
 import com.ombrax.watchers.Models.WatchModel;
-import com.ombrax.watchers.Interfaces.IOnListItemEditListener;
+import com.ombrax.watchers.Interfaces.Listener.IOnListItemEditListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,33 +24,37 @@ public class DomainController {
     //endregion
 
     //region observer
-
-    //region observers
     private List<IOnListItemEditListener<WatchModel>> onListItemEditListeners = new ArrayList<>();
-    //endregion
 
-    //region register
-    public void registerOnListItemEditObserver(IOnListItemEditListener onListItemEditListener){
-        if(!onListItemEditListeners.contains(onListItemEditListener)){
+    public void registerOnListItemEditObserver(IOnListItemEditListener onListItemEditListener) {
+        if (!onListItemEditListeners.contains(onListItemEditListener)) {
             onListItemEditListeners.add(onListItemEditListener);
         }
     }
-    //endregion
 
-    //region unregister
-    public void unregisterOnListItemEditObserver(IOnListItemEditListener onListItemEditListener){
+    public void unregisterOnListItemEditObserver(IOnListItemEditListener onListItemEditListener) {
         onListItemEditListeners.remove(onListItemEditListener);
     }
-    //endregion
 
-    //region notify
-    public void notifyListItemObservers(WatchModel watchModel){
-        for(IOnListItemEditListener listener : onListItemEditListeners){
+    public void notifyListItemObservers(WatchModel watchModel) {
+        for (IOnListItemEditListener listener : onListItemEditListeners) {
             listener.onListItemEdit(watchModel);
         }
     }
     //endregion
 
+    //region listener
+    private IOnThumbnailImageSaveListener onThumbnailImageSaveListener;
+
+    public void setOnThumbnailImageSaveListener(IOnThumbnailImageSaveListener onThumbnailImageSaveListener) {
+        this.onThumbnailImageSaveListener = onThumbnailImageSaveListener;
+    }
+
+    public void onThumbnailImageSaved(String path){
+        if(onThumbnailImageSaveListener != null){
+            onThumbnailImageSaveListener.onThumbnailImageSaved(path);
+        }
+    }
     //endregion
 
 }
