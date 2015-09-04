@@ -4,6 +4,7 @@ public class DatabaseKey {
 
     //region table
     public static final String TABLE_WATCH = "tblwatch";
+    public static final String TABLE_SETTINGS = "tblsettings";
     //endregion
 
     //region column
@@ -18,5 +19,15 @@ public class DatabaseKey {
     public static final String WATCH_COLUMN_EPISODES_ONLY =         "episodes_only";
     public static final String WATCH_COLUMN_LAST_VIEWED =           "last_viewed";
     public static final String WATCH_COLUMN_ARCHIVED =              "archived";
+
+    public static final String SETTINGS_COLUMN_KEY =                "key";
+    public static final String SETTINGS_COLUMN_VALUE =              "value";
     //endregion
+
+    public static final String SETTINGS_KEY_DISPLAY_PROGRESS =      "display_progress";
+    public static final String SETTINGS_KEY_DISPLAY_BANNER =        "display_banner";
+    public static final String SETTINGS_KEY_CONFIRM_COMPLETE =      "confirm_complete";
+    public static final String SETTINGS_KEY_ACTION_COMPLETE =       "action_complete";
+    public static final String SETTINGS_KEY_ACTION_SORT_CLOSE =     "action_sort_close";
+
 }

@@ -1,5 +1,7 @@
 package com.ombrax.watchers.Activities;
 
+import android.content.Intent;
+import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -15,13 +17,16 @@ import android.view.View;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.ombrax.watchers.Controllers.DomainController;
 import com.ombrax.watchers.Controllers.MenuController;
+import com.ombrax.watchers.Manager.SettingsManager;
+import com.ombrax.watchers.Manager.ToolbarManager;
 import com.ombrax.watchers.Database.WatchersDatabase;
 import com.ombrax.watchers.Enums.MenuItemType;
 import com.ombrax.watchers.Enums.MenuType;
 import com.ombrax.watchers.Fragments.WatchAddFragment;
-import com.ombrax.watchers.Fragments.WatchArchiveFragment;
-import com.ombrax.watchers.Fragments.WatchListFragment;
+import com.ombrax.watchers.Fragments.WatchListArchiveFragment;
+import com.ombrax.watchers.Fragments.WatchListDefaultFragment;
 import com.ombrax.watchers.Fragments.WatchSettingsFragment;
+import com.ombrax.watchers.Interfaces.Handler.ISecondaryMenuEnableHandler;
 import com.ombrax.watchers.Interfaces.Listener.IOnMenuItemClickListener;
 import com.ombrax.watchers.Interfaces.Listener.IOnListItemEditListener;
 import com.ombrax.watchers.Interfaces.Handler.IMenuCloseHandler;
@@ -30,9 +35,8 @@ import com.ombrax.watchers.R;
 import com.ombrax.watchers.Views.Menu.MainMenuView;
 import com.ombrax.watchers.Views.Menu.MenuView;
 import com.ombrax.watchers.Views.Menu.SortMenuView;
-import com.ombrax.watchers.Views.Other.ControllableAppBarLayout;
 
-public class MainActivity extends AppCompatActivity implements IOnListItemEditListener<WatchModel>, IOnMenuItemClickListener, IMenuCloseHandler, WatchListFragment.IOnFragmentActionBarListener {
+public class MainActivity extends AppCompatActivity implements IOnListItemEditListener<WatchModel>, IOnMenuItemClickListener, IMenuCloseHandler, ISecondaryMenuEnableHandler{
 
     //region declaration
     //region controller
@@ -42,11 +46,11 @@ public class MainActivity extends AppCompatActivity implements IOnListItemEditLi
 
     //region inner field
     private boolean isSecondaryMenuShowing;
+    private MenuItem sortMenuItem;
     //endregion
 
     //region view
     private FloatingActionButton addButton;
-    private ControllableAppBarLayout appBarLayout;
     private SlidingMenu menuDrawer;
     private MainMenuView mainMenu;
     private SortMenuView sortMenu;
@@ -61,8 +65,6 @@ public class MainActivity extends AppCompatActivity implements IOnListItemEditLi
 
         init();
 
-        appBarLayout = (ControllableAppBarLayout) findViewById(R.id.appbar_layout);
-
         addButton = (FloatingActionButton) findViewById(R.id.fab);
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,11 +73,7 @@ public class MainActivity extends AppCompatActivity implements IOnListItemEditLi
             }
         });
 
-        dc.registerOnListItemEditObserver(this);
-        mc.setOnMainMenuItemClickListener(this);
-        mc.setMenuCloseHandler(this);
-
-        switchFragment(new WatchListFragment());
+        switchFragment(new WatchListDefaultFragment());
     }
     //endregion
 
@@ -83,6 +81,7 @@ public class MainActivity extends AppCompatActivity implements IOnListItemEditLi
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu, menu);
+        sortMenuItem = menu.findItem(R.id.action_sort);
         return true;
     }
 
@@ -103,10 +102,20 @@ public class MainActivity extends AppCompatActivity implements IOnListItemEditLi
     //region setup
     private void init() {
         WatchersDatabase.initialize(this);
+        controllerSetup();
+        menuSetup();
+        toolbarSetup();
+        SettingsManager.getInstance().renew();
+    }
+
+    private void controllerSetup() {
         dc = DomainController.getInstance();
+        dc.registerOnListItemEditObserver(this);
+
         mc = MenuController.getInstance();
-        setupMenu();
-        setupActionbar();
+        mc.setOnMainMenuItemClickListener(this);
+        mc.setMenuCloseHandler(this);
+        mc.setSecondaryMenuEnableHandler(this);
     }
     //endregion
 
@@ -173,17 +182,19 @@ public class MainActivity extends AppCompatActivity implements IOnListItemEditLi
     //endregion
 
     //region helper
-    private void setupActionbar() {
-        CollapsingToolbarLayout collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
-        collapsingToolbarLayout.setTitle(getString(R.string.app_name));
-
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setNavigationIcon(R.drawable.ic_menu);
-
-        setSupportActionBar(toolbar);
+    private void toolbarSetup() {
+        ToolbarManager toolbarManager = ToolbarManager.getInstance();
+        toolbarManager.initialize(
+                (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar),
+                (AppBarLayout) findViewById(R.id.appbar_layout),
+                (Toolbar) findViewById(R.id.toolbar)
+        );
+        toolbarManager.setExpandingTitle(getString(R.string.app_name));
+        toolbarManager.setMainActionItemDrawable(R.drawable.ic_menu);
+        toolbarManager.attachToActivity(this);
     }
 
-    private void setupMenu() {
+    private void menuSetup() {
         mainMenu = new MainMenuView(this);
         mainMenu.setMenuItemEnabled(MenuItemType.EDIT, false);
         sortMenu = new SortMenuView(this);
@@ -241,19 +252,19 @@ public class MainActivity extends AppCompatActivity implements IOnListItemEditLi
     public void onMenuItemClick(MenuItemType menuItemType) {
         if (menuItemType == MenuItemType.EXIT) {
             this.finish();
+            return;
         }
         if (menuItemType.childOf(MenuType.MAIN)) {
             if (mainMenu.hasNewSelection(menuItemType)) {
                 switch (menuItemType) {
                     case HOME:
-                        switchFragment(new WatchListFragment());
+                        switchFragment(new WatchListDefaultFragment());
                         break;
                     case ADD:
                         switchFragment(new WatchAddFragment());
                         break;
                     case ARCHIVE:
-                        //TODO Display listFragment with archive filter (new cardview ?)
-                        switchFragment(new WatchArchiveFragment());
+                        switchFragment(new WatchListArchiveFragment());
                         break;
                     case SETTINGS:
                         switchFragment(new WatchSettingsFragment());
@@ -265,17 +276,17 @@ public class MainActivity extends AppCompatActivity implements IOnListItemEditLi
     }
 
     @Override
+    public void handleSecondaryMenuEnable(boolean enable) {
+        menuDrawer.setMode(enable ? SlidingMenu.LEFT_RIGHT : SlidingMenu.LEFT);
+        if (sortMenuItem != null) {
+            sortMenuItem.setVisible(enable);
+        }
+    }
+
+    @Override
     public void closeMenu() {
         menuDrawer.toggle();
     }
 
-    @Override
-    public void onActionBarStateChange(boolean collapse) {
-        if (collapse) {
-            appBarLayout.collapseToolbar();
-        } else {
-            appBarLayout.expandToolbar();
-        }
-    }
     //endregion
 }

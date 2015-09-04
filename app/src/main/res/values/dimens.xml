@@ -1,9 +1,10 @@
 <resources>
 
-    <dimen name="expandable_height">60dp</dimen>
+    <dimen name="bottom_dialog_height">80dp</dimen>
     <dimen name="sliding_menu_width">280dp</dimen>
     <dimen name="divider">1dp</dimen>
 
+    <dimen name="default_.5x">4dp</dimen>
     <dimen name="default_1x">8dp</dimen>
     <dimen name="default_2x">16dp</dimen>
 
@@ -12,7 +13,5 @@
     <dimen name="medium">10dp</dimen>
     <dimen name="small">5dp</dimen>
     <dimen name="tiny">2dp</dimen>
-    <!-- Default screen margins, per the Android Design guidelines. -->
-    <dimen name="activity_horizontal_margin">16dp</dimen>
-    <dimen name="activity_vertical_margin">16dp</dimen>
+
 </resources>

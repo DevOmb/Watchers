@@ -1,6 +1,5 @@
 package com.ombrax.watchers.Utils;
 
-import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.BitmapShader;
@@ -10,17 +9,12 @@ import android.graphics.Paint;
 import android.graphics.Shader;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.ombrax.watchers.R;
-import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 /**
  * Created by Ombrax on 2/08/2015.
@@ -70,7 +64,7 @@ public class ImageUtils {
 
         // Calculate the correct inSampleSize/scale value. This helps reduce memory use. It should be a power of 2
         int inSampleSize = 1;
-        if(srcWidth > 0 && srcWidth != dstWidth) {
+        if (srcWidth > 0 && srcWidth != dstWidth) {
             while (srcWidth / 2 > dstWidth) {
                 srcWidth /= 2;
                 inSampleSize *= 2;
@@ -93,13 +87,13 @@ public class ImageUtils {
         return Bitmap.createBitmap(sampledSrcBitmap, 0, 0, sampledSrcBitmap.getWidth(), sampledSrcBitmap.getHeight(), matrix, true);
     }
 
-    public static void loadImageFromFile(ImageView container, String path) {
+    public static void loadImageFromFile(final ImageView container, String path) {
         if (path != null && !path.isEmpty()) {
             File imageFile = new File(path);
             if (imageFile.exists()) {
                 Picasso.with(container.getContext())
                         .load(imageFile)
-                        .placeholder(R.drawable.loading_placeholder) // TODO change image to something more subtle
+                        .placeholder(R.drawable.img_loading) // TODO change image to something more subtle
 //                        .error()
                         .into(container);
             }

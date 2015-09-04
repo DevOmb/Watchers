@@ -1,5 +1,7 @@
 package com.ombrax.watchers.Controllers;
 
+import com.ombrax.watchers.Interfaces.Handler.IWatchCardRemoveHandler;
+import com.ombrax.watchers.Interfaces.Handler.IWatchCardUpdateHandler;
 import com.ombrax.watchers.Interfaces.Listener.IOnThumbnailImageSaveListener;
 import com.ombrax.watchers.Models.WatchModel;
 import com.ombrax.watchers.Interfaces.Listener.IOnListItemEditListener;
@@ -22,6 +24,7 @@ public class DomainController {
         return instance;
     }
     //endregion
+
 
     //region observer
     private List<IOnListItemEditListener<WatchModel>> onListItemEditListeners = new ArrayList<>();
@@ -50,11 +53,35 @@ public class DomainController {
         this.onThumbnailImageSaveListener = onThumbnailImageSaveListener;
     }
 
-    public void onThumbnailImageSaved(String path){
-        if(onThumbnailImageSaveListener != null){
+    public void onThumbnailImageSaved(String path) {
+        if (onThumbnailImageSaveListener != null) {
             onThumbnailImageSaveListener.onThumbnailImageSaved(path);
         }
     }
     //endregion
 
+    //region handler
+    private IWatchCardUpdateHandler watchCardUpdateHandler;
+    private IWatchCardRemoveHandler watchCardRemoveHandler;
+
+    public void setWatchCardUpdateHandler(IWatchCardUpdateHandler watchCardUpdateHandler) {
+        this.watchCardUpdateHandler = watchCardUpdateHandler;
+    }
+
+    public void setWatchCardRemoveHandler(IWatchCardRemoveHandler watchCardRemoveHandler) {
+        this.watchCardRemoveHandler = watchCardRemoveHandler;
+    }
+
+    public void handleWatchCardUpdate() {
+        if (watchCardUpdateHandler != null) {
+            watchCardUpdateHandler.handlerWatchCardUpdate();
+        }
+    }
+
+    public void handleWatchCardRemove(WatchModel watchModel) {
+        if (watchCardRemoveHandler != null) {
+            watchCardRemoveHandler.handleWatchCardRemove(watchModel);
+        }
+    }
+    //endregion
 }

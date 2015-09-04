@@ -33,7 +33,7 @@ public class DatabaseUtils {
     }
 
     public static String formatDateToString(Date date) {
-        return DTF.format(date == null ? new Date() : date);
+        return date == null ? null : DTF.format(date);
     }
 
     public static int formatBooleanToInteger(boolean value) {

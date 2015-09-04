@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * Created by Ombrax on 23/06/2015.
  */
-public class WatchModel implements Serializable{
+public class WatchModel implements Serializable {
 
     //region declaration
 
@@ -78,6 +78,7 @@ public class WatchModel implements Serializable{
         } else {
             if (currentSeason == 1 && currentEpisode == 1) {
                 watchState = WatchState.FIRST_EPISODE;
+                return;
             }
 
             if (seasonEpisodeList != null) {
@@ -256,28 +257,34 @@ public class WatchModel implements Serializable{
             case LAST_EPISODE:
             case SEASON_FINALE:
             case DEFAULT:
+                //2nd to 1st Episode
+                if (currentEpisode == 2 && (currentSeason == 1 || episodesOnly)) {
+                    currentEpisode--;
+                    watchState = WatchState.FIRST_EPISODE;
+                    resetLastViewed();
+                    break;
+                }
+                //1st of Season to previous Season Finale
                 if (currentEpisode == 1) {
-                    if (currentSeason == 1 || episodesOnly) {
-                        watchState = WatchState.FIRST_EPISODE;
-                        return false;
-                    } else {
-                        watchState = WatchState.SEASON_FINALE;
-                        currentSeason--;
-                        currentEpisode = seasonEpisodeList == null ? seasonEpisodeCount : seasonEpisodeList.get(currentSeason - 1);
-                    }
-                } else {
+                    currentSeason--;
+                    currentEpisode = seasonEpisodeList == null ? seasonEpisodeCount : seasonEpisodeList.get(currentSeason - 1);
+                    watchState = WatchState.SEASON_FINALE;
+                    renewLastViewed();
+                }
+                //Default
+                else {
                     currentEpisode--;
                     watchState = WatchState.DEFAULT;
+                    renewLastViewed();
                 }
                 break;
         }
         episodeProgress--;
-        renewLastViewed();
         return true;
     }
 
     public String format(Format watchFormat) {
-        switch(watchFormat){
+        switch (watchFormat) {
             case WATCH:
                 String eString = StringUtils.preZeroInt(currentEpisode);
                 if (episodesOnly) {
@@ -293,7 +300,11 @@ public class WatchModel implements Serializable{
     //endregion
 
     //region helper
-    private void renewLastViewed(){
+    private void resetLastViewed() {
+        lastViewed = null;
+    }
+
+    private void renewLastViewed() {
         lastViewed = new Date();
     }
     //endregion

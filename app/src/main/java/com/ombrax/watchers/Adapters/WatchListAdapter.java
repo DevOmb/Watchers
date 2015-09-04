@@ -4,6 +4,8 @@ import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.ViewGroup;
 
+import com.ombrax.watchers.Controllers.DomainController;
+import com.ombrax.watchers.Interfaces.Handler.IWatchCardRemoveHandler;
 import com.ombrax.watchers.Models.WatchModel;
 import com.ombrax.watchers.Views.Card.WatchCardView;
 
@@ -14,7 +16,7 @@ import java.util.List;
 /**
  * Created by Ombrax on 15/07/2015.
  */
-public class WatchListAdapter extends RecyclerView.Adapter<WatchListAdapter.WatchCardViewHolder> implements WatchCardView.ICardManager {
+public class WatchListAdapter extends RecyclerView.Adapter<WatchListAdapter.WatchCardViewHolder> implements IWatchCardRemoveHandler{
 
     //region variable
     private Context context;
@@ -25,6 +27,7 @@ public class WatchListAdapter extends RecyclerView.Adapter<WatchListAdapter.Watc
     public WatchListAdapter(Context context, List<WatchModel> watchModels) {
         this.context = context;
         this.watchModels = watchModels;
+        DomainController.getInstance().setWatchCardRemoveHandler(this);
     }
     //endregion
 
@@ -33,7 +36,6 @@ public class WatchListAdapter extends RecyclerView.Adapter<WatchListAdapter.Watc
         if(comparator != null) {
             Collections.sort(watchModels, comparator);
             notifyDataSetChanged();
-            //notifyItemMoved(0, watchModels.size());
         }
     }
     //endregion
@@ -41,7 +43,7 @@ public class WatchListAdapter extends RecyclerView.Adapter<WatchListAdapter.Watc
     //region override
     @Override
     public WatchCardViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-        return new WatchCardViewHolder(new WatchCardView(context, this));
+        return new WatchCardViewHolder(new WatchCardView(context));
     }
 
     @Override
@@ -66,7 +68,7 @@ public class WatchListAdapter extends RecyclerView.Adapter<WatchListAdapter.Watc
 
     //region interface implementation
     @Override
-    public void remove(WatchModel watchModel) {
+    public void handleWatchCardRemove(WatchModel watchModel) {
         int index = watchModels.indexOf(watchModel);
         watchModels.remove(index);
         notifyItemRemoved(index);

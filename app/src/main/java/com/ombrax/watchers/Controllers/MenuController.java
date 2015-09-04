@@ -2,7 +2,8 @@ package com.ombrax.watchers.Controllers;
 
 import com.ombrax.watchers.Enums.MenuItemType;
 import com.ombrax.watchers.Enums.MenuType;
-import com.ombrax.watchers.Interfaces.Observer.IOnSecondaryMenuCloseObserver;
+import com.ombrax.watchers.Interfaces.Handler.ISecondaryMenuEnableHandler;
+import com.ombrax.watchers.Interfaces.Observer.IOnUserSecondaryMenuCloseObserver;
 import com.ombrax.watchers.Interfaces.Listener.IOnMenuItemClickListener;
 import com.ombrax.watchers.Interfaces.Listener.IOnMenuItemSelectListener;
 import com.ombrax.watchers.Interfaces.Listener.IOnSortMenuItemChangeListener;
@@ -32,23 +33,25 @@ public class MenuController {
     //endregion
 
     //region observer
-    private List<IOnSecondaryMenuCloseObserver> onSecondaryMenuCloseObservers = new ArrayList<>();
+    private List<IOnUserSecondaryMenuCloseObserver> onSecondaryMenuCloseObservers = new ArrayList<>();
 
-    public void registerOnSecondaryMenuCloseObserver(IOnSecondaryMenuCloseObserver onSecondaryMenuCloseObserver){
+    public void registerOnSecondaryMenuCloseObserver(IOnUserSecondaryMenuCloseObserver onSecondaryMenuCloseObserver){
         if(!onSecondaryMenuCloseObservers.contains(onSecondaryMenuCloseObserver)){
             onSecondaryMenuCloseObservers.add(onSecondaryMenuCloseObserver);
         }
     }
 
-    public void unregisterOnSecondaryMenuCloseObserver(IOnSecondaryMenuCloseObserver onSecondaryMenuCloseObserver){
+    public void unregisterOnSecondaryMenuCloseObserver(IOnUserSecondaryMenuCloseObserver onSecondaryMenuCloseObserver){
         onSecondaryMenuCloseObservers.remove(onSecondaryMenuCloseObserver);
     }
 
     public void notifyOnSecondaryMenuCloseObservers(){
-        for(IOnSecondaryMenuCloseObserver observer : onSecondaryMenuCloseObservers){
-            observer.onSecondaryMenuClose(codeEnabled);
+        if(codeEnabled) {
+            for (IOnUserSecondaryMenuCloseObserver observer : onSecondaryMenuCloseObservers) {
+                observer.onUserSecondaryMenuClose();
+            }
+            codeEnabled = false;
         }
-        codeEnabled = false;
     }
     //endregion
 
@@ -63,6 +66,18 @@ public class MenuController {
         if(menuCloseHandler != null){
             codeEnabled = true;
             menuCloseHandler.closeMenu();
+        }
+    }
+
+    private ISecondaryMenuEnableHandler secondaryMenuEnableHandler;
+
+    public void setSecondaryMenuEnableHandler(ISecondaryMenuEnableHandler secondaryMenuEnableHandler) {
+        this.secondaryMenuEnableHandler = secondaryMenuEnableHandler;
+    }
+
+    public void handleSecondaryMenuEnable(boolean enable){
+        if(secondaryMenuEnableHandler != null){
+            secondaryMenuEnableHandler.handleSecondaryMenuEnable(enable);
         }
     }
     //endregion

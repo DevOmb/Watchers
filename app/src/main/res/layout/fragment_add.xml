@@ -5,7 +5,8 @@
     android:layout_height="match_parent"
     android:background="@color/dark_dark_grey"
     android:orientation="vertical"
-    android:padding="@dimen/default_2x">
+    android:padding="@dimen/default_2x"
+    android:focusable="true">
 
     <ImageView
         android:id="@+id/fragment_add_thumbnail_image"
@@ -13,7 +14,7 @@
         android:layout_height="wrap_content"
         android:adjustViewBounds="true"
         android:scaleType="centerInside"
-        android:src="@drawable/add_image_placeholder" />
+        android:src="@drawable/img_placeholder" />
 
     <com.rey.material.widget.EditText
         android:layout_width="match_parent"
@@ -85,10 +86,41 @@
                 android:orientation="vertical"
                 android:padding="8dp">
 
-                <EditText
+                <LinearLayout
+                    android:id="@+id/fragment_add_toggle_group_container"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="click here" />
+                    android:layout_height="36dp"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="@dimen/default_2x"
+                    android:layout_marginLeft="@dimen/default_1x"
+                    android:layout_marginRight="@dimen/default_1x">
+
+                    <Button
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@drawable/toggle_left_background"
+                        android:text="Option 1"
+                        android:textColor="@color/holo_white" />
+
+                    <Button
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@drawable/toggle_center_background"
+                        android:padding="2dp"
+                        android:text="Option 2"
+                        android:textColor="@color/holo_white"/>
+
+                    <Button
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@drawable/toggle_right_background"
+                        android:text="Option 3"
+                        android:textColor="@color/holo_white"/>
+
+                </LinearLayout>
 
             </LinearLayout>
 

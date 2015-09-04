@@ -36,7 +36,7 @@ public class WatchRepository{
     }
 
     public void update(WatchModel watchModel, boolean updateIncrementOnly) {
-        database.getWritableDatabase().update(DatabaseKey.TABLE_WATCH, WatchMapper.contentValuesForWatch(watchModel, updateIncrementOnly), DatabaseKey.WATCH_COLUMN_ID + " = ? ", DatabaseUtils.asArgs(watchModel.getId()));
+        database.getWritableDatabase().update(DatabaseKey.TABLE_WATCH, WatchMapper.contentValuesForWatch(watchModel, updateIncrementOnly), DatabaseKey.WATCH_COLUMN_ID + " =?", DatabaseUtils.asArgs(watchModel.getId()));
     }
 
     public void delete(int id) {
@@ -49,7 +49,7 @@ public class WatchRepository{
 
     public List<WatchModel> getAll(Mode mode) {
         List<WatchModel> watchModels = new ArrayList<>();
-        Cursor cursor = database.getReadableDatabase().rawQuery("SELECT * FROM " + DatabaseKey.TABLE_WATCH + " WHERE " + DatabaseKey.WATCH_COLUMN_ARCHIVED + " = ? ", DatabaseUtils.asArgs(mode == Mode.ARCHIVED));
+        Cursor cursor = database.getReadableDatabase().rawQuery("SELECT * FROM " + DatabaseKey.TABLE_WATCH + " WHERE " + DatabaseKey.WATCH_COLUMN_ARCHIVED + " =?", DatabaseUtils.asArgs(mode == Mode.ARCHIVED));
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
             watchModels.add(WatchMapper.toWatchModel(cursor));

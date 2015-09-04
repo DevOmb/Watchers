@@ -1,205 +1,152 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@android:drawable/dialog_holo_light_frame"
+    android:descendantFocusability="blocksDescendants"
     android:orientation="vertical">
 
-    <LinearLayout
-        android:id="@+id/watch_card_content"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:descendantFocusability="blocksDescendants"
-        android:orientation="vertical">
+        android:layout_height="wrap_content">
 
-        <FrameLayout
+        <ImageView
+            android:id="@+id/watch_card_thumbnail"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <ImageView
-                android:id="@+id/watch_card_thumbnail"
-                android:layout_width="match_parent"
-                android:layout_height="205dp"
-                android:adjustViewBounds="true"
-                android:scaleType="centerCrop"
-                android:src="@drawable/thumb" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom"
-                android:background="@color/dark_transparent"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/watch_card_title"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:paddingBottom="@dimen/default_1x"
-                    android:paddingLeft="@dimen/default_2x"
-                    android:paddingRight="@dimen/default_2x"
-                    android:paddingTop="@dimen/default_1x"
-                    android:singleLine="true"
-                    android:text="Placeholder Placeholder Placeholder"
-                    android:textAllCaps="true"
-                    android:textColor="@color/white"
-                    android:textSize="18sp" />
-
-                <TextView
-                    android:id="@+id/watch_card_progress"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="bottom|right"
-                    android:paddingBottom="1dp"
-                    android:paddingRight="3dp"
-                    android:text="50.00%"
-                    android:textColor="@color/white"
-                    android:textSize="11sp" />
-
-            </LinearLayout>
-
-        </FrameLayout>
-
-        <com.ombrax.simpleprogressbar.View.SimpleProgressBar
-            android:id="@+id/watch_card_progress_bar"
-            android:layout_width="match_parent"
-            android:layout_height="8dp"
-            app:background_color="@color/black"
-            app:background_transparency="0.25"
-            app:progress_color="@color/blue"
-            app:progress_mode="horizontal" />
-
+            android:layout_height="205dp"
+            android:adjustViewBounds="true"
+            android:scaleType="centerCrop"
+            android:src="@drawable/img_not_available" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/default_1x"
-            android:orientation="vertical"
-            android:paddingRight="@dimen/default_1x">
+            android:layout_gravity="bottom"
+            android:background="@drawable/dark_background_gradient"
+            android:orientation="horizontal">
 
-            <LinearLayout
-
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/watch_card_title"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/default_1x"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
+                android:layout_weight="1"
+                android:paddingBottom="@dimen/default_1x"
+                android:paddingLeft="@dimen/default_2x"
+                android:paddingRight="@dimen/default_2x"
+                android:paddingTop="@dimen/default_1x"
+                android:singleLine="true"
+                android:text="Placeholder Placeholder Placeholder"
+                android:textAllCaps="true"
+                android:textColor="@color/white"
+                android:textSize="18sp" />
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="@dimen/default_2x"
-                    android:adjustViewBounds="true"
-                    android:scaleType="centerInside"
-                    android:src="@drawable/ic_tv" />
-
-                <TextView
-                    android:id="@+id/watch_card_next_label"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="3dp"
-                    android:layout_weight="1"
-                    android:text="Next up"
-                    android:textColor="@color/dark_grey"
-                    android:textSize="18sp" />
-
-                <TextView
-                    android:id="@+id/watch_card_seasonEpisode"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:text="S01E15"
-                    android:textColor="@color/dark_grey"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
-
-            </LinearLayout>
-
-            <LinearLayout
-
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/watch_card_progress"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
+                android:layout_gravity="bottom|right"
+                android:paddingBottom="1dp"
+                android:paddingRight="3dp"
+                android:text="50.00%"
+                android:textColor="@color/white"
+                android:textSize="11sp" />
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="@dimen/default_2x"
-                    android:adjustViewBounds="true"
-                    android:scaleType="centerInside"
-                    android:src="@drawable/ic_eye" />
-
-                <TextView
-                    android:id="@+id/watch_card_date_label"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Last seen"
-                    android:textColor="@color/dark_grey"
-                    android:textSize="18sp" />
-
-                <TextView
-                    android:id="@+id/watch_card_lastViewed"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="15 feb 2015"
-                    android:textColor="@color/dark_grey"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
-
-            </LinearLayout>
         </LinearLayout>
 
-    </LinearLayout>
+    </FrameLayout>
+
+    <com.ombrax.simpleprogressbar.View.SimpleProgressBar
+        android:id="@+id/watch_card_progress_bar"
+        android:layout_width="match_parent"
+        android:layout_height="8dp"
+        app:background_color="@color/black"
+        app:background_transparency="0.25"
+        app:progress_color="@color/blue"
+        app:progress_mode="horizontal" />
+
 
     <LinearLayout
-        android:id="@+id/watch_card_expandable"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/expandable_height"
-        android:layout_gravity="center_vertical"
-        android:background="@color/dark_grey"
-        android:padding="@dimen/default_1x"
-        android:orientation="horizontal"
-        android:visibility="gone">
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/default_1x"
+        android:orientation="vertical"
+        android:paddingRight="@dimen/default_1x">
 
-        <com.ombrax.watchers.Views.Button.SimpleIconButton
-            android:id="@+id/watch_card_minus"
-            android:layout_width="wrap_content"
+        <LinearLayout
+
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_undo"/>
+            android:layout_marginBottom="@dimen/default_1x"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
 
-        <com.ombrax.watchers.Views.Button.SimpleIconButton
-            android:id="@+id/watch_card_edit"
-            android:layout_width="wrap_content"
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/default_2x"
+                android:adjustViewBounds="true"
+                android:scaleType="centerInside"
+                android:src="@drawable/ic_tv" />
+
+            <TextView
+                android:id="@+id/watch_card_next_label"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:layout_weight="1"
+                android:text="Next up"
+                android:textColor="@color/dark_grey"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/watch_card_seasonEpisode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="S01E15"
+                android:textColor="@color/dark_grey"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+        <LinearLayout
+
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_edit"/>
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
 
-        <com.ombrax.watchers.Views.Button.SimpleIconButton
-            android:id="@+id/watch_card_archive"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_archive"/>
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/default_2x"
+                android:adjustViewBounds="true"
+                android:scaleType="centerInside"
+                android:src="@drawable/ic_eye" />
 
-        <com.ombrax.watchers.Views.Button.SimpleIconButton
-            android:id="@+id/watch_card_delete"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_delete"/>
+            <TextView
+                android:id="@+id/watch_card_date_label"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Last seen"
+                android:textColor="@color/dark_grey"
+                android:textSize="18sp" />
 
-        <View
-            android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:layout_weight="1" />
+            <TextView
+                android:id="@+id/watch_card_lastViewed"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="15 feb 2015"
+                android:textColor="@color/dark_grey"
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
-        <com.ombrax.watchers.Views.Button.SimpleIconButton
-            android:id="@+id/watch_card_cancel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_cancel"/>
-
+        </LinearLayout>
     </LinearLayout>
 
 </LinearLayout>
+

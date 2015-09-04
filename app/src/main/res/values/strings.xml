@@ -4,6 +4,26 @@
     <string name="app_name">Watchers</string>
     <string name="title_activity_image">ImageActivity</string>
 
+
+    <string name="settings_category_display">Display</string>
+    <string name="settings_category_action">Action</string>
+
+    <string name="settings_label_progress">Progress</string>
+    <string name="settings_label_banner">Banner</string>
+    <string name="settings_label_image_error">Image Error Icon</string>
+    <string name="settings_label_confirm_complete">Confirm on Complete</string>
+    <string name="settings_label_complete">Complete</string>
+    <string name="settings_label_sort_menu">Sort Menu Close</string>
+
+    <string name="settings_sub_label_progress">Display progress above progressbar</string>
+    <string name="settings_sub_label_banner">Display banner in top left corner of new entries</string>
+    <string name="settings_sub_label_image_error">Display icon when image loading failed</string>
+    <string name="settings_sub_label_confirm_complete">Display confirm dialog before completing entry</string>
+    <string name="settings_sub_label_complete">Action to perform when completing entry</string>
+    <string name="settings_sub_label_sort_menu">Action to perform when sort menu closes</string>
+    <string name="title_activity_settings">SettingsActivity</string>
+
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+
 </resources>

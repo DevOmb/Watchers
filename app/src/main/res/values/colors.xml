@@ -21,6 +21,7 @@
 
     <!-- Alpha -->
     <color name="transparent">#00000000</color>
+    <color name="dark_dark_transparent">#EE000000</color>
     <color name="dark_transparent">#AA000000</color>
     <color name="semi_transparent">#AAAAAAAA</color>
     <color name="light_transparent">#10FFFFFF</color>

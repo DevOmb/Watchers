@@ -1,12 +1,286 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:background="@color/dark_dark_grey"
+    android:scrollbars="none">
 
-    <ImageView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@drawable/backpanel"
-        android:scaleType="centerCrop"/>
+        android:orientation="vertical">
 
-</LinearLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/default_2x"
+            android:text="@string/settings_category_display"
+            android:textAllCaps="true"
+            android:textColor="@color/light_grey"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/dark_grey"
+            android:orientation="vertical"
+            android:padding="@dimen/default_1x">
+
+            <LinearLayout
+                android:id="@+id/fragment_settings_progress_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="@dimen/default_1x">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingBottom="@dimen/default_.5x"
+                        android:text="@string/settings_label_progress"
+                        android:textColor="@color/holo_white"
+                        android:textSize="20sp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/settings_sub_label_progress"
+                        android:textColor="@color/light_grey"
+                        android:textSize="14sp" />
+
+                </LinearLayout>
+
+                <com.rey.material.widget.CheckBox
+                    android:id="@+id/fragment_settings_progress_checkbox"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:cbd_strokeColor="@color/material_check_box_background"
+                    app:cbd_strokeSize="1.5dp"
+                    app:cbd_tickColor="@color/white" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_margin="@dimen/default_.5x"
+                android:background="@color/grey" />
+
+            <LinearLayout
+                android:id="@+id/fragment_settings_banner_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="@dimen/default_1x">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingBottom="@dimen/default_.5x"
+                        android:text="@string/settings_label_banner"
+                        android:textColor="@color/holo_white"
+                        android:textSize="20sp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/settings_sub_label_banner"
+                        android:textColor="@color/light_grey"
+                        android:textSize="14sp" />
+
+                </LinearLayout>
+
+                <com.rey.material.widget.CheckBox
+                    android:id="@+id/fragment_settings_banner_checkbox"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:cbd_strokeColor="@color/material_check_box_background"
+                    app:cbd_strokeSize="1.5dp"
+                    app:cbd_tickColor="@color/white" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/default_2x"
+            android:text="Action"
+            android:textAllCaps="true"
+            android:textColor="@color/light_grey"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/dark_grey"
+            android:orientation="vertical"
+            android:padding="@dimen/default_1x">
+
+            <LinearLayout
+                android:id="@+id/fragment_settings_complete_action_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/default_1x">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:paddingBottom="@dimen/default_.5x"
+                        android:text="@string/settings_label_complete"
+                        android:layout_marginRight="@dimen/default_1x"
+                        android:textColor="@color/holo_white"
+                        android:textSize="20sp" />
+
+                    <TextView
+                        android:id="@+id/fragment_settings_complete_action_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingBottom="@dimen/default_.5x"
+                        android:text="archive"
+                        android:textStyle="bold"
+                        android:textAllCaps="true"
+                        android:textColor="@color/accent"
+                        android:textSize="14sp" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/settings_sub_label_complete"
+                    android:textColor="@color/light_grey"
+                    android:textSize="14sp" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_margin="@dimen/default_.5x"
+                android:background="@color/grey" />
+
+            <LinearLayout
+                android:id="@+id/fragment_settings_sort_action_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/default_1x">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:paddingBottom="@dimen/default_.5x"
+                        android:text="@string/settings_label_sort_menu"
+                        android:layout_marginRight="@dimen/default_1x"
+                        android:textColor="@color/holo_white"
+                        android:textSize="20sp" />
+
+                    <TextView
+                        android:id="@+id/fragment_settings_sort_action_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingBottom="@dimen/default_.5x"
+                        android:text="decline"
+                        android:textStyle="bold"
+                        android:textAllCaps="true"
+                        android:textColor="@color/accent"
+                        android:textSize="14sp" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/settings_sub_label_sort_menu"
+                    android:textColor="@color/light_grey"
+                    android:textSize="14sp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/default_2x"
+            android:text="Other"
+            android:textAllCaps="true"
+            android:textColor="@color/light_grey"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:id="@+id/fragment_settings_confirm_complete_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:background="@color/dark_grey"
+            android:orientation="horizontal"
+            android:padding="@dimen/default_2x">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="@dimen/default_.5x"
+                    android:text="@string/settings_label_confirm_complete"
+                    android:textColor="@color/holo_white"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/settings_sub_label_confirm_complete"
+                    android:textColor="@color/light_grey"
+                    android:textSize="14sp" />
+
+            </LinearLayout>
+
+            <com.rey.material.widget.CheckBox
+                android:id="@+id/fragment_settings_confirm_complete_checkbox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:cbd_strokeColor="@color/material_check_box_background"
+                app:cbd_strokeSize="1.5dp"
+                app:cbd_tickColor="@color/white" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+</ScrollView>

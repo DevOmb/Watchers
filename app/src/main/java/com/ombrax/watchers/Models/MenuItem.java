@@ -18,7 +18,7 @@ public class MenuItem {
     public static MenuItem Exit = new MenuItem(MenuItemType.EXIT, R.drawable.ic_exit);
 
     public static MenuItem Alphabetical = new MenuItem(MenuItemType.ALPHABETICAL, "Name", R.drawable.ic_sort_alphabet);
-    public static MenuItem Date = new MenuItem(MenuItemType.DATE, R.drawable.ic_sort_date);
+    public static MenuItem Date = new MenuItem(MenuItemType.DATE, "Last Seen", R.drawable.ic_sort_date);
     public static MenuItem Progress = new MenuItem(MenuItemType.PROGRESS, R.drawable.ic_sort_progress);
     public static MenuItem RunTime = new MenuItem(MenuItemType.RUN_TIME, "Run Time", R.drawable.ic_sort_time);
     //endregion
