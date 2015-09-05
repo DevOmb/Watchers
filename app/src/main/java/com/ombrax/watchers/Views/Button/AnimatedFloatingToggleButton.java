@@ -82,7 +82,7 @@ public class AnimatedFloatingToggleButton extends FloatingToggleButton implement
 
     @Override
     protected void onDraw(Canvas canvas) {
-        System.out.println("Draw: " + !initialState + " " + allowInvalidate);
+        //TODO check draw on top + invalidate on resume?
         if (!initialState && allowInvalidate) {
             canvas.drawLine(width * ratio1_4 - P, height * ratio1_4, width * ratio5_12 - P, height * ratio1_4, borderPaint);
             canvas.drawLine(width * ratio7_12 + P, height * ratio1_4, width * ratio3_4 + P, height * ratio1_4, borderPaint);

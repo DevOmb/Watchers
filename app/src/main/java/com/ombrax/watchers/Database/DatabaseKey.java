@@ -5,6 +5,7 @@ public class DatabaseKey {
     //region table
     public static final String TABLE_WATCH = "tblwatch";
     public static final String TABLE_SETTINGS = "tblsettings";
+    public static final String TABLE_SYSTEM = "tblsystem";
     //endregion
 
     //region column
@@ -22,12 +23,19 @@ public class DatabaseKey {
 
     public static final String SETTINGS_COLUMN_KEY =                "key";
     public static final String SETTINGS_COLUMN_VALUE =              "value";
+
+    public static final String SYSTEM_COLUMN_KEY =                  "key";
+    public static final String SYSTEM_COLUMN_VALUE =                "value";
     //endregion
 
+    //region settings
     public static final String SETTINGS_KEY_DISPLAY_PROGRESS =      "display_progress";
     public static final String SETTINGS_KEY_DISPLAY_BANNER =        "display_banner";
     public static final String SETTINGS_KEY_CONFIRM_COMPLETE =      "confirm_complete";
     public static final String SETTINGS_KEY_ACTION_COMPLETE =       "action_complete";
     public static final String SETTINGS_KEY_ACTION_SORT_CLOSE =     "action_sort_close";
+    //endregion
+
+    public static final String SYSTEM_KEY_SORT =                    "sort";
 
 }

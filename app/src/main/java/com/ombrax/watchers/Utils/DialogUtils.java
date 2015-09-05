@@ -24,7 +24,7 @@ public class DialogUtils {
     //region method
     public static SweetAlertDialog newAvatarAlertDialog(Context context, String title, String message, Drawable avatar, SweetAlertDialog.OnSweetClickListener onConfirmListener) {
         return new SweetAlertDialog(context, SweetAlertDialog.Type.CUSTOM)
-                .setDialogBackground(R.drawable.dialog_background)
+                .setDialogBackground(R.drawable.light_dialog_background)
                 .setImageSize(avatarSize)
                 .setImage(ImageUtils.getScaledCircularBitmap(avatar, avatarSize))
                 .setTitleText(title)

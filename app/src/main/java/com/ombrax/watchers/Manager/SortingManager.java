@@ -1,7 +1,11 @@
 package com.ombrax.watchers.Manager;
 
+import com.ombrax.watchers.Database.DatabaseKey;
 import com.ombrax.watchers.Enums.MenuItemType;
+import com.ombrax.watchers.Models.SortModel;
 import com.ombrax.watchers.Models.WatchModel;
+import com.ombrax.watchers.Repositories.SystemRepository;
+import com.ombrax.watchers.Utils.DatabaseUtils;
 
 import java.util.Collections;
 import java.util.Comparator;
@@ -22,16 +26,18 @@ public class SortingManager {
     }
 
     private SortingManager() {
-        init();
+        systemRepository = SystemRepository.getInstance();
+        comparatorSetup();
     }
     //endregion
 
     //region inner field
+    private SystemRepository systemRepository;
     private Map<MenuItemType, Comparator<WatchModel>> sortingMap = new HashMap<>();
     //endregion
 
-    //region setup
-    private void init() {
+    //region helper
+    private void comparatorSetup() {
         sortingMap.put(MenuItemType.ALPHABETICAL, new Comparator<WatchModel>() {
             @Override
             public int compare(WatchModel first, WatchModel second) {
@@ -65,8 +71,22 @@ public class SortingManager {
     //endregion
 
     //region method
-    public Comparator<WatchModel> get(MenuItemType menuItemType, boolean isAscendingOrder) {
-        return isAscendingOrder ? sortingMap.get(menuItemType) : Collections.reverseOrder(sortingMap.get(menuItemType));
+    public Comparator<WatchModel> getComparator(SortModel sortModel) {
+        return sortModel.isAscending() ? sortingMap.get(sortModel.getSortType()) : Collections.reverseOrder(sortingMap.get(sortModel.getSortType()));
+    }
+
+    public Comparator<WatchModel> getCurrentComparator() {
+        SortModel sortModel = getSystemSort();
+        return sortModel.isAscending() ? sortingMap.get(sortModel.getSortType()) : Collections.reverseOrder(sortingMap.get(sortModel.getSortType()));
+    }
+
+    public SortModel getSystemSort(){
+        String model = systemRepository.get(DatabaseKey.SYSTEM_KEY_SORT);
+        return DatabaseUtils.formatStringToSortModel(model);
+    }
+
+    public void updateSystemSort(SortModel sortModel){
+        systemRepository.update(DatabaseKey.SYSTEM_KEY_SORT, DatabaseUtils.formatSortModelToString(sortModel));
     }
     //endregion
 }

@@ -1,6 +1,5 @@
 package com.ombrax.watchers.Activities;
 
-import android.content.Intent;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
@@ -26,7 +25,7 @@ import com.ombrax.watchers.Fragments.WatchAddFragment;
 import com.ombrax.watchers.Fragments.WatchListArchiveFragment;
 import com.ombrax.watchers.Fragments.WatchListDefaultFragment;
 import com.ombrax.watchers.Fragments.WatchSettingsFragment;
-import com.ombrax.watchers.Interfaces.Handler.ISecondaryMenuEnableHandler;
+import com.ombrax.watchers.Interfaces.Handler.ISortMenuEnableHandler;
 import com.ombrax.watchers.Interfaces.Listener.IOnMenuItemClickListener;
 import com.ombrax.watchers.Interfaces.Listener.IOnListItemEditListener;
 import com.ombrax.watchers.Interfaces.Handler.IMenuCloseHandler;
@@ -36,7 +35,7 @@ import com.ombrax.watchers.Views.Menu.MainMenuView;
 import com.ombrax.watchers.Views.Menu.MenuView;
 import com.ombrax.watchers.Views.Menu.SortMenuView;
 
-public class MainActivity extends AppCompatActivity implements IOnListItemEditListener<WatchModel>, IOnMenuItemClickListener, IMenuCloseHandler, ISecondaryMenuEnableHandler{
+public class MainActivity extends AppCompatActivity implements IOnListItemEditListener<WatchModel>, IOnMenuItemClickListener, IMenuCloseHandler, ISortMenuEnableHandler {
 
     //region declaration
     //region controller
@@ -115,7 +114,7 @@ public class MainActivity extends AppCompatActivity implements IOnListItemEditLi
         mc = MenuController.getInstance();
         mc.setOnMainMenuItemClickListener(this);
         mc.setMenuCloseHandler(this);
-        mc.setSecondaryMenuEnableHandler(this);
+        mc.setSortMenuEnableHandler(this);
     }
     //endregion
 
@@ -213,12 +212,12 @@ public class MainActivity extends AppCompatActivity implements IOnListItemEditLi
                 isSecondaryMenuShowing = true;
             }
         });
-        menuDrawer.setOnCloseListener(new SlidingMenu.OnCloseListener() {
+        menuDrawer.setOnClosedListener(new SlidingMenu.OnClosedListener() {
             @Override
-            public void onClose() {
+            public void onClosed() {
                 if (isSecondaryMenuShowing) {
                     isSecondaryMenuShowing = false;
-                    mc.notifyOnSecondaryMenuCloseObservers();
+                    mc.onSortMenuClosed();
                 }
             }
         });
@@ -276,7 +275,7 @@ public class MainActivity extends AppCompatActivity implements IOnListItemEditLi
     }
 
     @Override
-    public void handleSecondaryMenuEnable(boolean enable) {
+    public void handleSortMenuEnable(boolean enable) {
         menuDrawer.setMode(enable ? SlidingMenu.LEFT_RIGHT : SlidingMenu.LEFT);
         if (sortMenuItem != null) {
             sortMenuItem.setVisible(enable);

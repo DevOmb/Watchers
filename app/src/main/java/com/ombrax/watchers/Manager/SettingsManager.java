@@ -1,7 +1,7 @@
 package com.ombrax.watchers.Manager;
 
 import com.ombrax.watchers.Database.DatabaseKey;
-import com.ombrax.watchers.Enums.ActionSettings;
+import com.ombrax.watchers.Enums.ActionSetting;
 import com.ombrax.watchers.Repositories.SettingsRepository;
 import com.ombrax.watchers.Utils.DatabaseUtils;
 
@@ -16,8 +16,8 @@ public class SettingsManager {
     private boolean displayProgressEnabled;
     private boolean displayBannerEnabled;
     private boolean confirmOnCompleteEnabled;
-    private ActionSettings.OnSortMenuClose sortMenuCloseAction;
-    private ActionSettings.OnComplete completeAction;
+    private ActionSetting.OnSortMenuClose sortMenuCloseAction;
+    private ActionSetting.OnComplete completeAction;
     //endregion
 
     //region singleton
@@ -37,8 +37,8 @@ public class SettingsManager {
         displayProgressEnabled = DatabaseUtils.formatIntegerToBoolean(settingsRepository.get(DatabaseKey.SETTINGS_KEY_DISPLAY_PROGRESS));
         displayBannerEnabled = DatabaseUtils.formatIntegerToBoolean(settingsRepository.get(DatabaseKey.SETTINGS_KEY_DISPLAY_BANNER));
         confirmOnCompleteEnabled = DatabaseUtils.formatIntegerToBoolean(settingsRepository.get(DatabaseKey.SETTINGS_KEY_CONFIRM_COMPLETE));
-        sortMenuCloseAction = ActionSettings.OnSortMenuClose.values()[settingsRepository.get(DatabaseKey.SETTINGS_KEY_ACTION_SORT_CLOSE)];
-        completeAction = ActionSettings.OnComplete.values()[settingsRepository.get(DatabaseKey.SETTINGS_KEY_ACTION_COMPLETE)];
+        sortMenuCloseAction = ActionSetting.OnSortMenuClose.values()[settingsRepository.get(DatabaseKey.SETTINGS_KEY_ACTION_SORT_CLOSE)];
+        completeAction = ActionSetting.OnComplete.values()[settingsRepository.get(DatabaseKey.SETTINGS_KEY_ACTION_COMPLETE)];
     }
     //endregion
 
@@ -55,11 +55,11 @@ public class SettingsManager {
         return confirmOnCompleteEnabled;
     }
 
-    public ActionSettings.OnSortMenuClose getOnSortMenuCloseAction() {
+    public ActionSetting.OnSortMenuClose getOnSortMenuCloseAction() {
         return sortMenuCloseAction;
     }
 
-    public ActionSettings.OnComplete getOnCompleteAction() {
+    public ActionSetting.OnComplete getOnCompleteAction() {
         return completeAction;
     }
     //endregion

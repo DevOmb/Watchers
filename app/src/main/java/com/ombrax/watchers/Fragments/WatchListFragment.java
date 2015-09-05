@@ -2,7 +2,6 @@ package com.ombrax.watchers.Fragments;
 
 import android.os.Build;
 import android.os.Bundle;
-import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -14,12 +13,12 @@ import android.view.ViewTreeObserver;
 import com.ombrax.watchers.Adapters.WatchListAdapter;
 import com.ombrax.watchers.Controllers.DomainController;
 import com.ombrax.watchers.Controllers.MenuController;
-import com.ombrax.watchers.Enums.MenuItemType;
 import com.ombrax.watchers.Interfaces.Command;
-import com.ombrax.watchers.Interfaces.Observer.IOnUserSecondaryMenuCloseObserver;
-import com.ombrax.watchers.Interfaces.Listener.IOnSortMenuItemChangeListener;
+import com.ombrax.watchers.Interfaces.Listener.IOnSortOrderChangeListener;
+import com.ombrax.watchers.Manager.SettingsManager;
 import com.ombrax.watchers.Manager.SortingManager;
 import com.ombrax.watchers.Manager.ToolbarManager;
+import com.ombrax.watchers.Models.SortModel;
 import com.ombrax.watchers.Models.WatchModel;
 import com.ombrax.watchers.R;
 
@@ -28,10 +27,9 @@ import java.util.List;
 /**
  * Created by Ombrax on 30/06/2015.
  */
-public class WatchListFragment extends Fragment implements IOnSortMenuItemChangeListener, IOnUserSecondaryMenuCloseObserver {
+public class WatchListFragment extends Fragment implements IOnSortOrderChangeListener {
 
     //region declaration
-
     //region protected field
     protected DomainController dc;
     protected MenuController mc;
@@ -39,13 +37,14 @@ public class WatchListFragment extends Fragment implements IOnSortMenuItemChange
     //endregion
 
     //region inner field
+    private SortingManager sortingManager;
+
     private List<WatchModel> watchModels;
 
     private WatchListAdapter adapter;
     private LinearLayoutManager layoutManager;
     private RecyclerView recyclerView;
     //endregion
-
     //endregion
 
     //region create
@@ -54,8 +53,9 @@ public class WatchListFragment extends Fragment implements IOnSortMenuItemChange
         super.onCreate(savedInstanceState);
         dc = DomainController.getInstance();
         mc = MenuController.getInstance();
-        mc.setOnSortMenuItemChangeListener(this);
+        mc.setOnSortOrderChangeListener(this);
         toolbarManager = ToolbarManager.getInstance();
+        sortingManager = SortingManager.getInstance();
     }
 
     @Override
@@ -76,14 +76,8 @@ public class WatchListFragment extends Fragment implements IOnSortMenuItemChange
     @Override
     public void onResume() {
         super.onResume();
-        mc.registerOnSecondaryMenuCloseObserver(this);
-        mc.handleSecondaryMenuEnable(true);
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        mc.unregisterOnSecondaryMenuCloseObserver(this);
+        mc.handleSortMenuEnable(true);
+        adapter.sort(sortingManager.getCurrentComparator());
     }
     //endregion
 
@@ -110,7 +104,7 @@ public class WatchListFragment extends Fragment implements IOnSortMenuItemChange
         this.watchModels = watchModels;
     }
 
-    protected void collapseToolbar(){
+    protected void collapseToolbar() {
         toolbarManager.expandToolbar(false);
     }
 
@@ -125,21 +119,15 @@ public class WatchListFragment extends Fragment implements IOnSortMenuItemChange
         });
     }
 
-    protected void enableNestedScrolling(boolean enable){
+    protected void enableNestedScrolling(boolean enable) {
         recyclerView.setNestedScrollingEnabled(enable);
     }
     //endregion
 
     //region interface implementation
     @Override
-    public void onSortMenuItemChange(MenuItemType menuItemType, boolean isAscendingOrder) {
-        adapter.sort(SortingManager.getInstance().get(menuItemType, isAscendingOrder));
-    }
-
-    @Override
-    public void onUserSecondaryMenuClose() {
-        //TODO get action from settings (sort)
-        System.out.println("Secondary Menu Closed By User");
+    public void onSortOrderChange(SortModel sortModel) {
+        adapter.sort(sortingManager.getComparator(sortModel));
     }
     //endregion
 }

@@ -1,11 +1,17 @@
 package com.ombrax.watchers.Utils;
 
+import android.util.Log;
+
+import com.ombrax.watchers.Enums.MenuType;
+import com.ombrax.watchers.Models.SortModel;
+
 import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.IllegalFormatException;
 import java.util.List;
 
 /**
@@ -38,6 +44,12 @@ public class DatabaseUtils {
 
     public static int formatBooleanToInteger(boolean value) {
         return value ? 1 : 0;
+    }
+
+    public static String formatSortModelToString(SortModel sortModel){
+        int ordinal = MenuType.SORT.children().indexOf(sortModel.getSortType());
+        int order = formatBooleanToInteger(sortModel.isAscending());
+        return String.format("%d%d", ordinal, order);
     }
     //endregion
 
@@ -73,9 +85,19 @@ public class DatabaseUtils {
         try {
             return DTF.parse(string);
         } catch (NullPointerException|ParseException e) {
-            System.out.println("Failed to parse String " + string + " to Date, returning null.");
+            Log.d("FORMAT", "Failed to parse String " + string + " to Date, returning null.");
         }
         return null;
+    }
+
+    public static SortModel formatStringToSortModel(String string){
+        if(string.length() == 2) {
+            int ordinal = Integer.parseInt(string.substring(0,1));
+            boolean isAscending = formatIntegerToBoolean(Integer.parseInt(string.substring(1)));
+            return new SortModel(MenuType.SORT.children().get(ordinal), isAscending);
+        }else{
+            throw new IllegalArgumentException("The provided String is not the proper format");
+        }
     }
     //endregion
     //endregion

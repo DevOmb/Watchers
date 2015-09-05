@@ -33,10 +33,4 @@ public class WatchListDefaultFragment extends WatchListFragment {
         super.onPause();
         collapseToolbar();
     }
-
-    @Override
-    public void onSortMenuItemChange(MenuItemType menuItemType, boolean isAscendingOrder) {
-        super.onSortMenuItemChange(menuItemType, isAscendingOrder);
-        //TODO save to default sort in db
-    }
 }

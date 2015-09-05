@@ -1,1 +1,1 @@
-include ':app', ':libs:SimpleProgressBar', ':libs:SlidingMenu', ':libs:Banner', ':libs:SweetAlertDialog', ':libs:AnimatedSortingOrderIcon', ':libs:FocusFrame', ':libs:FloatingToggleButton'
+include ':app', ':libs:SimpleProgressBar', ':libs:SlidingMenu', ':libs:Banner', ':libs:SweetAlertDialog', ':libs:AnimatedSortingOrderIcon', ':libs:FocusFrame', ':libs:FloatingToggleButton', ':libs:EnumChoiceDialog'

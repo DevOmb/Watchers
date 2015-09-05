@@ -33,15 +33,6 @@ public class MainMenuView extends MenuView {
             }
         });
     }
-
-    public void setMenuItemVisibility(final MenuItemType menuItemType, final int visibility) {
-        waitForRecyclerViewContent(new Command() {
-            @Override
-            public void execute() {
-                findViewByMenuItemType(menuItemType).setVisibility(visibility);
-            }
-        });
-    }
     //endregion
 
     //region override

@@ -26,10 +26,4 @@ public class WatchListArchiveFragment extends WatchListFragment {
         enableNestedScrolling(false);
         toolbarManager.setExpandingTitle("Archive");
     }
-
-    @Override
-    public void onSortMenuItemChange(MenuItemType menuItemType, boolean isAscendingOrder) {
-        super.onSortMenuItemChange(menuItemType, isAscendingOrder);
-        //TODO save to archive sort in db
-    }
 }

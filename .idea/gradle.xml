@@ -14,6 +14,7 @@
             <option value="$PROJECT_DIR$/libs" />
             <option value="$PROJECT_DIR$/libs/AnimatedSortingOrderIcon" />
             <option value="$PROJECT_DIR$/libs/Banner" />
+            <option value="$PROJECT_DIR$/libs/EnumChoiceDialog" />
             <option value="$PROJECT_DIR$/libs/FloatingToggleButton" />
             <option value="$PROJECT_DIR$/libs/FocusFrame" />
             <option value="$PROJECT_DIR$/libs/SimpleProgressBar" />

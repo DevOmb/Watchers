@@ -45,6 +45,11 @@ public class SortMenuItemView extends MenuItemView {
     public boolean isAscendingOrder() {
         return orderIcon.isAscendingOrder();
     }
+
+    public void setOrder(boolean ascending){
+        orderIcon.setAscendingOrder(ascending);
+        orderIcon.invalidate();
+    }
     //endregion
 
     //region helper

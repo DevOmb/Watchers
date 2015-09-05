@@ -71,6 +71,7 @@
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/dex-cache" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/Watchers.libs/AnimatedSortingOrderIcon/unspecified/jars" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/Watchers.libs/Banner/unspecified/jars" />
+      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/Watchers.libs/EnumChoiceDialog/unspecified/jars" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/Watchers.libs/FloatingToggleButton/unspecified/jars" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/Watchers.libs/FocusFrame/unspecified/jars" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/Watchers.libs/SimpleProgressBar/unspecified/jars" />
@@ -112,12 +113,14 @@
     <orderEntry type="module" module-name="FocusFrame" exported="" />
     <orderEntry type="module" module-name="SweetAlertDialog" exported="" />
     <orderEntry type="module" module-name="AnimatedSortingOrderIcon" exported="" />
+    <orderEntry type="module" module-name="EnumChoiceDialog" exported="" />
     <orderEntry type="module" module-name="SlidingMenu" exported="" />
     <orderEntry type="module" module-name="Banner" exported="" />
     <orderEntry type="module" module-name="FloatingToggleButton" exported="" />
     <orderEntry type="library" exported="" name="SimpleProgressBar-unspecified" level="project" />
     <orderEntry type="library" exported="" name="FocusFrame-unspecified" level="project" />
     <orderEntry type="library" exported="" name="AnimatedSortingOrderIcon-unspecified" level="project" />
+    <orderEntry type="library" exported="" name="EnumChoiceDialog-unspecified" level="project" />
     <orderEntry type="library" exported="" name="Banner-unspecified" level="project" />
     <orderEntry type="library" exported="" name="FloatingToggleButton-unspecified" level="project" />
   </component>

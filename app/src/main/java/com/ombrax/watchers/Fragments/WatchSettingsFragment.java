@@ -10,14 +10,14 @@ import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.devomb.enumchoicedialog.EnumChoiceDialog;
 import com.ombrax.watchers.Controllers.MenuController;
 import com.ombrax.watchers.Database.DatabaseKey;
-import com.ombrax.watchers.Enums.ActionSettings;
+import com.ombrax.watchers.Enums.ActionSetting;
 import com.ombrax.watchers.Enums.MenuItemType;
 import com.ombrax.watchers.Manager.SettingsManager;
 import com.ombrax.watchers.Manager.ToolbarManager;
 import com.ombrax.watchers.R;
-import com.ombrax.watchers.Utils.DatabaseUtils;
 import com.rey.material.widget.CheckBox;
 
 /**
@@ -68,8 +68,8 @@ public class WatchSettingsFragment extends Fragment {
         checkBoxSetup(bannerLayout, bannerCheckbox, DatabaseKey.SETTINGS_KEY_DISPLAY_BANNER);
         checkBoxSetup(confirmLayout, confirmCompleteCheckbox, DatabaseKey.SETTINGS_KEY_CONFIRM_COMPLETE);
 
-        actionSetup(completeLayout, completeActionTextView, DatabaseKey.SETTINGS_KEY_ACTION_COMPLETE, ActionSettings.OnComplete.class);
-        actionSetup(sortLayout, sortMenuActionTextView, DatabaseKey.SETTINGS_KEY_ACTION_SORT_CLOSE, ActionSettings.OnSortMenuClose.class);
+        actionSetup(completeLayout, completeActionTextView, DatabaseKey.SETTINGS_KEY_ACTION_COMPLETE, ActionSetting.OnComplete.class, "Complete Action");
+        actionSetup(sortLayout, sortMenuActionTextView, DatabaseKey.SETTINGS_KEY_ACTION_SORT_CLOSE, ActionSetting.OnSortMenuClose.class, "Sort Menu Close Action");
 
         return view;
     }
@@ -78,7 +78,7 @@ public class WatchSettingsFragment extends Fragment {
     public void onResume() {
         super.onResume();
         mc.onMenuItemSelect(MenuItemType.SETTINGS);
-        mc.handleSecondaryMenuEnable(false);
+        mc.handleSortMenuEnable(false);
         toolbarManager.setExpandingTitle("Settings");
     }
 
@@ -90,11 +90,11 @@ public class WatchSettingsFragment extends Fragment {
     //endregion
 
     //region helper
-    private void getViews(View view){
+    private void getViews(View view) {
         progressLayout = (LinearLayout) view.findViewById(R.id.fragment_settings_progress_layout);
         bannerLayout = (LinearLayout) view.findViewById(R.id.fragment_settings_banner_layout);
         confirmLayout = (LinearLayout) view.findViewById(R.id.fragment_settings_confirm_complete_layout);
-        completeLayout = (LinearLayout) view.findViewById(R.id.fragment_settings_confirm_complete_layout);
+        completeLayout = (LinearLayout) view.findViewById(R.id.fragment_settings_complete_action_layout);
         sortLayout = (LinearLayout) view.findViewById(R.id.fragment_settings_sort_action_layout);
 
         progressCheckbox = (CheckBox) view.findViewById(R.id.fragment_settings_progress_checkbox);
@@ -105,7 +105,7 @@ public class WatchSettingsFragment extends Fragment {
         sortMenuActionTextView = (TextView) view.findViewById(R.id.fragment_settings_sort_action_label);
     }
 
-    private void checkBoxSetup(LinearLayout parentLayout, final CheckBox checkBox, final String databaseKey){
+    private void checkBoxSetup(LinearLayout parentLayout, final CheckBox checkBox, final String databaseKey) {
         checkBox.setChecked(settingsManager.getBooleanSetting(databaseKey));
         checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -121,13 +121,26 @@ public class WatchSettingsFragment extends Fragment {
         });
     }
 
-    private <T extends Enum<T>> void actionSetup(LinearLayout parentLayout, final TextView actionLabel, final String databaseKey, Class<T> enumType){
-        T[] enums = enumType.getEnumConstants();
-        actionLabel.setText(enums[settingsManager.getIntegerSetting(databaseKey)].name());
+    private <T extends Enum<T>> void actionSetup(LinearLayout parentLayout, final TextView actionLabel, final String databaseKey, final Class<T> enumClass, final String dialogTitle) {
+        actionLabel.setText(enumClass.getEnumConstants()[settingsManager.getIntegerSetting(databaseKey)].name());
         parentLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO pass enums var to enum choice dialog
+                int selectedIndex = settingsManager.getIntegerSetting(databaseKey);
+                new EnumChoiceDialog<T>(getContext())
+                        .background(R.drawable.dark_dialog_background)
+                        .title(dialogTitle, true)
+                        .titleColor(R.color.holo_white)
+                        .accentColor(R.color.accent)
+                        .options(enumClass, selectedIndex)
+                        .optionColor(R.color.holo_white)
+                        .onAccept(new EnumChoiceDialog.OnAcceptListener() {
+                            @Override
+                            public void onAccept(Enum selectedEnum) {
+                                actionLabel.setText(selectedEnum.name());
+                                settingsManager.setIntegerSetting(databaseKey, selectedEnum.ordinal());
+                            }
+                        }).show();
             }
         });
     }

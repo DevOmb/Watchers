@@ -1,6 +1,5 @@
 package com.ombrax.watchers.Fragments;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -95,7 +94,7 @@ public class WatchAddFragment extends Fragment implements IOnThumbnailImageSaveL
     public void onResume() {
         super.onResume();
         mc.onMenuItemSelect(!editMode ? MenuItemType.ADD : MenuItemType.EDIT);
-        mc.handleSecondaryMenuEnable(false);
+        mc.handleSortMenuEnable(false);
     }
     //endregion
 
