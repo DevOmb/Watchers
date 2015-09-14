@@ -41,6 +41,7 @@ public class ToolbarManager {
     public void setExpandingTitle(String title){
         if(collapsingToolbarLayout != null){
             collapsingToolbarLayout.setTitle(title);
+            System.out.println("Toolbar Title: "+title);
         }
     }
 
@@ -56,7 +57,7 @@ public class ToolbarManager {
         }
     }
 
-    public void expandToolbar(boolean expand){
+    public void setToolbarExpanded(boolean expand){
         if(appBarLayout != null){
             appBarLayout.setExpanded(expand);
         }

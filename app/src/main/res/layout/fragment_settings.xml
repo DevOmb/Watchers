@@ -2,7 +2,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/dark_dark_grey"
+    android:background="@color/dark_x3_grey"
     android:scrollbars="none">
 
     <LinearLayout
@@ -16,14 +16,14 @@
             android:padding="@dimen/default_2x"
             android:text="@string/settings_category_display"
             android:textAllCaps="true"
-            android:textColor="@color/light_grey"
+            android:textColor="@color/light_x1_grey"
             android:textSize="16sp"
             android:textStyle="bold" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/dark_grey"
+            android:background="@color/dark_x1_grey"
             android:orientation="vertical"
             android:padding="@dimen/default_1x">
 
@@ -46,14 +46,13 @@
                         android:layout_height="wrap_content"
                         android:paddingBottom="@dimen/default_.5x"
                         android:text="@string/settings_label_progress"
-                        android:textColor="@color/holo_white"
                         android:textSize="20sp" />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/settings_sub_label_progress"
-                        android:textColor="@color/light_grey"
+                        android:textColor="@color/light_x1_grey"
                         android:textSize="14sp" />
 
                 </LinearLayout>
@@ -64,7 +63,7 @@
                     android:layout_height="wrap_content"
                     app:cbd_strokeColor="@color/material_check_box_background"
                     app:cbd_strokeSize="1.5dp"
-                    app:cbd_tickColor="@color/white" />
+                    app:cbd_tickColor="@color/holo_white" />
 
             </LinearLayout>
 
@@ -93,14 +92,13 @@
                         android:layout_height="wrap_content"
                         android:paddingBottom="@dimen/default_.5x"
                         android:text="@string/settings_label_banner"
-                        android:textColor="@color/holo_white"
                         android:textSize="20sp" />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/settings_sub_label_banner"
-                        android:textColor="@color/light_grey"
+                        android:textColor="@color/light_x1_grey"
                         android:textSize="14sp" />
 
                 </LinearLayout>
@@ -111,7 +109,7 @@
                     android:layout_height="wrap_content"
                     app:cbd_strokeColor="@color/material_check_box_background"
                     app:cbd_strokeSize="1.5dp"
-                    app:cbd_tickColor="@color/white" />
+                    app:cbd_tickColor="@color/holo_white" />
 
             </LinearLayout>
 
@@ -123,14 +121,14 @@
             android:padding="@dimen/default_2x"
             android:text="Action"
             android:textAllCaps="true"
-            android:textColor="@color/light_grey"
+            android:textColor="@color/light_x1_grey"
             android:textSize="16sp"
             android:textStyle="bold" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/dark_grey"
+            android:background="@color/dark_x1_grey"
             android:orientation="vertical"
             android:padding="@dimen/default_1x">
 
@@ -153,7 +151,6 @@
                         android:paddingBottom="@dimen/default_.5x"
                         android:text="@string/settings_label_complete"
                         android:layout_marginRight="@dimen/default_1x"
-                        android:textColor="@color/holo_white"
                         android:textSize="20sp" />
 
                     <TextView
@@ -173,7 +170,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/settings_sub_label_complete"
-                    android:textColor="@color/light_grey"
+                    android:textColor="@color/light_x1_grey"
                     android:textSize="14sp" />
 
             </LinearLayout>
@@ -203,7 +200,6 @@
                         android:paddingBottom="@dimen/default_.5x"
                         android:text="@string/settings_label_sort_menu"
                         android:layout_marginRight="@dimen/default_1x"
-                        android:textColor="@color/holo_white"
                         android:textSize="20sp" />
 
                     <TextView
@@ -223,7 +219,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/settings_sub_label_sort_menu"
-                    android:textColor="@color/light_grey"
+                    android:textColor="@color/light_x1_grey"
                     android:textSize="14sp" />
 
             </LinearLayout>
@@ -236,7 +232,7 @@
             android:padding="@dimen/default_2x"
             android:text="Other"
             android:textAllCaps="true"
-            android:textColor="@color/light_grey"
+            android:textColor="@color/light_x1_grey"
             android:textSize="16sp"
             android:textStyle="bold" />
 
@@ -245,7 +241,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
-            android:background="@color/dark_grey"
+            android:background="@color/dark_x1_grey"
             android:orientation="horizontal"
             android:padding="@dimen/default_2x">
 
@@ -260,14 +256,13 @@
                     android:layout_height="wrap_content"
                     android:paddingBottom="@dimen/default_.5x"
                     android:text="@string/settings_label_confirm_complete"
-                    android:textColor="@color/holo_white"
                     android:textSize="20sp" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/settings_sub_label_confirm_complete"
-                    android:textColor="@color/light_grey"
+                    android:textColor="@color/light_x1_grey"
                     android:textSize="14sp" />
 
             </LinearLayout>
@@ -278,7 +273,7 @@
                 android:layout_height="wrap_content"
                 app:cbd_strokeColor="@color/material_check_box_background"
                 app:cbd_strokeSize="1.5dp"
-                app:cbd_tickColor="@color/white" />
+                app:cbd_tickColor="@color/holo_white" />
 
         </LinearLayout>
 

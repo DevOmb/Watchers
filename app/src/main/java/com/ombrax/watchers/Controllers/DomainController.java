@@ -25,7 +25,6 @@ public class DomainController {
     }
     //endregion
 
-
     //region observer
     private List<IOnListItemEditListener<WatchModel>> onListItemEditListeners = new ArrayList<>();
 
@@ -74,7 +73,7 @@ public class DomainController {
 
     public void handleWatchCardUpdate() {
         if (watchCardUpdateHandler != null) {
-            watchCardUpdateHandler.handlerWatchCardUpdate();
+            watchCardUpdateHandler.handleWatchCardUpdate();
         }
     }
 

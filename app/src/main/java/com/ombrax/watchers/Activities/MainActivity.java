@@ -3,9 +3,7 @@ package com.ombrax.watchers.Activities;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
+import android.app.Fragment;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -16,6 +14,7 @@ import android.view.View;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.ombrax.watchers.Controllers.DomainController;
 import com.ombrax.watchers.Controllers.MenuController;
+import com.ombrax.watchers.Manager.FragmentManager;
 import com.ombrax.watchers.Manager.SettingsManager;
 import com.ombrax.watchers.Manager.ToolbarManager;
 import com.ombrax.watchers.Database.WatchersDatabase;
@@ -23,7 +22,7 @@ import com.ombrax.watchers.Enums.MenuItemType;
 import com.ombrax.watchers.Enums.MenuType;
 import com.ombrax.watchers.Fragments.WatchAddFragment;
 import com.ombrax.watchers.Fragments.WatchListArchiveFragment;
-import com.ombrax.watchers.Fragments.WatchListDefaultFragment;
+import com.ombrax.watchers.Fragments.WatchListMainFragment;
 import com.ombrax.watchers.Fragments.WatchSettingsFragment;
 import com.ombrax.watchers.Interfaces.Handler.ISortMenuEnableHandler;
 import com.ombrax.watchers.Interfaces.Listener.IOnMenuItemClickListener;
@@ -41,6 +40,7 @@ public class MainActivity extends AppCompatActivity implements IOnListItemEditLi
     //region controller
     private DomainController dc;
     private MenuController mc;
+    private FragmentManager fragmentManager;
     //endregion
 
     //region inner field
@@ -68,11 +68,11 @@ public class MainActivity extends AppCompatActivity implements IOnListItemEditLi
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                switchFragment(new WatchAddFragment());
+                showFragment(new WatchAddFragment());
             }
         });
 
-        switchFragment(new WatchListDefaultFragment());
+        showHomeFragment();
     }
     //endregion
 
@@ -115,68 +115,30 @@ public class MainActivity extends AppCompatActivity implements IOnListItemEditLi
         mc.setOnMainMenuItemClickListener(this);
         mc.setMenuCloseHandler(this);
         mc.setSortMenuEnableHandler(this);
+
+        //FragmentManager.enableDebugging(true);
+        fragmentManager = FragmentManager.getInstance();
+        fragmentManager.initialize(getFragmentManager(), R.id.container);
+        fragmentManager.setGeneralBackStackRule(new FragmentManager.BackStackRule() {
+            @Override
+            public boolean addToBackStack(Fragment current) {
+                return !(current instanceof WatchAddFragment) && !fragmentManager.areEqual(fragmentManager.getTopEntry(), current);
+            }
+        });
     }
     //endregion
 
     //region fragment
-    //TODO animate transaction (slide up)
-    private void switchFragment(Fragment fragment) {
-        //Check if same Fragment is present at top of BackStack
-        if (topBackStackEntry(fragment)) {
-            getSupportFragmentManager().popBackStackImmediate();
-            return;
+    private void showHomeFragment(){
+        if(!fragmentManager.isBackStackEmpty()){
+            fragmentManager.clearBackStack();
+        }else{
+            fragmentManager.showFragment(new WatchListMainFragment());
         }
-
-        //Check if Fragment already exists
-        Fragment existingFragment = getSupportFragmentManager().findFragmentByTag(getNameForFragment(fragment));
-        if (existingFragment == null) {
-            existingFragment = fragment;
-        }
-
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.container, existingFragment, getNameForFragment(existingFragment));
-        //Check all rules before adding to BackStack
-        if (validForBackStack()) {
-            transaction.addToBackStack(getNameForFragment(null));
-        }
-        transaction.commit();
     }
 
-    private boolean topBackStackEntry(Fragment fragment) {
-        FragmentManager manager = getSupportFragmentManager();
-
-        //Initial stage of the Activity
-        if (manager.getBackStackEntryCount() == 0) {
-            return false;
-        }
-
-        FragmentManager.BackStackEntry topEntry = manager.getBackStackEntryAt(manager.getBackStackEntryCount() - 1);
-        String entryName = topEntry.getName();
-
-        //No two classes have the same classname, ensures that a match is always correct
-        return entryName.equals(getNameForFragment(fragment));
-    }
-
-    private String getNameForFragment(Fragment fragment) {
-        if (fragment == null) {
-            //Get the currently displayed Fragment
-            fragment = getSupportFragmentManager().findFragmentById(R.id.container);
-            //If null, it means we are at the initial stage of the Activity
-            if (fragment == null) {
-                return null;
-            }
-        }
-        //Every class can be differentiated by its unique classname
-        return fragment.getClass().getSimpleName();
-    }
-
-    private boolean validForBackStack() {
-        Fragment current = getSupportFragmentManager().findFragmentById(R.id.container);
-        //1. No Fragment present, can't be added to BackStack
-        boolean rule_1 = current != null;
-        //2. Ignore all instances of WatchAddFragment
-        boolean rule_2 = !(current instanceof WatchAddFragment);
-        return rule_1 && rule_2;
+    private void showFragment(Fragment fragment){
+        fragmentManager.showFragment(fragment);
     }
     //endregion
 
@@ -188,7 +150,6 @@ public class MainActivity extends AppCompatActivity implements IOnListItemEditLi
                 (AppBarLayout) findViewById(R.id.appbar_layout),
                 (Toolbar) findViewById(R.id.toolbar)
         );
-        toolbarManager.setExpandingTitle(getString(R.string.app_name));
         toolbarManager.setMainActionItemDrawable(R.drawable.ic_menu);
         toolbarManager.attachToActivity(this);
     }
@@ -229,6 +190,8 @@ public class MainActivity extends AppCompatActivity implements IOnListItemEditLi
     public void onBackPressed() {
         if (menuDrawer.isMenuShowing()) {
             menuDrawer.showContent();
+        } else if (!fragmentManager.isBackStackEmpty()) {
+            fragmentManager.popBackStack();
         } else {
             super.onBackPressed();
         }
@@ -244,7 +207,8 @@ public class MainActivity extends AppCompatActivity implements IOnListItemEditLi
     //region interface implementation
     @Override
     public void onListItemEdit(WatchModel watchModel) {
-        switchFragment(WatchAddFragment.editInstance(watchModel));
+        fragmentManager.showFragment(WatchAddFragment.editInstance(watchModel));
+        //switchFragment(WatchAddFragment.editInstance(watchModel));
     }
 
     @Override
@@ -257,16 +221,16 @@ public class MainActivity extends AppCompatActivity implements IOnListItemEditLi
             if (mainMenu.hasNewSelection(menuItemType)) {
                 switch (menuItemType) {
                     case HOME:
-                        switchFragment(new WatchListDefaultFragment());
+                        showHomeFragment();
                         break;
                     case ADD:
-                        switchFragment(new WatchAddFragment());
+                        showFragment(new WatchAddFragment());
                         break;
                     case ARCHIVE:
-                        switchFragment(new WatchListArchiveFragment());
+                        showFragment(new WatchListArchiveFragment());
                         break;
                     case SETTINGS:
-                        switchFragment(new WatchSettingsFragment());
+                        showFragment(new WatchSettingsFragment());
                         break;
                 }
                 menuDrawer.toggle();

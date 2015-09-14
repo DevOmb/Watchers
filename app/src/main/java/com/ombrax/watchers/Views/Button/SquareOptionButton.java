@@ -6,6 +6,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.AttributeSet;
+import android.widget.Button;
 import android.widget.ImageButton;
 
 import com.ombrax.watchers.R;
@@ -13,7 +14,7 @@ import com.ombrax.watchers.R;
 /**
  * Created by Ombrax on 4/08/2015.
  */
-public class SimpleIconButton extends ImageButton {
+public class SquareOptionButton extends Button {
 
     //region inner field
     private Paint circlePaint;
@@ -23,17 +24,17 @@ public class SimpleIconButton extends ImageButton {
     //endregion
 
     //region constructor
-    public SimpleIconButton(Context context) {
+    public SquareOptionButton(Context context) {
         super(context);
         init(null, 0);
     }
 
-    public SimpleIconButton(Context context, AttributeSet attrs) {
+    public SquareOptionButton(Context context, AttributeSet attrs) {
         super(context, attrs);
         init(attrs, 0);
     }
 
-    public SimpleIconButton(Context context, AttributeSet attrs, int defStyleAttr) {
+    public SquareOptionButton(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init(attrs, defStyleAttr);
     }
@@ -42,44 +43,16 @@ public class SimpleIconButton extends ImageButton {
     //region setup
     private void init(AttributeSet attrs, int defStyleAttr) {
         getViewResources();
-        if(attrs != null) {
-            setAttributes(attrs, defStyleAttr);
-        }else{
-            setDefaultAttributes();
-        }
     }
     //endregion
 
     //region helper
-    private void getViewResources(){
+    private void getViewResources() {
         circlePaint = new Paint();
         circlePaint.setAntiAlias(true);
-        circlePaint.setColor(Color.WHITE);
-        circlePaint.setAlpha(10);
+        circlePaint.setColor(getResources().getColor(R.color.accent));
+        circlePaint.setAlpha(221);
         circlePaint.setStyle(Paint.Style.FILL_AND_STROKE);
-    }
-
-    private void setAttributes(AttributeSet set, int defStyleAttr) {
-
-        int[] attrs = new int[]{android.R.attr.adjustViewBounds, android.R.attr.scaleType, android.R.attr.background};
-        TypedArray attributes = getContext().obtainStyledAttributes(set, attrs, defStyleAttr, 0);
-        boolean adjustViewBounds = attributes.getBoolean(0, true);
-        ScaleType scaleType = ScaleType.values()[attributes.getInt(1, ScaleType.CENTER_INSIDE.ordinal())];
-        attributes.recycle();
-
-        setAdjustViewBounds(adjustViewBounds);
-        setScaleType(scaleType);
-        setBackgroundResource(R.color.transparent);
-
-        if (isInEditMode()) {
-            setImageResource(R.drawable.ic_accept);
-        }
-    }
-
-    private void setDefaultAttributes(){
-        setAdjustViewBounds(true);
-        setScaleType(ScaleType.CENTER_INSIDE);
-        setBackgroundResource(R.color.transparent);
     }
     //endregion
 
@@ -104,6 +77,8 @@ public class SimpleIconButton extends ImageButton {
         width = getMeasuredWidth();
         height = getMeasuredHeight();
         radius = Math.min(width, height)/2;
+        int measuredDimension = Math.round(Math.min(width, height));
+        setMeasuredDimension(measuredDimension, measuredDimension);
     }
     //endregion
 }

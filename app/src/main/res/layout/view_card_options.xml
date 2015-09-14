@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/dark_x2_transparent"
+    android:orientation="vertical"
+    android:paddingTop="@dimen/default_1x"
+    android:paddingBottom="@dimen/default_1x">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1"/>
+
+        <com.ombrax.watchers.Views.Button.SquareOptionButton
+            android:id="@+id/view_card_options_next_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/transparent"
+            android:drawableTop="@drawable/ic_next"
+            android:padding="@dimen/default_1x"
+            android:text="Next"
+            android:textSize="12sp" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1"/>
+
+        <com.ombrax.watchers.Views.Button.SquareOptionButton
+            android:id="@+id/view_card_options_undo_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/transparent"
+            android:drawableTop="@drawable/ic_undo"
+            android:padding="@dimen/default_1x"
+            android:text="Previous"
+            android:textSize="12sp" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1"/>
+
+        <com.ombrax.watchers.Views.Button.SquareOptionButton
+            android:id="@+id/view_card_options_edit_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/transparent"
+            android:drawableTop="@drawable/ic_edit"
+            android:padding="@dimen/default_1x"
+            android:text="Edit"
+            android:textSize="12sp" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1"/>
+
+        <com.ombrax.watchers.Views.Button.SquareOptionButton
+            android:id="@+id/view_card_options_archive_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/transparent"
+            android:drawableTop="@drawable/ic_archive"
+            android:padding="@dimen/default_1x"
+            android:text="Archive"
+            android:textSize="12sp" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1"/>
+
+        <com.ombrax.watchers.Views.Button.SquareOptionButton
+            android:id="@+id/view_card_options_delete_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/transparent"
+            android:drawableTop="@drawable/ic_delete"
+            android:padding="@dimen/default_1x"
+            android:text="Delete"
+            android:textSize="12sp" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1"/>
+
+        <com.ombrax.watchers.Views.Button.SquareOptionButton
+            android:id="@+id/view_card_options_close_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/transparent"
+            android:drawableTop="@drawable/ic_cancel"
+            android:padding="@dimen/default_1x"
+            android:text="Close"
+            android:textSize="12sp" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1"/>
+
+    </LinearLayout>
+
+</LinearLayout>

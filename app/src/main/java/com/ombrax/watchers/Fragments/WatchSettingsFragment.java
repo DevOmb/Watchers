@@ -2,7 +2,7 @@ package com.ombrax.watchers.Fragments;
 
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -79,6 +79,7 @@ public class WatchSettingsFragment extends Fragment {
         super.onResume();
         mc.onMenuItemSelect(MenuItemType.SETTINGS);
         mc.handleSortMenuEnable(false);
+        toolbarManager.setToolbarExpanded(false);
         toolbarManager.setExpandingTitle("Settings");
     }
 
@@ -128,7 +129,7 @@ public class WatchSettingsFragment extends Fragment {
             public void onClick(View v) {
                 int selectedIndex = settingsManager.getIntegerSetting(databaseKey);
                 new EnumChoiceDialog<T>(getContext())
-                        .background(R.drawable.dark_dialog_background)
+                        .background(R.drawable.dialog_dark_background)
                         .title(dialogTitle, true)
                         .titleColor(R.color.holo_white)
                         .accentColor(R.color.accent)

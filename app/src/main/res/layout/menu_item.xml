@@ -9,5 +9,4 @@
     android:padding="@dimen/default_2x"
     android:text="placeholder"
     android:textAllCaps="true"
-    android:textColor="@color/white"
     android:textSize="16sp" />

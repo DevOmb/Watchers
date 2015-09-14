@@ -1,6 +1,7 @@
 package com.ombrax.watchers.Views.Card;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.res.Resources;
 
 import android.graphics.Typeface;
@@ -31,24 +32,26 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
 public class WatchCardView extends FrameLayout implements IWatchCardUpdateHandler {
 
     //region declaration
-
     //region variable
     private WatchModel watchModel;
     //endregion
 
     //region inner field
+    private DomainController dc;
     private WatchRepository repo;
-    private SettingsManager manager;
+    private SettingsManager settingsManager;
+
     private ViewHolder vh;
+
+    private boolean isArchiveDialogShowing;
+    private boolean isDeleteDialogShowing;
     //endregion
 
     //region resource
     private Resources r;
-
     private int textColorAccent;
     private int textColorDefault;
     //endregion
-
     //endregion
 
     //region constructor
@@ -67,23 +70,24 @@ public class WatchCardView extends FrameLayout implements IWatchCardUpdateHandle
         if (vh == null) {
             vh = new ViewHolder();
             getViews();
-            addClickListeners();
+            setListeners();
             setTag(vh);
         }
 
-        applyModel();
+        displayModelAttributes();
     }
     //endregion
 
     //region helper
+    //region setup
     private void loadResources() {
+        dc = DomainController.getInstance();
         repo = WatchRepository.getInstance();
-        manager = SettingsManager.getInstance();
+        settingsManager = SettingsManager.getInstance();
+
         r = getResources();
-
-
         textColorAccent = r.getColor(R.color.accent);
-        textColorDefault = r.getColor(R.color.dark_grey);
+        textColorDefault = r.getColor(R.color.holo_white);
     }
 
     private void getViews() {
@@ -98,11 +102,62 @@ public class WatchCardView extends FrameLayout implements IWatchCardUpdateHandle
         vh.dateField = (TextView) findViewById(R.id.watch_card_date_label);
         vh.lastSeenField = (TextView) findViewById(R.id.watch_card_lastViewed);
 
-        if(manager.isDisplayBannerEnabled()) {
+        if (settingsManager.isDisplayBannerEnabled()) {
             createBanner();
         }
     }
 
+    private void setListeners() {
+        if (watchModel.isArchived()) {
+            setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (watchModel.isArchived() && !isArchiveDialogShowing) {
+                        isArchiveDialogShowing = true;
+                        DialogUtils.newAvatarAlertDialog(
+                                getContext(),
+                                watchModel.getName(),
+                                watchModel.isCompleted() ? "Delete from archive" : "Withdraw from archive",
+                                vh.thumbnailImage.getDrawable(),
+                                new SweetAlertDialog.OnSweetClickListener() {
+                                    @Override
+                                    public void onClick(SweetAlertDialog sweetAlertDialog) {
+                                        if (watchModel.isCompleted()) {
+                                            repo.delete(watchModel.getId());
+                                            dc.handleWatchCardRemove(watchModel);
+                                        } else {
+                                            watchModel.setArchived(false);
+                                            repo.update(watchModel, false);
+                                            dc.handleWatchCardRemove(watchModel);
+                                        }
+                                        sweetAlertDialog.dismissWithAnimation();
+                                    }
+                                },
+                                new DialogInterface.OnDismissListener() {
+                                    @Override
+                                    public void onDismiss(DialogInterface dialog) {
+                                        isArchiveDialogShowing = false;
+                                    }
+                                }
+                        ).show();
+                    }
+                }
+            });
+        }
+        setOnLongClickListener(new OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                if (!watchModel.isArchived()) {
+                    DialogUtils.newWatchCardOptionsDialog(getContext(), WatchCardView.this, watchModel).show();
+                }
+                return true;
+            }
+        });
+    }
+    //endregion
+
+
+    //region create
     private void createBanner() {
         vh.banner = new Banner(getContext());
         vh.banner.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
@@ -110,93 +165,89 @@ public class WatchCardView extends FrameLayout implements IWatchCardUpdateHandle
         vh.banner.setText("New");
         vh.banner.attachTo(vh.thumbnailImage);
     }
+    //endregion
 
-    private void addClickListeners() {
-        setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (watchModel.isArchived()) {
-                    DialogUtils.newAvatarAlertDialog(getContext(), watchModel.getName(), "Withdraw from archive", vh.thumbnailImage.getDrawable(), new SweetAlertDialog.OnSweetClickListener() {
-                        @Override
-                        public void onClick(SweetAlertDialog sweetAlertDialog) {
-                            watchModel.setArchived(false);
-                            repo.update(watchModel, false);
-                            DomainController.getInstance().handleWatchCardRemove(watchModel);
-                            sweetAlertDialog.dismissWithAnimation();
-                        }
-                    }).show();
-                } else {
-                    if (watchModel.increment()) {
-                        repo.update(watchModel, true);
-                        updateDisplay();
-                    } else {
-                        if(manager.isConfirmOnCompleteEnabled()) {
-                            DialogUtils.newAvatarAlertDialog(getContext(), watchModel.getName(), "Conclude Tv Show", vh.thumbnailImage.getDrawable(), new SweetAlertDialog.OnSweetClickListener() {
-                                @Override
-                                public void onClick(SweetAlertDialog sweetAlertDialog) {
-                                    //TODO Check action on complete in settings
-                                    sweetAlertDialog.dismissWithAnimation();
-                                }
-                            }).show();
-                        }
-                    }
-                }
-            }
-        });
-
-        setOnLongClickListener(new OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                if (!watchModel.isArchived()) {
-                    DomainController.getInstance().setWatchCardUpdateHandler(WatchCardView.this);
-                    DialogUtils.newWatchCardOptionsDialog(getContext(), watchModel).show();
-                    return true;
-                }
-                return false;
-            }
-        });
-    }
-
-    private void applyModel() {
+    //region display
+    private void displayModelAttributes() {
         vh.titleField.setText(watchModel.getName());
-        vh.progressLabel.setVisibility(manager.isDisplayProgressEnabled() ? VISIBLE : GONE);
+        vh.progressLabel.setVisibility(settingsManager.isDisplayProgressEnabled() ? VISIBLE : GONE);
         loadImageFromPath(watchModel.getThumbnailPath());
         updateDisplay();
-    }
-
-    private void updateDisplay() {
-        //Progress
-        vh.progressBar.setProgress(watchModel.getProgress());
-        vh.progressLabel.setText(String.format("%.2f%%", watchModel.getProgress() * 100));
-        vh.seasonEpisodeField.setText(watchModel.format(WatchModel.Format.WATCH));
-
-        //New
-        boolean watching = watchModel.nowWatching();
-        vh.dateField.setText(watching ? "Last seen" : "New");
-        vh.dateField.setTypeface(watching ? Typeface.DEFAULT : Typeface.DEFAULT_BOLD);
-        vh.dateField.setTextColor(watching ? textColorDefault : textColorAccent);
-        vh.lastSeenField.setText(watching ? watchModel.format(WatchModel.Format.DATE) : "");
-
-        //State
-        boolean defaultState = watchModel.getWatchState() == WatchState.DEFAULT || watchModel.getWatchState() == WatchState.FIRST_EPISODE;
-        vh.nextField.setTextColor(defaultState ? textColorDefault : textColorAccent);
-        vh.nextField.setTypeface(defaultState ? Typeface.DEFAULT : Typeface.DEFAULT_BOLD);
-        vh.nextField.setText(watchModel.getWatchState().toString());
-
-        //Banner
-        if (vh.banner != null) {
-            vh.banner.setVisibility(watching ? GONE : VISIBLE);
-        }
     }
 
     private void loadImageFromPath(String path) {
         ImageUtils.loadImageFromFile(vh.thumbnailImage, path);
     }
+
+    private void updateDisplay() {
+        vh.progressBar.setProgress(watchModel.getProgress());
+        vh.progressLabel.setText(String.format("%.2f%%", watchModel.getProgress() * 100));
+        vh.seasonEpisodeField.setText(watchModel.format(WatchModel.Format.WATCH));
+
+        if (!watchModel.isCompleted()) {
+            boolean watching = watchModel.nowWatching();
+            vh.dateField.setText(watching ? "Last seen" : "New");
+            vh.dateField.setTypeface(watching ? Typeface.DEFAULT : Typeface.DEFAULT_BOLD);
+            vh.dateField.setTextColor(watching ? textColorDefault : textColorAccent);
+            vh.lastSeenField.setText(watching ? watchModel.format(WatchModel.Format.DATE) : "");
+
+            boolean defaultState = watchModel.getWatchState() == WatchState.DEFAULT || watchModel.getWatchState() == WatchState.FIRST_EPISODE;
+            vh.nextField.setTextColor(defaultState ? textColorDefault : textColorAccent);
+            vh.nextField.setTypeface(defaultState ? Typeface.DEFAULT : Typeface.DEFAULT_BOLD);
+            vh.nextField.setText(watchModel.getWatchState().toString());
+
+            if (vh.banner != null) {
+                vh.banner.setVisibility(watching ? GONE : VISIBLE);
+            }
+        } else {
+            setOnLongClickListener(null);
+            setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (!isDeleteDialogShowing) {
+                        isDeleteDialogShowing = true;
+                        DialogUtils.newAvatarAlertDialog(
+                                getContext(),
+                                watchModel.getName(),
+                                "Delete from list",
+                                vh.thumbnailImage.getDrawable(),
+                                new SweetAlertDialog.OnSweetClickListener() {
+                                    @Override
+                                    public void onClick(SweetAlertDialog sweetAlertDialog) {
+                                        repo.delete(watchModel.getId());
+                                        dc.handleWatchCardRemove(watchModel);
+                                        sweetAlertDialog.dismissWithAnimation();
+                                    }
+                                }, new DialogInterface.OnDismissListener() {
+                                    @Override
+                                    public void onDismiss(DialogInterface dialog) {
+                                        isDeleteDialogShowing = false;
+                                    }
+                                }
+                        ).show();
+                    }
+                }
+            });
+
+            setAlpha(0.4f);
+
+            vh.nextField.setTextColor(textColorDefault);
+            vh.nextField.setTypeface(Typeface.DEFAULT);
+            vh.nextField.setText("Done");
+
+            vh.dateField.setText("Completed on");
+            vh.dateField.setTypeface(Typeface.DEFAULT);
+            vh.dateField.setTextColor(textColorDefault);
+            vh.lastSeenField.setText(watchModel.format(WatchModel.Format.DATE));
+        }
+    }
     //endregion
+    //endregion
+
 
     //region interface implementation
     @Override
-    public void handlerWatchCardUpdate() {
+    public void handleWatchCardUpdate() {
         updateDisplay();
     }
     //endregion

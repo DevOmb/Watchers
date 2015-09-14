@@ -11,7 +11,6 @@ import com.ombrax.watchers.Adapters.MenuAdapter;
 import com.ombrax.watchers.Controllers.MenuController;
 import com.ombrax.watchers.Enums.MenuItemType;
 import com.ombrax.watchers.Enums.MenuType;
-import com.ombrax.watchers.Interfaces.Command;
 import com.ombrax.watchers.Interfaces.Listener.IOnMenuItemSelectListener;
 import com.ombrax.watchers.R;
 import com.ombrax.watchers.Utils.LayoutUtils;
@@ -27,11 +26,11 @@ public class MenuView extends LinearLayout implements RecyclerView.OnChildAttach
 
     //region declaration
     //region constant
-    public static final int BACKGROUND = R.color.dark_dark_grey;
+    public static final int BACKGROUND = R.color.dark_x3_grey;
     //endregion
 
     //region inner field
-    private List<Command> deferredCommands = new ArrayList<>();
+    private List<Runnable> deferredCommands = new ArrayList<>();
     private boolean contentLoaded;
     private int viewsAttached;
 
@@ -93,9 +92,9 @@ public class MenuView extends LinearLayout implements RecyclerView.OnChildAttach
         return recyclerView.findViewWithTag(menuItemType);
     }
 
-    protected void waitForRecyclerViewContent(Command command) {
+    protected void waitForRecyclerViewContent(Runnable command) {
         if (contentLoaded) {
-            command.execute();
+            command.run();
         } else {
             deferredCommands.add(command);
         }
@@ -107,8 +106,8 @@ public class MenuView extends LinearLayout implements RecyclerView.OnChildAttach
     public void onChildViewAttachedToWindow(View view) {
         if (++viewsAttached == menuAdapter.getItemCount()) {
             contentLoaded = true;
-            for (Command command : deferredCommands) {
-                command.execute();
+            for (Runnable command : deferredCommands) {
+                command.run();
             }
             deferredCommands.clear();
         }
@@ -125,9 +124,9 @@ public class MenuView extends LinearLayout implements RecyclerView.OnChildAttach
             if (selectedView != null) {
                 selectedView.setSelected(false);
             }
-            waitForRecyclerViewContent(new Command() {
+            waitForRecyclerViewContent(new Runnable() {
                 @Override
-                public void execute() {
+                public void run() {
                     selectedView = findViewByMenuItemType(menuItemType);
                     selectedView.setSelected(true);
                 }

@@ -10,22 +10,24 @@
     <color name="grey">#666666</color>
 
     <!-- Dark -->
-    <color name="dark_dark_grey">#1A1A1A</color>
-    <color name="dark_light_grey">#2B2B2B</color>
-    <color name="dark_grey">#333333</color>
+    <color name="dark_x3_grey">#1A1A1A</color>
+    <color name="dark_x2_grey">#2B2B2B</color>
+    <color name="dark_x1_grey">#333333</color>
 
     <!-- Light -->
     <color name="light_blue">#A1CAE3</color>
-    <color name="light_grey">#999999</color>
-    <color name="light_light_grey">#C4C4C4</color>
+    <color name="light_x1_grey">#999999</color>
+    <color name="light_x2_grey">#C4C4C4</color>
 
     <!-- Alpha -->
     <color name="transparent">#00000000</color>
-    <color name="dark_dark_transparent">#EE000000</color>
-    <color name="dark_transparent">#AA000000</color>
+    <color name="dark_x3_transparent">#EE000000</color>
+    <color name="dark_x2_transparent">#CC000000</color>
+    <color name="dark_x1_transparent">#AA000000</color>
     <color name="semi_transparent">#AAAAAAAA</color>
     <color name="light_transparent">#10FFFFFF</color>
     <color name="holo_white">#CCFFFFFF</color>
+    <color name="holo_red">#CCF00524</color>
 
     <!-- Generated -->
     <color name="primary">#2196F3</color>

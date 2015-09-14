@@ -25,7 +25,8 @@ public class WatchMapper {
         boolean episodesOnly = DatabaseUtils.formatIntegerToBoolean(cursor.getInt(cursor.getColumnIndex(DatabaseKey.WATCH_COLUMN_EPISODES_ONLY)));
         Date lastViewed = DatabaseUtils.formatStringToDate(cursor.getString(cursor.getColumnIndex(DatabaseKey.WATCH_COLUMN_LAST_VIEWED)));
         boolean archived = DatabaseUtils.formatIntegerToBoolean(cursor.getInt(cursor.getColumnIndex(DatabaseKey.WATCH_COLUMN_ARCHIVED)));
-        return new WatchModel(id, name, thumbnail, seasonCount, seasonEpisodeCount, seasonEpisodeList, currentSeason, currentEpisode, episodesOnly, lastViewed, archived);
+        boolean completed = DatabaseUtils.formatIntegerToBoolean(cursor.getInt(cursor.getColumnIndex(DatabaseKey.WATCH_COLUMN_COMPLETED)));
+        return new WatchModel(id, name, thumbnail, seasonCount, seasonEpisodeCount, seasonEpisodeList, currentSeason, currentEpisode, episodesOnly, lastViewed, archived, completed);
     }
     //endregion
 
@@ -51,6 +52,7 @@ public class WatchMapper {
         values.put(DatabaseKey.WATCH_COLUMN_EPISODES_ONLY, DatabaseUtils.formatBooleanToInteger(watchModel.hasEpisodesOnly()));
         values.put(DatabaseKey.WATCH_COLUMN_LAST_VIEWED, DatabaseUtils.formatDateToString(watchModel.getLastViewed()));
         values.put(DatabaseKey.WATCH_COLUMN_ARCHIVED, DatabaseUtils.formatBooleanToInteger(watchModel.isArchived()));
+        values.put(DatabaseKey.WATCH_COLUMN_COMPLETED, DatabaseUtils.formatBooleanToInteger(watchModel.isCompleted()));
         return values;
     }
     //endregion

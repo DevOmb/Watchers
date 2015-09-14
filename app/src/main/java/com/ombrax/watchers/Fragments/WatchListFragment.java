@@ -1,21 +1,17 @@
 package com.ombrax.watchers.Fragments;
 
-import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+import android.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
 
 import com.ombrax.watchers.Adapters.WatchListAdapter;
 import com.ombrax.watchers.Controllers.DomainController;
 import com.ombrax.watchers.Controllers.MenuController;
-import com.ombrax.watchers.Interfaces.Command;
 import com.ombrax.watchers.Interfaces.Listener.IOnSortOrderChangeListener;
-import com.ombrax.watchers.Manager.SettingsManager;
 import com.ombrax.watchers.Manager.SortingManager;
 import com.ombrax.watchers.Manager.ToolbarManager;
 import com.ombrax.watchers.Models.SortModel;
@@ -27,24 +23,18 @@ import java.util.List;
 /**
  * Created by Ombrax on 30/06/2015.
  */
-public class WatchListFragment extends Fragment implements IOnSortOrderChangeListener {
+public class WatchListFragment extends Fragment implements IOnSortOrderChangeListener{
 
-    //region declaration
-    //region protected field
+    //region inner field
     protected DomainController dc;
     protected MenuController mc;
     protected ToolbarManager toolbarManager;
-    //endregion
+    protected SortingManager sortingManager;
 
-    //region inner field
-    private SortingManager sortingManager;
-
-    private List<WatchModel> watchModels;
-
-    private WatchListAdapter adapter;
-    private LinearLayoutManager layoutManager;
-    private RecyclerView recyclerView;
-    //endregion
+    protected List<WatchModel> watchModels;
+    protected WatchListAdapter adapter;
+    protected LinearLayoutManager layoutManager;
+    protected RecyclerView recyclerView;
     //endregion
 
     //region create
@@ -78,49 +68,6 @@ public class WatchListFragment extends Fragment implements IOnSortOrderChangeLis
         super.onResume();
         mc.handleSortMenuEnable(true);
         adapter.sort(sortingManager.getCurrentComparator());
-    }
-    //endregion
-
-    //region helper
-    private void waitForGlobalLayout(final Command command) {
-        getView().getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-            @Override
-            public void onGlobalLayout() {
-                if (getView() != null) {
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                        getView().getViewTreeObserver().removeOnGlobalLayoutListener(this);
-                    } else {
-                        getView().getViewTreeObserver().removeGlobalOnLayoutListener(this);
-                    }
-                    command.execute();
-                }
-            }
-        });
-    }
-    //endregion
-
-    //region protected method
-    protected void setWatchModels(List<WatchModel> watchModels) {
-        this.watchModels = watchModels;
-    }
-
-    protected void collapseToolbar() {
-        toolbarManager.expandToolbar(false);
-    }
-
-    protected void expandToolbar() {
-        waitForGlobalLayout(new Command() {
-            @Override
-            public void execute() {
-                if (layoutManager.findFirstCompletelyVisibleItemPosition() == 0) {
-                    toolbarManager.expandToolbar(true);
-                }
-            }
-        });
-    }
-
-    protected void enableNestedScrolling(boolean enable) {
-        recyclerView.setNestedScrollingEnabled(enable);
     }
     //endregion
 

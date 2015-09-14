@@ -41,12 +41,13 @@ public class WatchModel implements Serializable {
     private boolean episodesOnly;
     private Date lastViewed;
     private boolean archived;
+    private boolean completed;
     //endregion
 
     //endregion
 
     //region constructor
-    public WatchModel(int id, String name, String thumbnailPath, int seasonCount, int seasonEpisodeCount, List<Integer> seasonEpisodeList, int currentSeason, int currentEpisode, boolean episodesOnly, Date lastViewed, boolean archived) {
+    public WatchModel(int id, String name, String thumbnailPath, int seasonCount, int seasonEpisodeCount, List<Integer> seasonEpisodeList, int currentSeason, int currentEpisode, boolean episodesOnly, Date lastViewed, boolean archived, boolean completed) {
         this.id = id;
         this.name = name;
         this.thumbnailPath = thumbnailPath;
@@ -58,6 +59,7 @@ public class WatchModel implements Serializable {
         this.episodesOnly = episodesOnly;
         this.lastViewed = lastViewed;
         this.archived = archived;
+        this.completed = completed;
 
         setup();
     }
@@ -66,6 +68,7 @@ public class WatchModel implements Serializable {
     //region setup
     private void setup() {
         if (episodesOnly) {
+            //Get State for entry with only episodes
             if (currentEpisode == 1) {
                 watchState = WatchState.FIRST_EPISODE;
             } else if (currentEpisode == seasonEpisodeCount) {
@@ -73,16 +76,16 @@ public class WatchModel implements Serializable {
             } else {
                 watchState = WatchState.DEFAULT;
             }
+
+            //Calc progress resources
             totalEpisodeCount = seasonEpisodeCount;
             episodeProgress = currentEpisode;
         } else {
-            if (currentSeason == 1 && currentEpisode == 1) {
-                watchState = WatchState.FIRST_EPISODE;
-                return;
-            }
-
             if (seasonEpisodeList != null) {
-                if (currentEpisode == seasonEpisodeList.get(currentSeason - 1)) {
+                //Get State for entry with variable episodes per season
+                if (currentSeason == 1 && currentEpisode == 1) {
+                    watchState = WatchState.FIRST_EPISODE;
+                } else if (currentEpisode == seasonEpisodeList.get(currentSeason - 1)) {
                     watchState = WatchState.SEASON_FINALE;
                     if (currentSeason == seasonCount) {
                         watchState = WatchState.LAST_EPISODE;
@@ -91,16 +94,19 @@ public class WatchModel implements Serializable {
                     watchState = WatchState.DEFAULT;
                 }
 
+                //Calc progress resources
                 for (Integer seasonEpisodes : seasonEpisodeList) {
                     totalEpisodeCount += seasonEpisodes;
                 }
-
                 for (int i = 0; i < currentSeason - 1; i++) {
                     episodeProgress += seasonEpisodeList.get(i);
                 }
                 episodeProgress += currentEpisode;
             } else {
-                if (currentEpisode == seasonEpisodeCount) {
+                //Get State for entry with consistent episodes per season
+                if (currentSeason == 1 && currentEpisode == 1) {
+                    watchState = WatchState.FIRST_EPISODE;
+                } else if (currentEpisode == seasonEpisodeCount) {
                     watchState = WatchState.SEASON_FINALE;
                     if (currentSeason == seasonCount) {
                         watchState = WatchState.LAST_EPISODE;
@@ -108,6 +114,8 @@ public class WatchModel implements Serializable {
                 } else {
                     watchState = WatchState.DEFAULT;
                 }
+
+                //Calc progress resources
                 totalEpisodeCount = seasonEpisodeCount * seasonCount;
                 episodeProgress = ((currentSeason - 1) * seasonEpisodeCount) + currentEpisode;
             }
@@ -162,6 +170,10 @@ public class WatchModel implements Serializable {
         return archived;
     }
 
+    public boolean isCompleted() {
+        return completed;
+    }
+
     public boolean nowWatching() {
         return lastViewed != null;
     }
@@ -214,6 +226,10 @@ public class WatchModel implements Serializable {
 
     public void setArchived(boolean archived) {
         this.archived = archived;
+    }
+
+    public void setCompleted(boolean completed) {
+        this.completed = completed;
     }
     //endregion
 

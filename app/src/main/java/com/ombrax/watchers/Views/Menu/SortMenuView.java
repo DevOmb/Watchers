@@ -8,7 +8,6 @@ import android.widget.LinearLayout;
 import com.ombrax.watchers.Enums.ActionSetting;
 import com.ombrax.watchers.Enums.MenuItemType;
 import com.ombrax.watchers.Enums.MenuType;
-import com.ombrax.watchers.Interfaces.Command;
 import com.ombrax.watchers.Interfaces.Observer.IOnSortMenuClosedListener;
 import com.ombrax.watchers.Manager.SettingsManager;
 import com.ombrax.watchers.Manager.SortingManager;
@@ -45,9 +44,9 @@ public class SortMenuView extends MenuView implements IOnSortMenuClosedListener 
         sortModel = sortingManager.getSystemSort();
         mc.setOnSortMenuClosedListener(this);
         mc.setOnSortMenuItemSelectListener(this);
-        waitForRecyclerViewContent(new Command() {
+        waitForRecyclerViewContent(new Runnable() {
             @Override
-            public void execute() {
+            public void run() {
                 changeOrderManual = true;
                 mc.onMenuItemSelect(sortModel.getSortType());
             }

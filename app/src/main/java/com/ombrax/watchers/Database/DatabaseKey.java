@@ -20,6 +20,7 @@ public class DatabaseKey {
     public static final String WATCH_COLUMN_EPISODES_ONLY =         "episodes_only";
     public static final String WATCH_COLUMN_LAST_VIEWED =           "last_viewed";
     public static final String WATCH_COLUMN_ARCHIVED =              "archived";
+    public static final String WATCH_COLUMN_COMPLETED =             "completed";
 
     public static final String SETTINGS_COLUMN_KEY =                "key";
     public static final String SETTINGS_COLUMN_VALUE =              "value";

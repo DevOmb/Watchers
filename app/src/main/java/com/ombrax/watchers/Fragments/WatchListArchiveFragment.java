@@ -15,7 +15,7 @@ public class WatchListArchiveFragment extends WatchListFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        setWatchModels(WatchRepository.getInstance().getAll(WatchRepository.Mode.ARCHIVED));
+        watchModels = WatchRepository.getInstance().getAll(WatchRepository.Mode.ARCHIVED);
         return super.onCreateView(inflater, container, savedInstanceState);
     }
 
@@ -23,7 +23,12 @@ public class WatchListArchiveFragment extends WatchListFragment {
     public void onResume() {
         super.onResume();
         mc.onMenuItemSelect(MenuItemType.ARCHIVE);
-        enableNestedScrolling(false);
+        disableToolbarScroll();
+        toolbarManager.setToolbarExpanded(false);
         toolbarManager.setExpandingTitle("Archive");
+    }
+
+    private void disableToolbarScroll() {
+        recyclerView.setNestedScrollingEnabled(false);
     }
 }

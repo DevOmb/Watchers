@@ -4,7 +4,6 @@ import android.content.Context;
 
 import com.ombrax.watchers.Enums.MenuItemType;
 import com.ombrax.watchers.Enums.MenuType;
-import com.ombrax.watchers.Interfaces.Command;
 
 /**
  * Created by Ombrax on 7/08/2015.
@@ -26,9 +25,9 @@ public class MainMenuView extends MenuView {
 
     //region method
     public void setMenuItemEnabled(final MenuItemType menuItemType, final boolean enabled) {
-        waitForRecyclerViewContent(new Command() {
+        waitForRecyclerViewContent(new Runnable() {
             @Override
-            public void execute() {
+            public void run() {
                 findViewByMenuItemType(menuItemType).setEnabled(enabled);
             }
         });

@@ -19,4 +19,10 @@ public class LayoutUtils {
         layoutParams.setMargins(margin, margin, margin, margin);
         return layoutParams;
     }
+
+    public static ViewGroup.MarginLayoutParams newMarginLayoutParams(int width, int height, int marginLeft, int marginTop, int marginRight, int marginBottom) {
+        LinearLayout.MarginLayoutParams layoutParams = new LinearLayout.MarginLayoutParams(width, height);
+        layoutParams.setMargins(marginLeft, marginTop, marginRight, marginBottom);
+        return layoutParams;
+    }
 }

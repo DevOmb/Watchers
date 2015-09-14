@@ -1,9 +1,9 @@
 <resources>
 
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.NoActionBar">
         <item name="colorPrimary">@color/primary</item>
-        <item name="colorPrimaryDark">@color/primary_dark</item>
-        <item name="android:textColor">@color/dark_grey</item>
+        <item name="android:textColor">@color/holo_white</item>
+        <item name="android:textCursorDrawable">@drawable/default_input_cursor</item>
     </style>
 
 </resources>

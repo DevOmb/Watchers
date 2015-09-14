@@ -1,9 +1,12 @@
 package com.ombrax.watchers.Utils;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.drawable.Drawable;
 import android.widget.FrameLayout;
 
+import com.ombrax.watchers.Controllers.DomainController;
+import com.ombrax.watchers.Interfaces.Handler.IWatchCardUpdateHandler;
 import com.ombrax.watchers.Models.WatchModel;
 import com.ombrax.watchers.R;
 import com.ombrax.watchers.Views.Card.WatchCardOptionsView;
@@ -22,22 +25,27 @@ public class DialogUtils {
     //endregion
 
     //region method
-    public static SweetAlertDialog newAvatarAlertDialog(Context context, String title, String message, Drawable avatar, SweetAlertDialog.OnSweetClickListener onConfirmListener) {
-        return new SweetAlertDialog(context, SweetAlertDialog.Type.CUSTOM)
-                .setDialogBackground(R.drawable.light_dialog_background)
+    public static SweetAlertDialog newAvatarAlertDialog(Context context, String title, String message, Drawable avatar, SweetAlertDialog.OnSweetClickListener onConfirmListener, DialogInterface.OnDismissListener onDismissListener) {
+        SweetAlertDialog dialog = new SweetAlertDialog(context, SweetAlertDialog.Type.CUSTOM)
+                .setDialogBackground(R.drawable.dialog_light_background)
                 .setImageSize(avatarSize)
                 .setImage(ImageUtils.getScaledCircularBitmap(avatar, avatarSize))
                 .setTitleText(title)
                 .setContentText(message)
                 .displayCancelButton(true)
                 .setCancelText("Cancel")
-                .setCancelSelector(R.drawable.cancel_button_background)
+                .setCancelSelector(R.drawable.button_cancel_background)
                 .setConfirmText("OK")
-                .setConfirmSelector(R.drawable.confirm_button_background)
+                .setConfirmSelector(R.drawable.button_confirm_background)
                 .setOnConfirmClickListener(onConfirmListener);
+        if (onDismissListener != null) {
+            dialog.setOnDismissListener(onDismissListener);
+        }
+        return dialog;
     }
 
-    public static BottomSheetDialog newWatchCardOptionsDialog(Context context, WatchModel watchModel){
+    public static BottomSheetDialog newWatchCardOptionsDialog(Context context, IWatchCardUpdateHandler watchCardUpdateHandler, WatchModel watchModel) {
+        DomainController.getInstance().setWatchCardUpdateHandler(watchCardUpdateHandler);
         BottomSheetDialog dialog = new BottomSheetDialog(context);
         dialog.contentView(new WatchCardOptionsView(context, watchModel, dialog))
                 .heightParam(FrameLayout.LayoutParams.WRAP_CONTENT)

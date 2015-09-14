@@ -3,5 +3,6 @@
     android:id="@+id/watch_list_recycler_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/dark_x3_grey"
     android:scrollbars="none" />
 

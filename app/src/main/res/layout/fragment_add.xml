@@ -1,137 +1,238 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/dark_dark_grey"
-    android:orientation="vertical"
-    android:padding="@dimen/default_2x"
-    android:focusable="true">
-
-    <ImageView
-        android:id="@+id/fragment_add_thumbnail_image"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:adjustViewBounds="true"
-        android:scaleType="centerInside"
-        android:src="@drawable/img_placeholder" />
-
-    <com.rey.material.widget.EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/default_1x"
-        android:hint="Tv Show"
-        android:inputType="text"
-        android:textColor="@color/holo_white"
-        android:textColorHint="@color/semi_transparent"
-        android:textCursorDrawable="@drawable/cursor"
-        android:textSize="22sp"
-        app:et_dividerColor="@color/material_edit_text_background"
-        app:et_dividerHeight="2dp"
-        app:et_dividerPadding="4dp"
-        app:et_inputId="@+id/fragment_add_tv_show_input"
-        app:et_labelEnable="true"
-        app:et_labelTextColor="@color/light_light_grey"
-        app:et_labelTextSize="12sp"
-        app:et_supportMode="none" />
+    android:background="@color/dark_x3_grey"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:descendantFocusability="beforeDescendants"
+    android:scrollbars="none">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginTop="@dimen/default_2x"
-        android:layout_weight="1"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/default_2x">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="20dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
-
-            <View
-                android:layout_width="8dp"
-                android:layout_height="0.5dp"
-                android:background="@color/light_grey" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="4dp"
-                android:layout_marginRight="4dp"
-                android:text="Properties"
-                android:textColor="@color/light_grey" />
-
-            <View
-                android:layout_width="0dp"
-                android:layout_height="0.5dp"
-                android:layout_weight="1"
-                android:background="@color/light_grey" />
-        </LinearLayout>
-
-        <LinearLayout
+        <ImageView
+            android:id="@+id/fragment_add_thumbnail_image"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="-10.5dp"
-            android:orientation="horizontal">
+            android:adjustViewBounds="true"
+            android:scaleType="centerInside"
+            android:src="@drawable/img_placeholder" />
 
-            <View
-                android:layout_width="0.5dp"
-                android:layout_height="150dp"
-                android:background="@drawable/light_to_alpha" />
+        <com.rey.material.widget.EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/default_1x"
+            android:hint="Tv Show"
+            android:imeOptions="actionDone"
+            android:inputType="text"
+            android:textColorHint="@color/semi_transparent"
+            android:textCursorDrawable="@drawable/default_input_cursor"
+            android:textSize="22sp"
+            app:et_dividerColor="@color/material_edit_text_background"
+            app:et_dividerHeight="2dp"
+            app:et_dividerPadding="4dp"
+            app:et_inputId="@+id/fragment_add_tv_show_input"
+            app:et_labelEnable="true"
+            app:et_labelTextColor="@color/light_x2_grey"
+            app:et_labelTextSize="12sp"
+            app:et_supportMode="none" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/default_2x"
+            android:layout_weight="1"
+            android:orientation="vertical">
 
             <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:orientation="vertical"
-                android:padding="8dp">
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <View
+                    android:layout_width="8dp"
+                    android:layout_height="0.5dp"
+                    android:background="@color/light_x1_grey" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="4dp"
+                    android:layout_marginRight="4dp"
+                    android:text="Properties"
+                    android:textColor="@color/light_x1_grey" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="0.5dp"
+                    android:layout_weight="1"
+                    android:background="@color/light_x1_grey" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="-10.5dp"
+                android:orientation="horizontal">
+
+                <View
+                    android:layout_width="0.5dp"
+                    android:layout_height="250dp"
+                    android:background="@drawable/gradient_light_alpha" />
 
                 <LinearLayout
-                    android:id="@+id/fragment_add_toggle_group_container"
-                    android:layout_width="match_parent"
-                    android:layout_height="36dp"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="@dimen/default_2x"
-                    android:layout_marginLeft="@dimen/default_1x"
-                    android:layout_marginRight="@dimen/default_1x">
+                    android:id="@+id/fragment_add_property_layout"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:padding="@dimen/default_2x">
 
-                    <Button
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:background="@drawable/toggle_left_background"
-                        android:text="Option 1"
-                        android:textColor="@color/holo_white" />
+                    <LinearLayout
+                        android:id="@+id/fragment_add_toggle_group_container"
+                        android:layout_width="match_parent"
+                        android:layout_height="36dp"
+                        android:layout_marginTop="@dimen/default_1x"
+                        android:orientation="horizontal">
 
-                    <Button
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:background="@drawable/toggle_center_background"
-                        android:padding="2dp"
-                        android:text="Option 2"
-                        android:textColor="@color/holo_white"/>
+                        <Button
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:background="@drawable/toggle_left_background"
+                            android:text="Option 1" />
 
-                    <Button
-                        android:layout_width="0dp"
+                        <Button
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:background="@drawable/toggle_center_background"
+                            android:padding="2dp"
+                            android:text="Option 2" />
+
+                        <Button
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:background="@drawable/toggle_right_background"
+                            android:text="Option 3" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:background="@drawable/toggle_right_background"
-                        android:text="Option 3"
-                        android:textColor="@color/holo_white"/>
+                        android:layout_marginBottom="@dimen/default_1x"
+                        android:layout_marginTop="@dimen/default_2x"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:id="@+id/fragment_add_season_input_container"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="@dimen/default_2x"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <com.ombrax.watchers.Views.Button.NumericInputCircle
+                                android:id="@+id/fragment_add_season_input"
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                android:imeOptions="actionNext" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/default_1x"
+                                android:text="Seasons"
+                                android:textSize="16sp"
+                                android:textStyle="bold" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/fragment_add_episode_input_container"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <com.ombrax.watchers.Views.Button.NumericInputCircle
+                                android:id="@+id/fragment_add_episode_input"
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                android:imeOptions="actionDone" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/default_1x"
+                                android:text="Episodes"
+                                android:textSize="16sp"
+                                android:textStyle="bold" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/fragment_add_episode_list_input_container"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:id="@+id/fragment_add_episode_list_label"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/default_.5x"
+                            android:layout_marginTop="@dimen/default_.5x"
+                            android:text="Episode List"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/fragment_add_episode_list_empty_label"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/fragment_add_episode_list_label"
+                            android:layout_marginTop="8dp"
+                            android:text="Please provide a number in the Seasons input field"
+                            android:textColor="@color/holo_red"
+                            android:textSize="12sp" />
+
+                        <HorizontalScrollView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/fragment_add_episode_list_label"
+                            android:scrollbars="none">
+
+                            <LinearLayout
+                                android:id="@+id/fragment_add_episode_list"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal" />
+
+                        </HorizontalScrollView>
+
+                    </RelativeLayout>
 
                 </LinearLayout>
 
+                <View
+                    android:layout_width="0.5dp"
+                    android:layout_height="250dp"
+                    android:background="@drawable/gradient_light_alpha" />
+
             </LinearLayout>
 
-            <View
-                android:layout_width="0.5dp"
-                android:layout_height="150dp"
-                android:background="@drawable/light_to_alpha" />
 
         </LinearLayout>
 
-
     </LinearLayout>
-
-</LinearLayout>
+</ScrollView>
