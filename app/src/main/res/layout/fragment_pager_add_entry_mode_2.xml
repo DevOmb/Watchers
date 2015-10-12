@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/transparent"
+    android:tag="PF1"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:orientation="vertical"
+    android:padding="@dimen/default_2x">
+
+
+    <LinearLayout
+        android:id="@+id/fragment_add_season_container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/default_1x"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <com.ombrax.watchers.Views.Button.NumericInputField
+            android:id="@+id/fragment_add_season_input"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:imeOptions="actionDone" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/default_1x"
+            android:text="Seasons"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/fragment_add_episode_list_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/fragment_add_episode_list_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/default_.5x"
+            android:text="Episode List"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/fragment_add_episode_list_error_label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/fragment_add_episode_list_label"
+            android:layout_marginTop="@dimen/default_1x"
+            android:text="Missing data: Seasons"
+            android:textColor="@color/holo_red"
+            android:textSize="12sp" />
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/default_.5x"
+            android:layout_below="@id/fragment_add_episode_list_label"
+            android:scrollbars="none">
+
+            <LinearLayout
+                android:id="@+id/fragment_add_episode_list_input_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/default_1x"
+                android:orientation="horizontal"
+                android:visibility="gone"/>
+
+        </HorizontalScrollView>
+
+    </RelativeLayout>
+
+    <include layout="@layout/view_start_at_fragment_add"/>
+
+</LinearLayout>
+

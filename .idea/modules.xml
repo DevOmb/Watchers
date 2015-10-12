@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/libs/AnimatedSortingOrderIcon/AnimatedSortingOrderIcon.iml" filepath="$PROJECT_DIR$/libs/AnimatedSortingOrderIcon/AnimatedSortingOrderIcon.iml" />
       <module fileurl="file://$PROJECT_DIR$/libs/Banner/Banner.iml" filepath="$PROJECT_DIR$/libs/Banner/Banner.iml" />
+      <module fileurl="file://$PROJECT_DIR$/libs/DropletSeekbar/DropletSeekbar.iml" filepath="$PROJECT_DIR$/libs/DropletSeekbar/DropletSeekbar.iml" />
       <module fileurl="file://$PROJECT_DIR$/libs/EnumChoiceDialog/EnumChoiceDialog.iml" filepath="$PROJECT_DIR$/libs/EnumChoiceDialog/EnumChoiceDialog.iml" />
       <module fileurl="file://$PROJECT_DIR$/libs/FloatingToggleButton/FloatingToggleButton.iml" filepath="$PROJECT_DIR$/libs/FloatingToggleButton/FloatingToggleButton.iml" />
       <module fileurl="file://$PROJECT_DIR$/libs/FocusFrame/FocusFrame.iml" filepath="$PROJECT_DIR$/libs/FocusFrame/FocusFrame.iml" />

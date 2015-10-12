@@ -14,7 +14,9 @@ import com.ombrax.watchers.Models.WatchModel;
 import com.ombrax.watchers.R;
 import com.ombrax.watchers.Repositories.WatchRepository;
 import com.ombrax.watchers.Utils.DialogUtils;
+import com.ombrax.watchers.Utils.StorageUtils;
 import com.ombrax.watchers.Views.Button.SquareOptionButton;
+import com.rey.material.app.BottomSheetDialog;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
@@ -25,7 +27,7 @@ public class WatchCardOptionsView extends FrameLayout {
 
     //region variable
     private WatchModel watchModel;
-    private Dialog parentDialog;
+    private BottomSheetDialog parentDialog;
     //endregion
 
     //region inner field
@@ -46,7 +48,7 @@ public class WatchCardOptionsView extends FrameLayout {
     //endregion
 
     //region constructor
-    public WatchCardOptionsView(Context context, WatchModel watchModel, Dialog parentDialog) {
+    public WatchCardOptionsView(Context context, WatchModel watchModel, BottomSheetDialog parentDialog) {
         super(context);
         this.watchModel = watchModel;
         this.parentDialog = parentDialog;
@@ -97,7 +99,7 @@ public class WatchCardOptionsView extends FrameLayout {
                                         performOnCompleteAction();
                                         sweetAlertDialog.dismissWithAnimation();
                                     }
-                                }, null
+                                }
                         ).show();
                     } else {
                         performOnCompleteAction();
@@ -119,10 +121,9 @@ public class WatchCardOptionsView extends FrameLayout {
             public void onClick(View v) {
                 editButton.setEnabled(false);
                 dc.notifyListItemObservers(watchModel);
-                parentDialog.dismiss();
+                parentDialog.dismissImmediately();
             }
         });
-
         archiveButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -138,7 +139,7 @@ public class WatchCardOptionsView extends FrameLayout {
                 DialogUtils.newAvatarAlertDialog(
                         getContext(),
                         watchModel.getName(),
-                        "Delete from list",
+                        "Delete from watchlist",
                         avatarDrawable,
                         new SweetAlertDialog.OnSweetClickListener() {
                             @Override
@@ -146,8 +147,7 @@ public class WatchCardOptionsView extends FrameLayout {
                                 delete();
                                 sweetAlertDialog.dismissWithAnimation();
                             }
-                        },
-                        null
+                        }
                 ).show();
                 parentDialog.dismiss();
             }
@@ -197,6 +197,7 @@ public class WatchCardOptionsView extends FrameLayout {
     }
 
     private void delete() {
+        StorageUtils.removeFromStorage(watchModel.getThumbnailPath());
         repo.delete(watchModel.getId());
         dc.handleWatchCardRemove(watchModel);
     }

@@ -638,7 +638,7 @@ public class SlidingMenu extends RelativeLayout {
 		} catch (Exception e) {
 			width = display.getWidth();
 		}
-		setBehindOffset(width-i);
+		setBehindOffset(width - i);
 	}
 
 	/**
@@ -675,6 +675,14 @@ public class SlidingMenu extends RelativeLayout {
 	 */
 	public void setTouchmodeMarginThreshold(int touchmodeMarginThreshold) {
 		mViewBehind.setMarginThreshold(touchmodeMarginThreshold);
+	}
+
+	/**
+	 * Set if menu should close when touch outside menu is performed
+	 * @param closeMenuOnTouchOutside
+	 */
+	public void setCloseMenuOnTouchOutside(boolean closeMenuOnTouchOutside){
+		mViewAbove.setCloseOnTouchOutside(closeMenuOnTouchOutside);
 	}
 
 	/**

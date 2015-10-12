@@ -47,6 +47,11 @@ public class WatchModel implements Serializable {
     //endregion
 
     //region constructor
+    public WatchModel() {
+        id = 0;
+        watchState = WatchState.FIRST_EPISODE;
+    }
+
     public WatchModel(int id, String name, String thumbnailPath, int seasonCount, int seasonEpisodeCount, List<Integer> seasonEpisodeList, int currentSeason, int currentEpisode, boolean episodesOnly, Date lastViewed, boolean archived, boolean completed) {
         this.id = id;
         this.name = name;
@@ -224,6 +229,10 @@ public class WatchModel implements Serializable {
         this.episodesOnly = episodesOnly;
     }
 
+    public void setLastViewed(Date lastViewed) {
+        this.lastViewed = lastViewed;
+    }
+
     public void setArchived(boolean archived) {
         this.archived = archived;
     }
@@ -331,4 +340,26 @@ public class WatchModel implements Serializable {
         DATE
     }
     //endregion
+
+
+    @Override
+    public String toString() {
+        return "WatchModel{" +
+                "watchState=" + watchState +
+                ", totalEpisodeCount=" + totalEpisodeCount +
+                ", episodeProgress=" + episodeProgress +
+                ", id=" + id +
+                ", name='" + name + '\'' +
+                ", thumbnailPath='" + thumbnailPath + '\'' +
+                ", seasonCount=" + seasonCount +
+                ", seasonEpisodeCount=" + seasonEpisodeCount +
+                ", seasonEpisodeList=" + seasonEpisodeList +
+                ", currentSeason=" + currentSeason +
+                ", currentEpisode=" + currentEpisode +
+                ", episodesOnly=" + episodesOnly +
+                ", lastViewed=" + lastViewed +
+                ", archived=" + archived +
+                ", completed=" + completed +
+                '}';
+    }
 }

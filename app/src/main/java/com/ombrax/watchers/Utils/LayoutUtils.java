@@ -1,5 +1,6 @@
 package com.ombrax.watchers.Utils;
 
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
@@ -14,15 +15,12 @@ public class LayoutUtils {
         return layoutParams;
     }
 
-    public static LinearLayout.MarginLayoutParams newLinearMarginLayoutParams(int width, int height, int margin) {
-        LinearLayout.MarginLayoutParams layoutParams = new LinearLayout.MarginLayoutParams(width, height);
-        layoutParams.setMargins(margin, margin, margin, margin);
-        return layoutParams;
-    }
-
-    public static ViewGroup.MarginLayoutParams newMarginLayoutParams(int width, int height, int marginLeft, int marginTop, int marginRight, int marginBottom) {
-        LinearLayout.MarginLayoutParams layoutParams = new LinearLayout.MarginLayoutParams(width, height);
-        layoutParams.setMargins(marginLeft, marginTop, marginRight, marginBottom);
-        return layoutParams;
+    public static void clearFocusOnKeyboardHide(final View dummy){
+        dummy.getHandler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                dummy.requestFocus();
+            }
+        }, 150);
     }
 }

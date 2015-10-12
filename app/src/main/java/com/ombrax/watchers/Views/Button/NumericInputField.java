@@ -5,36 +5,35 @@ import android.text.InputType;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
 import com.ombrax.watchers.R;
-import com.ombrax.watchers.Utils.LayoutUtils;
 
 
 /**
  * Created by Ombrax on 13/09/2015.
  */
-public class NumericInputCircle extends EditText implements View.OnFocusChangeListener {
+public class NumericInputField extends EditText implements View.OnFocusChangeListener {
 
     //region variable
-    private OnInputListener onInputListener;
+    private OnFocusChangeListener onFocusChangeListener;
     //endregion
 
     //region constructor
-    public NumericInputCircle(Context context) {
+    public NumericInputField(Context context) {
         super(context);
         init();
     }
 
-    public NumericInputCircle(Context context, AttributeSet attrs) {
+    public NumericInputField(Context context, AttributeSet attrs) {
         super(context, attrs);
         init();
     }
 
-    public NumericInputCircle(Context context, AttributeSet attrs, int defStyleAttr) {
+    public NumericInputField(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init();
     }
@@ -52,15 +51,33 @@ public class NumericInputCircle extends EditText implements View.OnFocusChangeLi
     }
     //endregion
 
-    //region setter
-    public void setOnInputListener(OnInputListener onInputListener) {
-        this.onInputListener = onInputListener;
+    //region getter
+    public boolean isEmpty() {
+        return getText().toString().isEmpty() || Integer.parseInt(getText().toString()) == 0;
     }
+    //endregion
 
-    public void reset(){
+    //region setter
+    public void setOnFocusChangeListener(OnFocusChangeListener onFocusChangeListener) {
+        this.onFocusChangeListener = onFocusChangeListener;
+    }
+    //endregion
+
+    //region method
+    public void clean() {
         setSelected(false);
     }
     //endregion
+
+
+    @Override
+    public boolean onKeyPreIme(int keyCode, KeyEvent event) {
+        if (event.getKeyCode() == KeyEvent.KEYCODE_BACK) {
+            dispatchKeyEvent(event);
+            return false;
+        }
+        return super.onKeyPreIme(keyCode, event);
+    }
 
     //region interface implementation
     @Override
@@ -70,37 +87,22 @@ public class NumericInputCircle extends EditText implements View.OnFocusChangeLi
             if (input != null && !input.isEmpty()) {
                 int formatInput = Integer.parseInt(input);
                 setSelected(formatInput == 0);
-                if (onInputListener != null) {
-                    if (formatInput != 0) {
-                        onInputListener.onValidInput(formatInput);
-                    } else {
-                        onInputListener.onInvalidInput();
-                    }
+                if (onFocusChangeListener != null) {
+                    onFocusChangeListener.onFocusLost(this, formatInput != 0, formatInput);
                 }
             } else {
                 setSelected(true);
-                if (onInputListener != null) {
-                    onInputListener.onInvalidInput();
+                if (onFocusChangeListener != null) {
+                    onFocusChangeListener.onFocusLost(this, false, 0);
                 }
             }
         }
     }
     //endregion
 
-    //region measure
-    @Override
-    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-        int measuredDimension = Math.round(Math.min(getMeasuredWidth(), getMeasuredHeight()));
-        setMeasuredDimension(measuredDimension, measuredDimension);
-    }
-    //endregion
-
     //region interface
-    public interface OnInputListener {
-        void onValidInput(int input);
-
-        void onInvalidInput();
+    public interface OnFocusChangeListener {
+        void onFocusLost(EditText source, boolean hasValidInput, int value);
     }
     //endregion
 }

@@ -28,17 +28,13 @@ public class WatchListMainFragment extends WatchListFragment implements ViewTree
         super.onResume();
         getView().getViewTreeObserver().addOnGlobalLayoutListener(this);
         mc.onMenuItemSelect(MenuItemType.HOME);
-        toolbarManager.setExpandingTitle(getString(R.string.app_name));
     }
     //endregion
 
     //region interface implementation
     @Override
     public void onGlobalLayout() {
-        if (layoutManager.findFirstCompletelyVisibleItemPosition() == 0) {
-            toolbarManager.setToolbarExpanded(true);
-            System.out.println("Expanding");
-        }
+        toolbarManager.setExpandingTitleOnTransition(getString(R.string.app_name), layoutManager.findFirstCompletelyVisibleItemPosition() == 0);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
             getView().getViewTreeObserver().removeOnGlobalLayoutListener(this);
         } else {

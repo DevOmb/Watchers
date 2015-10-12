@@ -2,7 +2,7 @@ package com.ombrax.watchers.Controllers;
 
 import com.ombrax.watchers.Enums.MenuItemType;
 import com.ombrax.watchers.Enums.MenuType;
-import com.ombrax.watchers.Interfaces.Handler.ISortMenuEnableHandler;
+import com.ombrax.watchers.Interfaces.Handler.IMenuStateHandler;
 import com.ombrax.watchers.Interfaces.Observer.IOnSortMenuClosedListener;
 import com.ombrax.watchers.Interfaces.Listener.IOnMenuItemClickListener;
 import com.ombrax.watchers.Interfaces.Listener.IOnMenuItemSelectListener;
@@ -44,15 +44,15 @@ public class MenuController {
         }
     }
 
-    private ISortMenuEnableHandler sortMenuEnableHandler;
+    private IMenuStateHandler menuStateHandler;
 
-    public void setSortMenuEnableHandler(ISortMenuEnableHandler sortMenuEnableHandler) {
-        this.sortMenuEnableHandler = sortMenuEnableHandler;
+    public void setMenuStateHandler(IMenuStateHandler menuStateHandler) {
+        this.menuStateHandler = menuStateHandler;
     }
 
-    public void handleSortMenuEnable(boolean enable) {
-        if (sortMenuEnableHandler != null) {
-            sortMenuEnableHandler.handleSortMenuEnable(enable);
+    public void setMenuFlags(int flags) {
+        if (menuStateHandler != null) {
+            menuStateHandler.setMenuFlags(flags);
         }
     }
     //endregion

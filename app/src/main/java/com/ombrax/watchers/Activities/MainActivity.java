@@ -3,8 +3,8 @@ package com.ombrax.watchers.Activities;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
-import android.app.Fragment;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -14,6 +14,7 @@ import android.view.View;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.ombrax.watchers.Controllers.DomainController;
 import com.ombrax.watchers.Controllers.MenuController;
+import com.ombrax.watchers.Interfaces.Handler.IWatchCardAddFinishedHandler;
 import com.ombrax.watchers.Manager.FragmentManager;
 import com.ombrax.watchers.Manager.SettingsManager;
 import com.ombrax.watchers.Manager.ToolbarManager;
@@ -24,7 +25,7 @@ import com.ombrax.watchers.Fragments.WatchAddFragment;
 import com.ombrax.watchers.Fragments.WatchListArchiveFragment;
 import com.ombrax.watchers.Fragments.WatchListMainFragment;
 import com.ombrax.watchers.Fragments.WatchSettingsFragment;
-import com.ombrax.watchers.Interfaces.Handler.ISortMenuEnableHandler;
+import com.ombrax.watchers.Interfaces.Handler.IMenuStateHandler;
 import com.ombrax.watchers.Interfaces.Listener.IOnMenuItemClickListener;
 import com.ombrax.watchers.Interfaces.Listener.IOnListItemEditListener;
 import com.ombrax.watchers.Interfaces.Handler.IMenuCloseHandler;
@@ -34,18 +35,16 @@ import com.ombrax.watchers.Views.Menu.MainMenuView;
 import com.ombrax.watchers.Views.Menu.MenuView;
 import com.ombrax.watchers.Views.Menu.SortMenuView;
 
-public class MainActivity extends AppCompatActivity implements IOnListItemEditListener<WatchModel>, IOnMenuItemClickListener, IMenuCloseHandler, ISortMenuEnableHandler {
+public class MainActivity extends AppCompatActivity implements IOnListItemEditListener<WatchModel>, IWatchCardAddFinishedHandler, IOnMenuItemClickListener, IMenuCloseHandler, IMenuStateHandler {
 
     //region declaration
-    //region controller
+    //region inner field
     private DomainController dc;
     private MenuController mc;
     private FragmentManager fragmentManager;
-    //endregion
+    private ToolbarManager toolbarManager;
 
-    //region inner field
     private boolean isSecondaryMenuShowing;
-    private MenuItem sortMenuItem;
     //endregion
 
     //region view
@@ -80,7 +79,6 @@ public class MainActivity extends AppCompatActivity implements IOnListItemEditLi
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu, menu);
-        sortMenuItem = menu.findItem(R.id.action_sort);
         return true;
     }
 
@@ -88,7 +86,7 @@ public class MainActivity extends AppCompatActivity implements IOnListItemEditLi
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                menuDrawer.showMenu();
+                menuDrawer.toggle();
                 return true;
             case R.id.action_sort:
                 menuDrawer.showSecondaryMenu();
@@ -102,23 +100,29 @@ public class MainActivity extends AppCompatActivity implements IOnListItemEditLi
     private void init() {
         WatchersDatabase.initialize(this);
         controllerSetup();
+        fragmentSetup();
         menuSetup();
         toolbarSetup();
         SettingsManager.getInstance().renew();
     }
+    //endregion
 
+    //region setup helper
     private void controllerSetup() {
         dc = DomainController.getInstance();
         dc.registerOnListItemEditObserver(this);
+        dc.setWatchCardAddFinishedHandler(this);
 
         mc = MenuController.getInstance();
         mc.setOnMainMenuItemClickListener(this);
         mc.setMenuCloseHandler(this);
-        mc.setSortMenuEnableHandler(this);
+        mc.setMenuStateHandler(this);
+    }
 
+    private void fragmentSetup() {
         //FragmentManager.enableDebugging(true);
         fragmentManager = FragmentManager.getInstance();
-        fragmentManager.initialize(getFragmentManager(), R.id.container);
+        fragmentManager.initialize(getSupportFragmentManager(), R.id.container);
         fragmentManager.setGeneralBackStackRule(new FragmentManager.BackStackRule() {
             @Override
             public boolean addToBackStack(Fragment current) {
@@ -126,25 +130,9 @@ public class MainActivity extends AppCompatActivity implements IOnListItemEditLi
             }
         });
     }
-    //endregion
 
-    //region fragment
-    private void showHomeFragment(){
-        if(!fragmentManager.isBackStackEmpty()){
-            fragmentManager.clearBackStack();
-        }else{
-            fragmentManager.showFragment(new WatchListMainFragment());
-        }
-    }
-
-    private void showFragment(Fragment fragment){
-        fragmentManager.showFragment(fragment);
-    }
-    //endregion
-
-    //region helper
     private void toolbarSetup() {
-        ToolbarManager toolbarManager = ToolbarManager.getInstance();
+        toolbarManager = ToolbarManager.getInstance();
         toolbarManager.initialize(
                 (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar),
                 (AppBarLayout) findViewById(R.id.appbar_layout),
@@ -185,6 +173,20 @@ public class MainActivity extends AppCompatActivity implements IOnListItemEditLi
     }
     //endregion
 
+    //region fragment
+    private void showHomeFragment() {
+        if (!fragmentManager.isBackStackEmpty()) {
+            fragmentManager.clearBackStack();
+        } else {
+            fragmentManager.showFragment(new WatchListMainFragment());
+        }
+    }
+
+    private void showFragment(Fragment fragment) {
+        fragmentManager.showFragment(fragment);
+    }
+    //endregion
+
     //region override
     @Override
     public void onBackPressed() {
@@ -207,8 +209,12 @@ public class MainActivity extends AppCompatActivity implements IOnListItemEditLi
     //region interface implementation
     @Override
     public void onListItemEdit(WatchModel watchModel) {
-        fragmentManager.showFragment(WatchAddFragment.editInstance(watchModel));
-        //switchFragment(WatchAddFragment.editInstance(watchModel));
+        showFragment(WatchAddFragment.editInstance(watchModel));
+    }
+
+    @Override
+    public void handleWatchCardAddFinished() {
+        showHomeFragment();
     }
 
     @Override
@@ -239,10 +245,21 @@ public class MainActivity extends AppCompatActivity implements IOnListItemEditLi
     }
 
     @Override
-    public void handleSortMenuEnable(boolean enable) {
-        menuDrawer.setMode(enable ? SlidingMenu.LEFT_RIGHT : SlidingMenu.LEFT);
-        if (sortMenuItem != null) {
-            sortMenuItem.setVisible(enable);
+    public void setMenuFlags(int flags) {
+        if((flags & ENABLE_ALL) == ENABLE_ALL){
+            menuDrawer.setMode(SlidingMenu.LEFT_RIGHT);
+            menuDrawer.setSlidingEnabled(true);
+            toolbarManager.setToolbarItemVisibility(R.id.action_sort, true);
+        }
+        if((flags & DISABLE_SECONDARY_MENU) == DISABLE_SECONDARY_MENU){
+            menuDrawer.setMode(SlidingMenu.LEFT);
+            toolbarManager.setToolbarItemVisibility(R.id.action_sort, false);
+        }
+        if((flags & DISABLE_SWIPE) == DISABLE_SWIPE){
+            menuDrawer.setSlidingEnabled(false);
+        }
+        if((flags & ENABLE_SWIPE) == ENABLE_SWIPE){
+            menuDrawer.setSlidingEnabled(true);
         }
     }
 

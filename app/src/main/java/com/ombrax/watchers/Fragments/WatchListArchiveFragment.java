@@ -24,8 +24,7 @@ public class WatchListArchiveFragment extends WatchListFragment {
         super.onResume();
         mc.onMenuItemSelect(MenuItemType.ARCHIVE);
         disableToolbarScroll();
-        toolbarManager.setToolbarExpanded(false);
-        toolbarManager.setExpandingTitle("Archive");
+        toolbarManager.setExpandingTitleOnTransition("Archive", false);
     }
 
     private void disableToolbarScroll() {

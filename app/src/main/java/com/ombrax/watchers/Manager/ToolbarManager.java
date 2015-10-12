@@ -1,16 +1,24 @@
 package com.ombrax.watchers.Manager;
 
-import android.app.Activity;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Gravity;
+import android.view.View;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by Ombrax on 24/08/2015.
  */
 public class ToolbarManager {
+
+    //region inner field
+    private boolean initialized;
+    private Map<Integer, View> toolbarItems;
+    private boolean isToolbarExpanded;
+    //endregion
 
     //region variable
     private CollapsingToolbarLayout collapsingToolbarLayout;
@@ -34,32 +42,58 @@ public class ToolbarManager {
         this.collapsingToolbarLayout = collapsingToolbarLayout;
         this.appBarLayout = appBarLayout;
         this.toolbar = toolbar;
+        this.toolbarItems = new HashMap<>();
+        initialized = true;
     }
     //endregion
 
     //region method
-    public void setExpandingTitle(String title){
-        if(collapsingToolbarLayout != null){
+    public void setExpandingTitleOnTransition(String title, boolean expand) {
+        checkInit();
+
+        collapsingToolbarLayout.setTitleEnabled(isToolbarExpanded || expand);
+        isToolbarExpanded = expand;
+        appBarLayout.setExpanded(expand);
+
+        if (collapsingToolbarLayout.isTitleEnabled()) {
             collapsingToolbarLayout.setTitle(title);
-            System.out.println("Toolbar Title: "+title);
+        } else {
+            toolbar.setTitle(title);
         }
     }
 
-    public void setMainActionItemDrawable(int resource){
-        if(toolbar != null){
-            toolbar.setNavigationIcon(resource);
-        }
+    public void setMainActionItemDrawable(int resource) {
+        checkInit();
+        toolbar.setNavigationIcon(resource);
     }
 
-    public void attachToActivity(AppCompatActivity activity){
-        if(activity != null && toolbar != null){
+    public void attachToActivity(AppCompatActivity activity) {
+        checkInit();
+        if (activity != null) {
             activity.setSupportActionBar(toolbar);
         }
     }
 
-    public void setToolbarExpanded(boolean expand){
-        if(appBarLayout != null){
-            appBarLayout.setExpanded(expand);
+    public void setToolbarItemVisibility(int id, boolean visible) {
+        checkInit();
+        View item = toolbarItems.get(id);
+        if (item == null && toolbar != null) {
+            item = toolbar.findViewById(id);
+            if (item == null) {
+                return;
+            }
+            toolbarItems.put(id, item);
+        }
+        item.setEnabled(visible);
+        item.setAlpha(visible ? 1 : 0);
+    }
+
+    //endregion
+
+    //region helper
+    private void checkInit() {
+        if (!initialized) {
+            throw new NullPointerException(ToolbarManager.class.getSimpleName() + " has not been initialized");
         }
     }
     //endregion

@@ -22,7 +22,7 @@ import com.ombrax.watchers.R;
 import com.ombrax.watchers.Repositories.WatchRepository;
 import com.ombrax.watchers.Utils.DialogUtils;
 import com.ombrax.watchers.Utils.ImageUtils;
-import com.rey.material.app.BottomSheetDialog;
+import com.ombrax.watchers.Utils.StorageUtils;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
@@ -44,7 +44,7 @@ public class WatchCardView extends FrameLayout implements IWatchCardUpdateHandle
     private ViewHolder vh;
 
     private boolean isArchiveDialogShowing;
-    private boolean isDeleteDialogShowing;
+    private boolean isChoiceDialogShowing;
     //endregion
 
     //region resource
@@ -123,6 +123,7 @@ public class WatchCardView extends FrameLayout implements IWatchCardUpdateHandle
                                     @Override
                                     public void onClick(SweetAlertDialog sweetAlertDialog) {
                                         if (watchModel.isCompleted()) {
+                                            StorageUtils.removeFromStorage(watchModel.getThumbnailPath());
                                             repo.delete(watchModel.getId());
                                             dc.handleWatchCardRemove(watchModel);
                                         } else {
@@ -204,16 +205,26 @@ public class WatchCardView extends FrameLayout implements IWatchCardUpdateHandle
             setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (!isDeleteDialogShowing) {
-                        isDeleteDialogShowing = true;
-                        DialogUtils.newAvatarAlertDialog(
+                    if (!isChoiceDialogShowing) {
+                        isChoiceDialogShowing = true;
+                        DialogUtils.newAvatarChoiceDialog(
                                 getContext(),
                                 watchModel.getName(),
-                                "Delete from list",
+                                "Select an option",
                                 vh.thumbnailImage.getDrawable(),
                                 new SweetAlertDialog.OnSweetClickListener() {
                                     @Override
                                     public void onClick(SweetAlertDialog sweetAlertDialog) {
+                                        watchModel.setCompleted(false);
+                                        watchModel.setArchived(false);
+                                        repo.update(watchModel, false);
+                                        dc.handleWatchCardRemove(watchModel);
+                                        sweetAlertDialog.dismissWithAnimation();
+                                    }
+                                }, new SweetAlertDialog.OnSweetClickListener() {
+                                    @Override
+                                    public void onClick(SweetAlertDialog sweetAlertDialog) {
+                                        StorageUtils.removeFromStorage(watchModel.getThumbnailPath());
                                         repo.delete(watchModel.getId());
                                         dc.handleWatchCardRemove(watchModel);
                                         sweetAlertDialog.dismissWithAnimation();
@@ -221,7 +232,7 @@ public class WatchCardView extends FrameLayout implements IWatchCardUpdateHandle
                                 }, new DialogInterface.OnDismissListener() {
                                     @Override
                                     public void onDismiss(DialogInterface dialog) {
-                                        isDeleteDialogShowing = false;
+                                        isChoiceDialogShowing = false;
                                     }
                                 }
                         ).show();
@@ -236,9 +247,6 @@ public class WatchCardView extends FrameLayout implements IWatchCardUpdateHandle
             vh.nextField.setText("Done");
 
             vh.dateField.setText("Completed on");
-            vh.dateField.setTypeface(Typeface.DEFAULT);
-            vh.dateField.setTextColor(textColorDefault);
-            vh.lastSeenField.setText(watchModel.format(WatchModel.Format.DATE));
         }
     }
     //endregion

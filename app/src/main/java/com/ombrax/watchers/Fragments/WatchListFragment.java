@@ -1,7 +1,7 @@
 package com.ombrax.watchers.Fragments;
 
 import android.os.Bundle;
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import com.ombrax.watchers.Adapters.WatchListAdapter;
 import com.ombrax.watchers.Controllers.DomainController;
 import com.ombrax.watchers.Controllers.MenuController;
+import com.ombrax.watchers.Interfaces.Handler.IMenuStateHandler;
 import com.ombrax.watchers.Interfaces.Listener.IOnSortOrderChangeListener;
 import com.ombrax.watchers.Manager.SortingManager;
 import com.ombrax.watchers.Manager.ToolbarManager;
@@ -66,7 +67,7 @@ public class WatchListFragment extends Fragment implements IOnSortOrderChangeLis
     @Override
     public void onResume() {
         super.onResume();
-        mc.handleSortMenuEnable(true);
+        mc.setMenuFlags(IMenuStateHandler.ENABLE_ALL);
         adapter.sort(sortingManager.getCurrentComparator());
     }
     //endregion

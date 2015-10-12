@@ -32,6 +32,7 @@ dependencies {
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'com.github.rey5137:material:1.2.1'
     compile 'com.github.chrisbanes.photoview:library:1.2.3'
+    compile 'me.grantland:autofittextview:0.2.+'
     //Module
     compile project(':libs:SimpleProgressBar')
     compile project(':libs:SlidingMenu')
@@ -41,4 +42,5 @@ dependencies {
     compile project(':libs:FocusFrame')
     compile project(':libs:FloatingToggleButton')
     compile project(':libs:EnumChoiceDialog')
+    compile project(':libs:DropletSeekbar')
 }

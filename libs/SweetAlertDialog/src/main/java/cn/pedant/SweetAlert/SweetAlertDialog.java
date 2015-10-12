@@ -65,6 +65,7 @@ public class SweetAlertDialog extends Dialog implements View.OnClickListener {
 
     private int mContentTextColor;
     private int mContentTextSize;
+    private int mContentTextStyle;
     private String mContentText;
 
     private String mCancelText;
@@ -195,6 +196,9 @@ public class SweetAlertDialog extends Dialog implements View.OnClickListener {
         }
         if (mContentTextSize != 0) {
             setContentTextSize(mContentTextSize);
+        }
+        if(mContentTextStyle != 0){
+            setContentTextStyle(mContentTextStyle);
         }
         if(mCancelSelector != 0){
             setCancelSelector(mCancelSelector);
@@ -360,6 +364,14 @@ public class SweetAlertDialog extends Dialog implements View.OnClickListener {
         mContentTextSize = spValue;
         if (mContentTextView != null) {
             mContentTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, spValue);
+        }
+        return this;
+    }
+
+    public SweetAlertDialog setContentTextStyle(int textStyle) {
+        mContentTextStyle = textStyle;
+        if(mContentTextView != null){
+            mContentTextView.setTypeface(mContentTextView.getTypeface(), textStyle);
         }
         return this;
     }

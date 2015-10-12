@@ -20,7 +20,7 @@ public class ImageActivity extends FullScreenActivity {
     //region helper
     @Override
     protected void displayFullScreenContent() {
-        getSupportFragmentManager().beginTransaction().replace(R.id.container, new CropImageFragment()).commit();
+        getFragmentManager().beginTransaction().replace(R.id.container, new CropImageFragment()).commit();
     }
     //endregion
 }

@@ -4,9 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/dark_x3_grey"
-    android:focusable="true"
-    android:focusableInTouchMode="true"
-    android:descendantFocusability="beforeDescendants"
     android:scrollbars="none">
 
     <LinearLayout
@@ -29,7 +26,7 @@
             android:layout_marginTop="@dimen/default_1x"
             android:hint="Tv Show"
             android:imeOptions="actionDone"
-            android:inputType="text"
+            android:inputType="textCapWords"
             android:textColorHint="@color/semi_transparent"
             android:textCursorDrawable="@drawable/default_input_cursor"
             android:textSize="22sp"
@@ -45,7 +42,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginTop="@dimen/default_2x"
+            android:layout_marginTop="@dimen/default_1x"
             android:layout_weight="1"
             android:orientation="vertical">
 
@@ -83,22 +80,23 @@
 
                 <View
                     android:layout_width="0.5dp"
-                    android:layout_height="250dp"
+                    android:layout_height="180dp"
                     android:background="@drawable/gradient_light_alpha" />
 
                 <LinearLayout
-                    android:id="@+id/fragment_add_property_layout"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:orientation="vertical"
-                    android:padding="@dimen/default_2x">
+                    android:layout_marginTop="@dimen/default_1x"
+                    android:orientation="vertical">
 
                     <LinearLayout
                         android:id="@+id/fragment_add_toggle_group_container"
                         android:layout_width="match_parent"
                         android:layout_height="36dp"
-                        android:layout_marginTop="@dimen/default_1x"
+                        android:layout_marginLeft="@dimen/default_2x"
+                        android:layout_marginRight="@dimen/default_2x"
+                        android:layout_marginTop="@dimen/default_2x"
                         android:orientation="horizontal">
 
                         <Button
@@ -125,112 +123,43 @@
 
                     </LinearLayout>
 
-                    <LinearLayout
+                    <com.ombrax.watchers.Views.Other.ImmutableViewPager
+                        android:id="@+id/fragment_add_property_input_container"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="@dimen/default_1x"
-                        android:layout_marginTop="@dimen/default_2x"
-                        android:orientation="horizontal">
-
-                        <LinearLayout
-                            android:id="@+id/fragment_add_season_input_container"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginRight="@dimen/default_2x"
-                            android:gravity="center_vertical"
-                            android:orientation="horizontal">
-
-                            <com.ombrax.watchers.Views.Button.NumericInputCircle
-                                android:id="@+id/fragment_add_season_input"
-                                android:layout_width="50dp"
-                                android:layout_height="50dp"
-                                android:imeOptions="actionNext" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="@dimen/default_1x"
-                                android:text="Seasons"
-                                android:textSize="16sp"
-                                android:textStyle="bold" />
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:id="@+id/fragment_add_episode_input_container"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:gravity="center_vertical"
-                            android:orientation="horizontal">
-
-                            <com.ombrax.watchers.Views.Button.NumericInputCircle
-                                android:id="@+id/fragment_add_episode_input"
-                                android:layout_width="50dp"
-                                android:layout_height="50dp"
-                                android:imeOptions="actionDone" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="@dimen/default_1x"
-                                android:text="Episodes"
-                                android:textSize="16sp"
-                                android:textStyle="bold" />
-
-                        </LinearLayout>
-
-                    </LinearLayout>
-
-                    <RelativeLayout
-                        android:id="@+id/fragment_add_episode_list_input_container"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-                        <TextView
-                            android:id="@+id/fragment_add_episode_list_label"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="@dimen/default_.5x"
-                            android:layout_marginTop="@dimen/default_.5x"
-                            android:text="Episode List"
-                            android:textSize="16sp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:id="@+id/fragment_add_episode_list_empty_label"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@id/fragment_add_episode_list_label"
-                            android:layout_marginTop="8dp"
-                            android:text="Please provide a number in the Seasons input field"
-                            android:textColor="@color/holo_red"
-                            android:textSize="12sp" />
-
-                        <HorizontalScrollView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@id/fragment_add_episode_list_label"
-                            android:scrollbars="none">
-
-                            <LinearLayout
-                                android:id="@+id/fragment_add_episode_list"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:orientation="horizontal" />
-
-                        </HorizontalScrollView>
-
-                    </RelativeLayout>
+                        android:layout_height="wrap_content" />
 
                 </LinearLayout>
 
                 <View
                     android:layout_width="0.5dp"
-                    android:layout_height="250dp"
+                    android:layout_height="180dp"
                     android:background="@drawable/gradient_light_alpha" />
 
             </LinearLayout>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="right|center_vertical"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/fragment_add_cancel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/transparent"
+                    android:text="Cancel"
+                    android:textAllCaps="true" />
+
+                <Button
+                    android:id="@+id/fragment_add_save"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/transparent"
+                    android:text="Save"
+                    android:textAllCaps="true" />
+
+            </LinearLayout>
 
         </LinearLayout>
 

@@ -93,8 +93,8 @@ public class ImageUtils {
             if (imageFile.exists()) {
                 Picasso.with(container.getContext())
                         .load(imageFile)
-                        .placeholder(R.drawable.img_loading) // TODO change image to something more subtle
-//                        .error()
+                        .placeholder(R.drawable.img_loading)
+                        .error(R.drawable.img_not_available)
                         .into(container);
             }
         }

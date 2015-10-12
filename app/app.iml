@@ -71,6 +71,7 @@
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/dex-cache" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/Watchers.libs/AnimatedSortingOrderIcon/unspecified/jars" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/Watchers.libs/Banner/unspecified/jars" />
+      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/Watchers.libs/DropletSeekbar/unspecified/jars" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/Watchers.libs/EnumChoiceDialog/unspecified/jars" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/Watchers.libs/FloatingToggleButton/unspecified/jars" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/Watchers.libs/FocusFrame/unspecified/jars" />
@@ -82,6 +83,7 @@
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.android.support/support-v4/23.0.0/jars" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.github.chrisbanes.photoview/library/1.2.3/jars" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.github.rey5137/material/1.2.1/jars" />
+      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/me.grantland/autofittextview/0.2.1/jars" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/incremental" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/jacoco" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/javaResources" />
@@ -108,9 +110,11 @@
     <orderEntry type="library" exported="" name="cardview-v7-23.0.0" level="project" />
     <orderEntry type="library" exported="" name="material-1.2.1" level="project" />
     <orderEntry type="library" exported="" name="design-23.0.0" level="project" />
+    <orderEntry type="library" exported="" name="autofittextview-0.2.1" level="project" />
     <orderEntry type="library" exported="" name="support-annotations-23.0.0" level="project" />
     <orderEntry type="module" module-name="SimpleProgressBar" exported="" />
     <orderEntry type="module" module-name="FocusFrame" exported="" />
+    <orderEntry type="module" module-name="DropletSeekbar" exported="" />
     <orderEntry type="module" module-name="SweetAlertDialog" exported="" />
     <orderEntry type="module" module-name="AnimatedSortingOrderIcon" exported="" />
     <orderEntry type="module" module-name="EnumChoiceDialog" exported="" />
@@ -119,6 +123,7 @@
     <orderEntry type="module" module-name="FloatingToggleButton" exported="" />
     <orderEntry type="library" exported="" name="SimpleProgressBar-unspecified" level="project" />
     <orderEntry type="library" exported="" name="FocusFrame-unspecified" level="project" />
+    <orderEntry type="library" exported="" name="DropletSeekbar-unspecified" level="project" />
     <orderEntry type="library" exported="" name="AnimatedSortingOrderIcon-unspecified" level="project" />
     <orderEntry type="library" exported="" name="EnumChoiceDialog-unspecified" level="project" />
     <orderEntry type="library" exported="" name="Banner-unspecified" level="project" />

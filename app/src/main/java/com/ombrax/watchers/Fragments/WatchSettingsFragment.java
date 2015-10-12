@@ -2,7 +2,7 @@ package com.ombrax.watchers.Fragments;
 
 
 import android.os.Bundle;
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +15,7 @@ import com.ombrax.watchers.Controllers.MenuController;
 import com.ombrax.watchers.Database.DatabaseKey;
 import com.ombrax.watchers.Enums.ActionSetting;
 import com.ombrax.watchers.Enums.MenuItemType;
+import com.ombrax.watchers.Interfaces.Handler.IMenuStateHandler;
 import com.ombrax.watchers.Manager.SettingsManager;
 import com.ombrax.watchers.Manager.ToolbarManager;
 import com.ombrax.watchers.R;
@@ -78,9 +79,8 @@ public class WatchSettingsFragment extends Fragment {
     public void onResume() {
         super.onResume();
         mc.onMenuItemSelect(MenuItemType.SETTINGS);
-        mc.handleSortMenuEnable(false);
-        toolbarManager.setToolbarExpanded(false);
-        toolbarManager.setExpandingTitle("Settings");
+        mc.setMenuFlags(IMenuStateHandler.DISABLE_SECONDARY_MENU | IMenuStateHandler.ENABLE_SWIPE);
+        toolbarManager.setExpandingTitleOnTransition("Settings", false);
     }
 
     @Override
@@ -107,7 +107,7 @@ public class WatchSettingsFragment extends Fragment {
     }
 
     private void checkBoxSetup(LinearLayout parentLayout, final CheckBox checkBox, final String databaseKey) {
-        checkBox.setChecked(settingsManager.getBooleanSetting(databaseKey));
+        checkBox.setCheckedImmediately(settingsManager.getBooleanSetting(databaseKey));
         checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -117,7 +117,7 @@ public class WatchSettingsFragment extends Fragment {
         parentLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                checkBox.setCheckedImmediately(!checkBox.isChecked());
+                checkBox.setChecked(!checkBox.isChecked());
             }
         });
     }
@@ -128,7 +128,7 @@ public class WatchSettingsFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 int selectedIndex = settingsManager.getIntegerSetting(databaseKey);
-                new EnumChoiceDialog<T>(getContext())
+                new EnumChoiceDialog<T>(getActivity())
                         .background(R.drawable.dialog_dark_background)
                         .title(dialogTitle, true)
                         .titleColor(R.color.holo_white)

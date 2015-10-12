@@ -7,7 +7,7 @@ import android.graphics.RectF;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.support.v4.app.Fragment;
+import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,9 +22,6 @@ import com.ombrax.watchers.Utils.ImageUtils;
 import com.ombrax.watchers.Utils.StorageUtils;
 import com.ombrax.watchers.Views.Button.AnimatedFloatingToggleButton;
 import com.ombrax.watchers.Views.Button.LabeledIconButton;
-
-import java.io.File;
-import java.io.IOException;
 
 import uk.co.senab.photoview.PhotoViewAttacher;
 

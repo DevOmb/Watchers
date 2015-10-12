@@ -61,4 +61,8 @@ public class StorageUtils {
     public static String getFileNameFromPath(String filePath){
         return filePath.substring(filePath.lastIndexOf(File.separator)+1);
     }
+
+    public static boolean removeFromStorage(String filePath){
+        return new File(filePath).delete();
+    }
 }

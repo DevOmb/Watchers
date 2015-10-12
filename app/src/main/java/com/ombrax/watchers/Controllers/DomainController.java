@@ -1,5 +1,6 @@
 package com.ombrax.watchers.Controllers;
 
+import com.ombrax.watchers.Interfaces.Handler.IWatchCardAddFinishedHandler;
 import com.ombrax.watchers.Interfaces.Handler.IWatchCardRemoveHandler;
 import com.ombrax.watchers.Interfaces.Handler.IWatchCardUpdateHandler;
 import com.ombrax.watchers.Interfaces.Listener.IOnThumbnailImageSaveListener;
@@ -62,6 +63,7 @@ public class DomainController {
     //region handler
     private IWatchCardUpdateHandler watchCardUpdateHandler;
     private IWatchCardRemoveHandler watchCardRemoveHandler;
+    private IWatchCardAddFinishedHandler watchCardAddFinishedHandler;
 
     public void setWatchCardUpdateHandler(IWatchCardUpdateHandler watchCardUpdateHandler) {
         this.watchCardUpdateHandler = watchCardUpdateHandler;
@@ -69,6 +71,10 @@ public class DomainController {
 
     public void setWatchCardRemoveHandler(IWatchCardRemoveHandler watchCardRemoveHandler) {
         this.watchCardRemoveHandler = watchCardRemoveHandler;
+    }
+
+    public void setWatchCardAddFinishedHandler(IWatchCardAddFinishedHandler watchCardAddFinishedHandler) {
+        this.watchCardAddFinishedHandler = watchCardAddFinishedHandler;
     }
 
     public void handleWatchCardUpdate() {
@@ -80,6 +86,12 @@ public class DomainController {
     public void handleWatchCardRemove(WatchModel watchModel) {
         if (watchCardRemoveHandler != null) {
             watchCardRemoveHandler.handleWatchCardRemove(watchModel);
+        }
+    }
+
+    public void handleWatchCardAddFinished(){
+        if(watchCardAddFinishedHandler != null){
+            watchCardAddFinishedHandler.handleWatchCardAddFinished();
         }
     }
     //endregion

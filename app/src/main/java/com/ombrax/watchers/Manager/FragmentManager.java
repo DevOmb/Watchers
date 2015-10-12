@@ -1,7 +1,6 @@
 package com.ombrax.watchers.Manager;
 
-import android.app.Fragment;
-import android.nfc.Tag;
+import android.support.v4.app.Fragment;
 import android.util.Log;
 
 import java.util.ArrayDeque;
@@ -20,7 +19,7 @@ public class FragmentManager {
     //endregion
 
     //region variable
-    private android.app.FragmentManager internalFragmentManager;
+    private android.support.v4.app.FragmentManager internalFragmentManager;
     private int containerId;
     private BackStackRule backStackRule;
     //endregion
@@ -38,7 +37,7 @@ public class FragmentManager {
     //endregion
 
     //region method
-    public void initialize(android.app.FragmentManager internalFragmentManager, int containerId) {
+    public void initialize(android.support.v4.app.FragmentManager internalFragmentManager, int containerId) {
         this.internalFragmentManager = internalFragmentManager;
         this.containerId = containerId;
         initialized = true;
@@ -83,6 +82,10 @@ public class FragmentManager {
     public void showFragment(Fragment fragment) {
         checkInit();
         if (!codeEnabled) {
+            if(areEqual(getTopEntry(), fragment)){
+                popBackStack();
+                return;
+            }
             handleAddBackStack();
         }
         codeEnabled = false;
