@@ -52,7 +52,7 @@ public class DialogUtils {
         return dialog;
     }
 
-    public static SweetAlertDialog newAvatarChoiceDialog(Context context, String title, String message, Drawable avatar, SweetAlertDialog.OnSweetClickListener onResumeListener, SweetAlertDialog.OnSweetClickListener onDeleteListener, DialogInterface.OnDismissListener onDismissListener) {
+    public static SweetAlertDialog newAvatarOptionDialog(Context context, String title, String message, Drawable avatar, String optionLabel,  SweetAlertDialog.OnSweetClickListener onOptionListener, SweetAlertDialog.OnSweetClickListener onDeleteListener, DialogInterface.OnDismissListener onDismissListener) {
         SweetAlertDialog dialog = new SweetAlertDialog(context, SweetAlertDialog.Type.CUSTOM)
                 .setDialogBackground(R.drawable.dialog_light_background)
                 .setImageSize(avatarSize)
@@ -63,9 +63,9 @@ public class DialogUtils {
                 .setCancelOnTouchOutside(true)
                 .setCancelText("Delete")
                 .setCancelSelector(R.drawable.button_delete_background)
-                .setConfirmText("Resume")
+                .setConfirmText(optionLabel)
                 .setConfirmSelector(R.drawable.button_confirm_background)
-                .setOnConfirmClickListener(onResumeListener)
+                .setOnConfirmClickListener(onOptionListener)
                 .setOnCancelClickListener(onDeleteListener);
         if (onDismissListener != null) {
             dialog.setCancelable(true);

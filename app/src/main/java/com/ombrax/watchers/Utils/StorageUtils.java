@@ -63,6 +63,8 @@ public class StorageUtils {
     }
 
     public static boolean removeFromStorage(String filePath){
+        if(filePath == null || filePath.isEmpty())
+            return false;
         return new File(filePath).delete();
     }
 }

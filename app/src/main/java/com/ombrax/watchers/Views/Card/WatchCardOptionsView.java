@@ -91,7 +91,7 @@ public class WatchCardOptionsView extends FrameLayout {
                         DialogUtils.newAvatarAlertDialog(
                                 getContext(),
                                 watchModel.getName(),
-                                "Conclude Tv Show",
+                                "Complete Tv Show",
                                 avatarDrawable,
                                 new SweetAlertDialog.OnSweetClickListener() {
                                     @Override

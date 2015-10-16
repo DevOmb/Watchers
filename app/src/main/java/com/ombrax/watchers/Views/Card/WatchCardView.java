@@ -43,8 +43,7 @@ public class WatchCardView extends FrameLayout implements IWatchCardUpdateHandle
 
     private ViewHolder vh;
 
-    private boolean isArchiveDialogShowing;
-    private boolean isChoiceDialogShowing;
+    private boolean isDialogShowing;
     //endregion
 
     //region resource
@@ -108,47 +107,56 @@ public class WatchCardView extends FrameLayout implements IWatchCardUpdateHandle
     }
 
     private void setListeners() {
-        if (watchModel.isArchived()) {
-            setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (watchModel.isArchived() && !isArchiveDialogShowing) {
-                        isArchiveDialogShowing = true;
-                        DialogUtils.newAvatarAlertDialog(
+        setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!isDialogShowing) {
+                    if(watchModel.isArchived() || watchModel.isCompleted()) {
+                        isDialogShowing = true;
+                        DialogUtils.newAvatarOptionDialog(
                                 getContext(),
                                 watchModel.getName(),
-                                watchModel.isCompleted() ? "Delete from archive" : "Withdraw from archive",
+                                "Select an option",
                                 vh.thumbnailImage.getDrawable(),
+                                watchModel.isArchived() ? "Withdraw" : "Resume",
                                 new SweetAlertDialog.OnSweetClickListener() {
                                     @Override
                                     public void onClick(SweetAlertDialog sweetAlertDialog) {
-                                        if (watchModel.isCompleted()) {
-                                            StorageUtils.removeFromStorage(watchModel.getThumbnailPath());
-                                            repo.delete(watchModel.getId());
-                                            dc.handleWatchCardRemove(watchModel);
-                                        } else {
+                                        if (watchModel.isArchived()) {
+                                            watchModel.setCompleted(false);//Withdrawing completed entry automatically re-enables it
                                             watchModel.setArchived(false);
-                                            repo.update(watchModel, false);
                                             dc.handleWatchCardRemove(watchModel);
+                                        } else if (watchModel.isCompleted()) {
+                                            watchModel.setCompleted(false);
+                                            dc.handleWatchCardUpdate();
                                         }
+                                        repo.update(watchModel, false);
                                         sweetAlertDialog.dismissWithAnimation();
                                     }
-                                },
-                                new DialogInterface.OnDismissListener() {
+                                }, new SweetAlertDialog.OnSweetClickListener() {
+                                    @Override
+                                    public void onClick(SweetAlertDialog sweetAlertDialog) {
+                                        StorageUtils.removeFromStorage(watchModel.getThumbnailPath());
+                                        repo.delete(watchModel.getId());
+                                        dc.handleWatchCardRemove(watchModel);
+                                        sweetAlertDialog.dismissWithAnimation();
+                                    }
+                                }, new DialogInterface.OnDismissListener() {
                                     @Override
                                     public void onDismiss(DialogInterface dialog) {
-                                        isArchiveDialogShowing = false;
+                                        isDialogShowing = false;
                                     }
                                 }
                         ).show();
                     }
                 }
-            });
-        }
+            }
+        });
+
         setOnLongClickListener(new OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                if (!watchModel.isArchived()) {
+                if (!watchModel.isArchived() && !watchModel.isCompleted()) {
                     DialogUtils.newWatchCardOptionsDialog(getContext(), WatchCardView.this, watchModel).show();
                 }
                 return true;
@@ -181,11 +189,13 @@ public class WatchCardView extends FrameLayout implements IWatchCardUpdateHandle
     }
 
     private void updateDisplay() {
-        vh.progressBar.setProgress(watchModel.getProgress());
-        vh.progressLabel.setText(String.format("%.2f%%", watchModel.getProgress() * 100));
+        //Always
+        float progress = watchModel.getProgress();
+        vh.progressBar.setProgress(progress);
+        vh.progressLabel.setText(String.format(progress < 1f ? "%.2f%%" : "%.0f%%", progress * 100));
         vh.seasonEpisodeField.setText(watchModel.format(WatchModel.Format.WATCH));
 
-        if (!watchModel.isCompleted()) {
+        if (!isComplete()) {
             boolean watching = watchModel.nowWatching();
             vh.dateField.setText(watching ? "Last seen" : "New");
             vh.dateField.setTypeface(watching ? Typeface.DEFAULT : Typeface.DEFAULT_BOLD);
@@ -200,56 +210,21 @@ public class WatchCardView extends FrameLayout implements IWatchCardUpdateHandle
             if (vh.banner != null) {
                 vh.banner.setVisibility(watching ? GONE : VISIBLE);
             }
-        } else {
-            setOnLongClickListener(null);
-            setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (!isChoiceDialogShowing) {
-                        isChoiceDialogShowing = true;
-                        DialogUtils.newAvatarChoiceDialog(
-                                getContext(),
-                                watchModel.getName(),
-                                "Select an option",
-                                vh.thumbnailImage.getDrawable(),
-                                new SweetAlertDialog.OnSweetClickListener() {
-                                    @Override
-                                    public void onClick(SweetAlertDialog sweetAlertDialog) {
-                                        watchModel.setCompleted(false);
-                                        watchModel.setArchived(false);
-                                        repo.update(watchModel, false);
-                                        dc.handleWatchCardRemove(watchModel);
-                                        sweetAlertDialog.dismissWithAnimation();
-                                    }
-                                }, new SweetAlertDialog.OnSweetClickListener() {
-                                    @Override
-                                    public void onClick(SweetAlertDialog sweetAlertDialog) {
-                                        StorageUtils.removeFromStorage(watchModel.getThumbnailPath());
-                                        repo.delete(watchModel.getId());
-                                        dc.handleWatchCardRemove(watchModel);
-                                        sweetAlertDialog.dismissWithAnimation();
-                                    }
-                                }, new DialogInterface.OnDismissListener() {
-                                    @Override
-                                    public void onDismiss(DialogInterface dialog) {
-                                        isChoiceDialogShowing = false;
-                                    }
-                                }
-                        ).show();
-                    }
-                }
-            });
-
-            setAlpha(0.4f);
-
-            vh.nextField.setTextColor(textColorDefault);
-            vh.nextField.setTypeface(Typeface.DEFAULT);
-            vh.nextField.setText("Done");
-
-            vh.dateField.setText("Completed on");
         }
     }
     //endregion
+
+    private boolean isComplete() {
+        if (watchModel.isCompleted()) {
+            vh.dateField.setText("Completed on");
+            vh.lastSeenField.setText(watchModel.format(WatchModel.Format.DATE));
+            vh.nextField.setTextColor(textColorDefault);
+            vh.nextField.setTypeface(Typeface.DEFAULT);
+            vh.nextField.setText("Completed");
+            return true;
+        }
+        return false;
+    }
     //endregion
 
 
@@ -260,7 +235,7 @@ public class WatchCardView extends FrameLayout implements IWatchCardUpdateHandle
     }
     //endregion
 
-    //region viewholder
+    //region view holder
     private class ViewHolder {
 
         private ImageView thumbnailImage;
