@@ -1,4 +1,4 @@
-package com.ombrax.watchers.Views.Button;
+package com.ombrax.watchers.Views.Other;
 
 import android.content.Context;
 import android.text.InputType;

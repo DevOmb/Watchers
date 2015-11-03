@@ -1,8 +1,6 @@
 package com.ombrax.watchers.Views.Card;
 
-import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.graphics.drawable.Drawable;
 import android.view.View;
 import android.view.ViewGroup;
@@ -88,19 +86,18 @@ public class WatchCardOptionsView extends FrameLayout {
                     update();
                 } else {
                     if (settingsManager.isConfirmOnCompleteEnabled()) {
-                        DialogUtils.newAvatarAlertDialog(
-                                getContext(),
-                                watchModel.getName(),
-                                "Complete Tv Show",
-                                avatarDrawable,
-                                new SweetAlertDialog.OnSweetClickListener() {
+
+                        DialogUtils.createAvatarBaseDialog(getContext(), avatarDrawable)
+                                .setTitleText(watchModel.getName())
+                                .setContentText("Complete Tv Show")
+                                .setOnConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
                                     @Override
                                     public void onClick(SweetAlertDialog sweetAlertDialog) {
                                         performOnCompleteAction();
                                         sweetAlertDialog.dismissWithAnimation();
                                     }
-                                }
-                        ).show();
+                                })
+                                .show();
                     } else {
                         performOnCompleteAction();
                     }
@@ -136,19 +133,19 @@ public class WatchCardOptionsView extends FrameLayout {
             @Override
             public void onClick(View v) {
                 deleteButton.setEnabled(false);
-                DialogUtils.newAvatarAlertDialog(
-                        getContext(),
-                        watchModel.getName(),
-                        "Delete from watchlist",
-                        avatarDrawable,
-                        new SweetAlertDialog.OnSweetClickListener() {
+                DialogUtils.createAvatarBaseDialog(getContext(), avatarDrawable)
+                        .setTitleText(watchModel.getName())
+                        .setContentText("Delete from watchlist")
+                        .setConfirmSelector(R.drawable.button_delete_background)
+                        .setContentText("Delete")
+                        .setOnConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
                             @Override
                             public void onClick(SweetAlertDialog sweetAlertDialog) {
                                 delete();
                                 sweetAlertDialog.dismissWithAnimation();
                             }
-                        }
-                ).show();
+                        })
+                        .show();
                 parentDialog.dismiss();
             }
         });

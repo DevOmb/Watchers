@@ -199,7 +199,7 @@ public class WatchAddFragment extends Fragment implements IOnThumbnailImageSaveL
                             error.append(el.trim()).append("\n");
                         }
                     }
-                    DialogUtils.newMissingInputDialog(getActivity(), error.toString()).show();
+                    DialogUtils.createMissingInputDialog(getActivity(), error.toString()).show();
                 }
             }
         });

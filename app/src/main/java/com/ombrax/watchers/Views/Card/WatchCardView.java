@@ -42,7 +42,6 @@ public class WatchCardView extends FrameLayout implements IWatchCardUpdateHandle
     private SettingsManager settingsManager;
 
     private ViewHolder vh;
-
     private boolean isDialogShowing;
     //endregion
 
@@ -111,43 +110,47 @@ public class WatchCardView extends FrameLayout implements IWatchCardUpdateHandle
             @Override
             public void onClick(View v) {
                 if (!isDialogShowing) {
-                    if(watchModel.isArchived() || watchModel.isCompleted()) {
-                        isDialogShowing = true;
-                        DialogUtils.newAvatarOptionDialog(
-                                getContext(),
-                                watchModel.getName(),
-                                "Select an option",
-                                vh.thumbnailImage.getDrawable(),
-                                watchModel.isArchived() ? "Withdraw" : "Resume",
-                                new SweetAlertDialog.OnSweetClickListener() {
-                                    @Override
-                                    public void onClick(SweetAlertDialog sweetAlertDialog) {
-                                        if (watchModel.isArchived()) {
-                                            watchModel.setCompleted(false);//Withdrawing completed entry automatically re-enables it
-                                            watchModel.setArchived(false);
-                                            dc.handleWatchCardRemove(watchModel);
-                                        } else if (watchModel.isCompleted()) {
-                                            watchModel.setCompleted(false);
-                                            dc.handleWatchCardUpdate();
+                    if (watchModel.isArchived() || watchModel.isCompleted()) {
+                        if (!isDialogShowing) {
+                            isDialogShowing = true;
+                            SweetAlertDialog d = DialogUtils.createAvatarBaseDialog(getContext(), vh.thumbnailImage.getDrawable());
+                            d.setTitleText(watchModel.getName())
+                                    .setContentText("Select an option")
+                                    .setConfirmText(watchModel.isArchived() ? "Withdraw" : "Resume")
+                                    .setCancelText("Delete")
+                                    .setCancelSelector(R.drawable.button_delete_background)
+                                    .setOnConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                        @Override
+                                        public void onClick(SweetAlertDialog sweetAlertDialog) {
+                                            if (watchModel.isArchived()) {
+                                                watchModel.setCompleted(false);//Withdrawing completed entry automatically re-enables it
+                                                watchModel.setArchived(false);
+                                                dc.handleWatchCardRemove(watchModel);
+                                            } else if (watchModel.isCompleted()) {
+                                                watchModel.setCompleted(false);
+                                                dc.handleWatchCardUpdate();
+                                            }
+                                            repo.update(watchModel, false);
+                                            sweetAlertDialog.dismissWithAnimation();
                                         }
-                                        repo.update(watchModel, false);
-                                        sweetAlertDialog.dismissWithAnimation();
-                                    }
-                                }, new SweetAlertDialog.OnSweetClickListener() {
-                                    @Override
-                                    public void onClick(SweetAlertDialog sweetAlertDialog) {
-                                        StorageUtils.removeFromStorage(watchModel.getThumbnailPath());
-                                        repo.delete(watchModel.getId());
-                                        dc.handleWatchCardRemove(watchModel);
-                                        sweetAlertDialog.dismissWithAnimation();
-                                    }
-                                }, new DialogInterface.OnDismissListener() {
-                                    @Override
-                                    public void onDismiss(DialogInterface dialog) {
-                                        isDialogShowing = false;
-                                    }
+                                    })
+                                    .setOnCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                        @Override
+                                        public void onClick(SweetAlertDialog sweetAlertDialog) {
+                                            StorageUtils.removeFromStorage(watchModel.getThumbnailPath());
+                                            repo.delete(watchModel.getId());
+                                            dc.handleWatchCardRemove(watchModel);
+                                            sweetAlertDialog.dismissWithAnimation();
+                                        }
+                                    });
+                            d.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                                @Override
+                                public void onDismiss(DialogInterface dialog) {
+                                    isDialogShowing = false;
                                 }
-                        ).show();
+                            });
+                            d.show();
+                        }
                     }
                 }
             }
@@ -157,7 +160,7 @@ public class WatchCardView extends FrameLayout implements IWatchCardUpdateHandle
             @Override
             public boolean onLongClick(View v) {
                 if (!watchModel.isArchived() && !watchModel.isCompleted()) {
-                    DialogUtils.newWatchCardOptionsDialog(getContext(), WatchCardView.this, watchModel).show();
+                    DialogUtils.createWatchCardOptionsDialog(getContext(), WatchCardView.this, watchModel).show();
                 }
                 return true;
             }

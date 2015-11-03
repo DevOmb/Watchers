@@ -14,6 +14,8 @@
             <option value="$PROJECT_DIR$/libs" />
             <option value="$PROJECT_DIR$/libs/AnimatedSortingOrderIcon" />
             <option value="$PROJECT_DIR$/libs/Banner" />
+            <option value="$PROJECT_DIR$/libs/CellGridDialog" />
+            <option value="$PROJECT_DIR$/libs/Disableables" />
             <option value="$PROJECT_DIR$/libs/DropletSeekbar" />
             <option value="$PROJECT_DIR$/libs/EnumChoiceDialog" />
             <option value="$PROJECT_DIR$/libs/FloatingToggleButton" />

@@ -14,8 +14,6 @@ import com.ombrax.watchers.R;
 import com.ombrax.watchers.Views.Card.WatchCardOptionsView;
 import com.rey.material.app.BottomSheetDialog;
 
-import java.util.List;
-
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
 /**
@@ -29,52 +27,20 @@ public class DialogUtils {
     //endregion
 
     //region method
-    public static SweetAlertDialog newAvatarAlertDialog(Context context, String title, String message, Drawable avatar, SweetAlertDialog.OnSweetClickListener onConfirmListener) {
-        return newAvatarAlertDialog(context, title, message, avatar, onConfirmListener, null);
-    }
-
-    public static SweetAlertDialog newAvatarAlertDialog(Context context, String title, String message, Drawable avatar, SweetAlertDialog.OnSweetClickListener onConfirmListener, DialogInterface.OnDismissListener onDismissListener) {
-        SweetAlertDialog dialog = new SweetAlertDialog(context, SweetAlertDialog.Type.CUSTOM)
+    public static SweetAlertDialog createAvatarBaseDialog(Context context, Drawable avatar) {
+        return new SweetAlertDialog(context, SweetAlertDialog.Type.CUSTOM)
                 .setDialogBackground(R.drawable.dialog_light_background)
                 .setImageSize(avatarSize)
                 .setImage(ImageUtils.getScaledCircularBitmap(avatar, avatarSize))
-                .setTitleText(title)
-                .setContentText(message)
                 .displayCancelButton(true)
+                .setCancelOnTouchOutside(true)
                 .setCancelText("Cancel")
                 .setCancelSelector(R.drawable.button_cancel_background)
                 .setConfirmText("OK")
-                .setConfirmSelector(R.drawable.button_confirm_background)
-                .setOnConfirmClickListener(onConfirmListener);
-        if (onDismissListener != null) {
-            dialog.setOnDismissListener(onDismissListener);
-        }
-        return dialog;
+                .setConfirmSelector(R.drawable.button_confirm_background);
     }
 
-    public static SweetAlertDialog newAvatarOptionDialog(Context context, String title, String message, Drawable avatar, String optionLabel,  SweetAlertDialog.OnSweetClickListener onOptionListener, SweetAlertDialog.OnSweetClickListener onDeleteListener, DialogInterface.OnDismissListener onDismissListener) {
-        SweetAlertDialog dialog = new SweetAlertDialog(context, SweetAlertDialog.Type.CUSTOM)
-                .setDialogBackground(R.drawable.dialog_light_background)
-                .setImageSize(avatarSize)
-                .setImage(ImageUtils.getScaledCircularBitmap(avatar, avatarSize))
-                .setTitleText(title)
-                .setContentText(message)
-                .displayCancelButton(true)
-                .setCancelOnTouchOutside(true)
-                .setCancelText("Delete")
-                .setCancelSelector(R.drawable.button_delete_background)
-                .setConfirmText(optionLabel)
-                .setConfirmSelector(R.drawable.button_confirm_background)
-                .setOnConfirmClickListener(onOptionListener)
-                .setOnCancelClickListener(onDeleteListener);
-        if (onDismissListener != null) {
-            dialog.setCancelable(true);
-            dialog.setOnDismissListener(onDismissListener);
-        }
-        return dialog;
-    }
-
-    public static BottomSheetDialog newWatchCardOptionsDialog(Context context, IWatchCardUpdateHandler watchCardUpdateHandler, WatchModel watchModel) {
+    public static BottomSheetDialog createWatchCardOptionsDialog(Context context, IWatchCardUpdateHandler watchCardUpdateHandler, WatchModel watchModel) {
         DomainController.getInstance().setWatchCardUpdateHandler(watchCardUpdateHandler);
         BottomSheetDialog dialog = new BottomSheetDialog(context);
         dialog.contentView(new WatchCardOptionsView(context, watchModel, dialog))
@@ -86,7 +52,7 @@ public class DialogUtils {
         return dialog;
     }
 
-    public static SweetAlertDialog newMissingInputDialog(Context context, String missingElements) {
+    public static SweetAlertDialog createMissingInputDialog(Context context, String missingElements) {
         return new SweetAlertDialog(context, SweetAlertDialog.Type.ERROR)
                 .setDialogBackground(R.drawable.dialog_light_background)
                 .setTitleText("Missing Data")

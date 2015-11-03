@@ -15,12 +15,11 @@ public class SortModel {
 
     //region constructor
     public SortModel(MenuItemType sortType, boolean isAscending) {
-        if (sortType.childOf(MenuType.SORT)) {
-            this.sortType = sortType;
-            this.isAscending = isAscending;
-        } else {
+        if (!sortType.childOf(MenuType.SORT)) {
             throw new IllegalArgumentException(MenuItemType.class.getSimpleName() + "." + sortType.name() + " is not part of the" + MenuType.class.getSimpleName() + "." + MenuType.SORT.name() + "collection");
         }
+        this.sortType = sortType;
+        this.isAscending = isAscending;
     }
     //endregion
 

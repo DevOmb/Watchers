@@ -12,44 +12,16 @@
         android:textSize="16sp"
         android:textStyle="bold" />
 
-    <LinearLayout
-        android:id="@+id/fragment_add_start_at_container"
+    <TextView
+        android:id="@+id/fragment_add_start_at_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:visibility="visible">
-
-        <com.ombrax.watchers.Views.Button.AlphaDisableButton
-            android:id="@+id/fragment_add_start_at_decrement"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:paddingRight="5dp"
-            android:paddingTop="5dp"
-            android:paddingBottom="5dp"
-            android:background="@color/transparent"
-            android:scaleType="fitCenter"
-            android:src="@drawable/ic_skip_previous" />
-
-        <TextView
-            android:id="@+id/fragment_add_start_at_label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="S00E00"
-            android:textColor="@color/accent"
-            android:textSize="20sp"
-            android:textStyle="bold" />
-
-        <com.ombrax.watchers.Views.Button.AlphaDisableButton
-            android:id="@+id/fragment_add_start_at_increment"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:padding="5dp"
-            android:background="@color/transparent"
-            android:scaleType="fitCenter"
-            android:src="@drawable/ic_skip_next" />
-
-    </LinearLayout>
+        android:text="S00E00"
+        android:textColor="@color/accent"
+        android:layout_marginTop="@dimen/default_.5x"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:visibility="gone"/>
 
     <TextView
         android:id="@+id/fragment_add_start_at_error_label"

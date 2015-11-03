@@ -1,0 +1,2 @@
+configurations.create("default")
+artifacts.add("default", file('disableables-1.0.0.aar'))

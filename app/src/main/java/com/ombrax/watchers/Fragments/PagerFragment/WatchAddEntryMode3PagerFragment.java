@@ -3,14 +3,15 @@ package com.ombrax.watchers.Fragments.PagerFragment;
 import android.view.View;
 import android.widget.EditText;
 
+import com.devomb.cellgriddialog.CellGridDialogBuilder;
 import com.ombrax.watchers.Models.WatchModel;
 import com.ombrax.watchers.R;
-import com.ombrax.watchers.Views.Button.NumericInputField;
+import com.ombrax.watchers.Views.Other.NumericInputField;
 
 /**
  * Created by Ombrax on 9/10/2015.
  */
-public class WatchAddEntryMode3PagerFragment extends WatchAddEntryModePagerFragment{
+public class WatchAddEntryMode3PagerFragment extends WatchAddEntryModePagerFragment {
 
     //region view
     private NumericInputField episodeInput;
@@ -23,7 +24,7 @@ public class WatchAddEntryMode3PagerFragment extends WatchAddEntryModePagerFragm
         setup();
     }
 
-    private void setup(){
+    private void setup() {
         //Model
         setModel();
 
@@ -42,21 +43,32 @@ public class WatchAddEntryMode3PagerFragment extends WatchAddEntryModePagerFragm
                 }
             }
         });
+
+        //Start at
+        startAtLabel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CellGridDialogBuilder.create(getChildFragmentManager(), model.getSeasonEpisodeCount())
+                        .header("Season ", "Episodes")
+                        .select(model.getCurrentEpisode() - 1)
+                        .onAcceptListener(WatchAddEntryMode3PagerFragment.this)
+                        .show();
+            }
+        });
     }
     //endregion
 
     //region helper
-    private void getViews(View view){
+    private void getViews(View view) {
         episodeInput = (NumericInputField) view.findViewById(R.id.fragment_add_episode_input);
     }
 
-    private void setModel(){
+    private void setModel() {
         setStartAtInputEnabled(model != null);
-        if(model == null){
+        if (model == null) {
             model = new WatchModel();
             model.setEpisodesOnly(true);
-            model.setCurrentEpisode(1);
-        }else{
+        } else {
             episodeInput.setText(String.valueOf(model.getSeasonEpisodeCount()));
         }
     }

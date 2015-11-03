@@ -6,9 +6,10 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.devomb.cellgriddialog.CellGridDialogBuilder;
 import com.ombrax.watchers.Models.WatchModel;
 import com.ombrax.watchers.R;
-import com.ombrax.watchers.Views.Button.NumericInputField;
+import com.ombrax.watchers.Views.Other.NumericInputField;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -70,6 +71,17 @@ public class WatchAddEntryMode2PagerFragment extends WatchAddEntryModePagerFragm
             }
         });
 
+        //Start at
+        startAtLabel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CellGridDialogBuilder.create(getChildFragmentManager(), model.getSeasonCount(), model.getSeasonEpisodeList())
+                        .header("Season ", "Episodes")
+                        .select(model.getCurrentSeason() - 1, model.getCurrentEpisode() - 1)
+                        .onAcceptListener(WatchAddEntryMode2PagerFragment.this)
+                        .show();
+            }
+        });
     }
     //endregion
 
@@ -101,14 +113,14 @@ public class WatchAddEntryMode2PagerFragment extends WatchAddEntryModePagerFragm
             if (delta < 0) {
                 for (int i = viewCount - 1; i > newViewCount - 1; i--) {
                     episodeListInputContainer.removeViewAt(i);
-                    if(editList) {
+                    if (editList) {
                         seasonEpisodeList.remove(i);
                     }
                 }
             } else {
                 for (int i = 0; i < delta; i++) {
                     episodeListInputContainer.addView(generateNewInputCircle());
-                    if(editList) {
+                    if (editList) {
                         seasonEpisodeList.add(0);
                     }
                 }
@@ -124,7 +136,7 @@ public class WatchAddEntryMode2PagerFragment extends WatchAddEntryModePagerFragm
             last.setImeOptions(EditorInfo.IME_ACTION_DONE);
         }
 
-        System.out.println("New List: "+seasonEpisodeList);
+        System.out.println("New List: " + seasonEpisodeList);
     }
 
     private NumericInputField generateNewInputCircle() {
@@ -160,11 +172,9 @@ public class WatchAddEntryMode2PagerFragment extends WatchAddEntryModePagerFragm
         if (model == null) {
             model = new WatchModel();
             model.setSeasonEpisodeList(seasonEpisodeList);
-            model.setCurrentSeason(1);
-            model.setCurrentEpisode(1);
         } else {
             seasonInput.setText(String.valueOf(model.getSeasonCount()));
-            if(model.getSeasonEpisodeList() != null){
+            if (model.getSeasonEpisodeList() != null) {
                 seasonEpisodeList = model.getSeasonEpisodeList();
             }
             invalidateEpisodeListInput(model.getSeasonCount(), false);

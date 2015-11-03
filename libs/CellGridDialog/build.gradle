@@ -1,0 +1,2 @@
+configurations.create("default")
+artifacts.add("default", file('cellgriddialog-1.0.6.aar'))

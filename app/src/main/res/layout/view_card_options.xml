@@ -22,7 +22,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@color/transparent"
-            android:drawableTop="@drawable/ic_next"
+            android:drawableTop="@drawable/ic_arrow_right"
             android:padding="@dimen/default_1x"
             android:text="Next"
             android:textSize="12sp" />

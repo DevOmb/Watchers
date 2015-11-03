@@ -18,7 +18,7 @@
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
-        <com.ombrax.watchers.Views.Button.NumericInputField
+        <com.ombrax.watchers.Views.Other.NumericInputField
             android:id="@+id/fragment_add_season_input"
             android:layout_width="50dp"
             android:layout_height="50dp"

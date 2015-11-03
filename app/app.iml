@@ -71,7 +71,8 @@
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/dex-cache" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/Watchers.libs/AnimatedSortingOrderIcon/unspecified/jars" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/Watchers.libs/Banner/unspecified/jars" />
-      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/Watchers.libs/DropletSeekbar/unspecified/jars" />
+      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/Watchers.libs/CellGridDialog/unspecified/jars" />
+      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/Watchers.libs/Disableables/unspecified/jars" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/Watchers.libs/EnumChoiceDialog/unspecified/jars" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/Watchers.libs/FloatingToggleButton/unspecified/jars" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/Watchers.libs/FocusFrame/unspecified/jars" />
@@ -102,29 +103,33 @@
     <orderEntry type="jdk" jdkName="Android API 23 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" exported="" name="sqliteassethelper-2.0.1" level="project" />
-    <orderEntry type="library" exported="" name="appcompat-v7-23.0.0" level="project" />
-    <orderEntry type="library" exported="" name="recyclerview-v7-23.0.0" level="project" />
-    <orderEntry type="library" exported="" name="library-1.2.3" level="project" />
     <orderEntry type="library" exported="" name="picasso-2.5.2" level="project" />
-    <orderEntry type="library" exported="" name="support-v4-23.0.0" level="project" />
     <orderEntry type="library" exported="" name="cardview-v7-23.0.0" level="project" />
     <orderEntry type="library" exported="" name="material-1.2.1" level="project" />
     <orderEntry type="library" exported="" name="design-23.0.0" level="project" />
     <orderEntry type="library" exported="" name="autofittextview-0.2.1" level="project" />
+    <orderEntry type="library" exported="" name="appcompat-v7-23.0.0" level="project" />
+    <orderEntry type="library" exported="" name="recyclerview-v7-23.0.0" level="project" />
+    <orderEntry type="library" exported="" name="library-1.2.3" level="project" />
+    <orderEntry type="library" exported="" name="httpclient-4.3.6" level="project" />
+    <orderEntry type="library" exported="" name="support-v4-23.0.0" level="project" />
+    <orderEntry type="library" exported="" name="android-async-http-1.4.9" level="project" />
     <orderEntry type="library" exported="" name="support-annotations-23.0.0" level="project" />
     <orderEntry type="module" module-name="SimpleProgressBar" exported="" />
     <orderEntry type="module" module-name="FocusFrame" exported="" />
-    <orderEntry type="module" module-name="DropletSeekbar" exported="" />
+    <orderEntry type="module" module-name="CellGridDialog" exported="" />
     <orderEntry type="module" module-name="SweetAlertDialog" exported="" />
     <orderEntry type="module" module-name="AnimatedSortingOrderIcon" exported="" />
+    <orderEntry type="module" module-name="Disableables" exported="" />
     <orderEntry type="module" module-name="EnumChoiceDialog" exported="" />
     <orderEntry type="module" module-name="SlidingMenu" exported="" />
     <orderEntry type="module" module-name="Banner" exported="" />
     <orderEntry type="module" module-name="FloatingToggleButton" exported="" />
     <orderEntry type="library" exported="" name="SimpleProgressBar-unspecified" level="project" />
     <orderEntry type="library" exported="" name="FocusFrame-unspecified" level="project" />
-    <orderEntry type="library" exported="" name="DropletSeekbar-unspecified" level="project" />
+    <orderEntry type="library" exported="" name="CellGridDialog-unspecified" level="project" />
     <orderEntry type="library" exported="" name="AnimatedSortingOrderIcon-unspecified" level="project" />
+    <orderEntry type="library" exported="" name="Disableables-unspecified" level="project" />
     <orderEntry type="library" exported="" name="EnumChoiceDialog-unspecified" level="project" />
     <orderEntry type="library" exported="" name="Banner-unspecified" level="project" />
     <orderEntry type="library" exported="" name="FloatingToggleButton-unspecified" level="project" />

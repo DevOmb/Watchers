@@ -1,5 +1,7 @@
 package com.ombrax.watchers.Enums;
 
+import android.view.Menu;
+
 /**
  * Created by Ombrax on 6/08/2015.
  */

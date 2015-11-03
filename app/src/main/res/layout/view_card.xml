@@ -20,27 +20,25 @@
             android:scaleType="centerCrop"
             android:src="@drawable/img_not_available" />
 
-        <LinearLayout
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:background="@drawable/gradient_dark_dark"
-            android:orientation="horizontal">
+            android:background="@drawable/gradient_dark_dark">
 
             <TextView
                 android:id="@+id/watch_card_title"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:paddingBottom="@dimen/default_1x"
                 android:paddingLeft="@dimen/default_2x"
                 android:paddingRight="@dimen/default_2x"
                 android:paddingTop="@dimen/default_1x"
                 android:singleLine="true"
-                android:textStyle="bold"
                 android:text="Placeholder Placeholder Placeholder"
                 android:textAllCaps="true"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/watch_card_progress"
@@ -48,18 +46,18 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom|right"
                 android:paddingBottom="1dp"
-                android:paddingRight="3dp"
+                android:paddingRight="2dp"
                 android:text="50.00%"
-                android:textSize="11sp" />
+                android:textSize="8sp" />
 
-        </LinearLayout>
+        </FrameLayout>
 
     </FrameLayout>
 
     <com.ombrax.simpleprogressbar.View.SimpleProgressBar
         android:id="@+id/watch_card_progress_bar"
         android:layout_width="match_parent"
-        android:layout_height="8dp"
+        android:layout_height="6dp"
         app:background_color="@color/holo_white"
         app:background_transparency="0.25"
         app:progress_color="@color/blue"
