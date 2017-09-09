@@ -1,9 +1,7 @@
 # Watchers 
+### Deprecated
 Android app that organizes progress for TV Shows you're watching.
 
-### Deprecated
-*Code remains here for referential purposes*
-___
 ## Libraries (Custom)
 * [AnimatedSortingOrderIcon](https://github.com/NativeAndroidDevelopment/AnimatedSortingOrderIcon)
 * [CellGridDialog](https://github.com/NativeAndroidDevelopment/CellGridDialog)
